@@ -1,0 +1,893 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Astravia | AI Space Travel Planning</title>
+  <style>
+    :root {
+      --bg: #070914;
+      --bg-2: #0d1124;
+      --card: rgba(255, 255, 255, 0.08);
+      --card-strong: rgba(255, 255, 255, 0.13);
+      --text: #f6f7ff;
+      --muted: #b8bfd9;
+      --accent: #8be9ff;
+      --accent-2: #b78cff;
+      --accent-3: #ffcf7a;
+      --line: rgba(255, 255, 255, 0.14);
+      --shadow: 0 24px 80px rgba(0, 0, 0, 0.45);
+      --radius: 28px;
+      --max: 1180px;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      margin: 0;
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      color: var(--text);
+      background:
+        radial-gradient(circle at 20% 12%, rgba(139, 233, 255, 0.22), transparent 28%),
+        radial-gradient(circle at 82% 4%, rgba(183, 140, 255, 0.24), transparent 32%),
+        radial-gradient(circle at 50% 62%, rgba(255, 207, 122, 0.09), transparent 26%),
+        linear-gradient(180deg, #050612 0%, #0a0e22 48%, #050612 100%);
+      overflow-x: hidden;
+    }
+
+    body::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      background-image:
+        radial-gradient(circle, rgba(255,255,255,.55) 1px, transparent 1.5px),
+        radial-gradient(circle, rgba(255,255,255,.35) 1px, transparent 1.5px);
+      background-size: 88px 88px, 137px 137px;
+      background-position: 0 0, 26px 42px;
+      opacity: .38;
+      mask-image: linear-gradient(to bottom, black, transparent 92%);
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    .container {
+      max-width: var(--max);
+      margin: 0 auto;
+      padding: 0 24px;
+    }
+
+    .nav {
+      position: sticky;
+      top: 0;
+      z-index: 50;
+      backdrop-filter: blur(18px);
+      background: rgba(5, 6, 18, 0.66);
+      border-bottom: 1px solid rgba(255,255,255,.08);
+    }
+
+    .nav-inner {
+      min-height: 78px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 24px;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      font-weight: 800;
+      letter-spacing: .06em;
+      text-transform: uppercase;
+    }
+
+    .brand-mark {
+      width: 38px;
+      height: 38px;
+      border-radius: 50%;
+      background: conic-gradient(from 150deg, var(--accent), var(--accent-2), var(--accent-3), var(--accent));
+      box-shadow: 0 0 28px rgba(139,233,255,.45);
+      position: relative;
+    }
+
+    .brand-mark::after {
+      content: "";
+      position: absolute;
+      inset: 10px;
+      border-radius: 50%;
+      background: var(--bg);
+    }
+
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 24px;
+      color: var(--muted);
+      font-size: 14px;
+    }
+
+    .nav-links a:hover {
+      color: white;
+    }
+
+    .button {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      border: 0;
+      cursor: pointer;
+      padding: 14px 20px;
+      border-radius: 999px;
+      font-weight: 800;
+      font-size: 14px;
+      color: #07101f;
+      background: linear-gradient(135deg, var(--accent), var(--accent-2));
+      box-shadow: 0 16px 42px rgba(139, 233, 255, .22);
+      transition: transform .2s ease, box-shadow .2s ease;
+    }
+
+    .button:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 22px 54px rgba(139, 233, 255, .32);
+    }
+
+    .button.secondary {
+      color: var(--text);
+      background: rgba(255,255,255,.08);
+      border: 1px solid var(--line);
+      box-shadow: none;
+    }
+
+    .hero {
+      position: relative;
+      padding: 92px 0 66px;
+    }
+
+    .hero-grid {
+      display: grid;
+      grid-template-columns: 1.05fr .95fr;
+      gap: 54px;
+      align-items: center;
+    }
+
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 9px;
+      padding: 8px 12px;
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      color: #dce9ff;
+      background: rgba(255,255,255,.06);
+      font-size: 13px;
+      font-weight: 700;
+      margin-bottom: 20px;
+    }
+
+    .pulse {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: var(--accent);
+      box-shadow: 0 0 0 7px rgba(139, 233, 255, .13), 0 0 18px var(--accent);
+    }
+
+    h1 {
+      margin: 0;
+      font-size: clamp(48px, 7vw, 84px);
+      line-height: .95;
+      letter-spacing: -.065em;
+    }
+
+    .gradient-text {
+      background: linear-gradient(135deg, #fff 12%, var(--accent) 42%, var(--accent-2) 86%);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+    }
+
+    .hero p {
+      max-width: 645px;
+      margin: 24px 0 0;
+      font-size: 19px;
+      line-height: 1.75;
+      color: var(--muted);
+    }
+
+    .hero-actions {
+      display: flex;
+      gap: 14px;
+      flex-wrap: wrap;
+      margin-top: 34px;
+    }
+
+    .microcopy {
+      margin-top: 18px;
+      color: #d9def4;
+      font-size: 14px;
+    }
+
+    .visual-wrap {
+      position: relative;
+      min-height: 570px;
+    }
+
+    .planet {
+      position: absolute;
+      width: 520px;
+      height: 520px;
+      right: -68px;
+      top: 12px;
+      border-radius: 50%;
+      background:
+        radial-gradient(circle at 34% 30%, rgba(255,255,255,.95), transparent 0 3%, transparent 4%),
+        radial-gradient(circle at 35% 33%, #7be1ff 0%, #2c78d8 31%, #223b88 52%, #111939 73%);
+      box-shadow:
+        inset -60px -40px 80px rgba(0,0,0,.58),
+        0 0 120px rgba(66, 164, 255, .38),
+        0 0 250px rgba(183, 140, 255, .18);
+      overflow: hidden;
+    }
+
+    .planet::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background:
+        linear-gradient(18deg, transparent 30%, rgba(255,255,255,.16) 31%, transparent 34%),
+        linear-gradient(-24deg, transparent 48%, rgba(139,233,255,.16) 49%, transparent 53%),
+        radial-gradient(ellipse at 70% 65%, rgba(0,0,0,.36), transparent 46%);
+      opacity: .8;
+    }
+
+    .orbit-card {
+      position: absolute;
+      left: 0;
+      bottom: 22px;
+      width: min(410px, 100%);
+      padding: 22px;
+      border-radius: var(--radius);
+      border: 1px solid var(--line);
+      background: rgba(9, 13, 31, .76);
+      backdrop-filter: blur(24px);
+      box-shadow: var(--shadow);
+    }
+
+    .card-head {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 16px;
+    }
+
+    .badge {
+      display: inline-flex;
+      padding: 7px 10px;
+      border-radius: 999px;
+      background: rgba(139,233,255,.13);
+      color: #bff4ff;
+      font-size: 12px;
+      font-weight: 800;
+    }
+
+    .metric-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 10px;
+      margin-top: 18px;
+    }
+
+    .metric {
+      padding: 14px 12px;
+      border: 1px solid rgba(255,255,255,.1);
+      border-radius: 18px;
+      background: rgba(255,255,255,.05);
+    }
+
+    .metric strong {
+      display: block;
+      font-size: 20px;
+      margin-bottom: 2px;
+    }
+
+    .metric span {
+      display: block;
+      font-size: 11px;
+      color: var(--muted);
+    }
+
+    .route-line {
+      position: absolute;
+      left: 42px;
+      right: 54px;
+      top: 126px;
+      height: 230px;
+      border: 1px solid rgba(139,233,255,.32);
+      border-left: 0;
+      border-bottom: 0;
+      border-radius: 0 240px 0 0;
+      transform: rotate(-10deg);
+    }
+
+    .route-dot {
+      position: absolute;
+      width: 13px;
+      height: 13px;
+      border-radius: 50%;
+      background: var(--accent-3);
+      box-shadow: 0 0 22px var(--accent-3);
+      left: 126px;
+      top: 226px;
+    }
+
+    section {
+      padding: 74px 0;
+      position: relative;
+    }
+
+    .section-title {
+      max-width: 760px;
+      margin: 0 auto 42px;
+      text-align: center;
+    }
+
+    .section-title h2 {
+      margin: 0;
+      font-size: clamp(34px, 4vw, 56px);
+      line-height: 1.05;
+      letter-spacing: -.045em;
+    }
+
+    .section-title p {
+      margin: 17px auto 0;
+      color: var(--muted);
+      font-size: 18px;
+      line-height: 1.7;
+    }
+
+    .signup-panel {
+      display: grid;
+      grid-template-columns: 1fr .9fr;
+      gap: 34px;
+      align-items: center;
+      padding: 38px;
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      background:
+        linear-gradient(135deg, rgba(139,233,255,.13), transparent 37%),
+        linear-gradient(145deg, rgba(183,140,255,.14), rgba(255,255,255,.05));
+      box-shadow: var(--shadow);
+    }
+
+    .signup-panel h2 {
+      font-size: clamp(32px, 4vw, 52px);
+      margin: 0 0 16px;
+      letter-spacing: -.045em;
+      line-height: 1.05;
+    }
+
+    .signup-panel p {
+      color: var(--muted);
+      line-height: 1.7;
+      margin: 0;
+      font-size: 17px;
+    }
+
+    .signup-form {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      padding: 22px;
+      border: 1px solid rgba(255,255,255,.12);
+      border-radius: 24px;
+      background: rgba(0,0,0,.2);
+    }
+
+    input[type="email"] {
+      width: 100%;
+      height: 56px;
+      padding: 0 18px;
+      border-radius: 999px;
+      border: 1px solid rgba(255,255,255,.18);
+      background: rgba(255,255,255,.08);
+      color: white;
+      outline: none;
+      font-size: 15px;
+    }
+
+    input[type="email"]::placeholder {
+      color: rgba(255,255,255,.55);
+    }
+
+    .small {
+      font-size: 13px !important;
+      color: rgba(246,247,255,.68) !important;
+    }
+
+    .cards {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 18px;
+    }
+
+    .feature-card,
+    .destination-card,
+    .step-card {
+      border: 1px solid var(--line);
+      border-radius: 24px;
+      background: var(--card);
+      padding: 24px;
+      box-shadow: 0 18px 50px rgba(0,0,0,.18);
+    }
+
+    .feature-card:hover,
+    .destination-card:hover,
+    .step-card:hover {
+      background: var(--card-strong);
+      transform: translateY(-4px);
+      transition: all .25s ease;
+    }
+
+    .icon {
+      width: 46px;
+      height: 46px;
+      border-radius: 16px;
+      display: grid;
+      place-items: center;
+      background: linear-gradient(135deg, rgba(139,233,255,.22), rgba(183,140,255,.2));
+      margin-bottom: 18px;
+      font-size: 22px;
+    }
+
+    h3 {
+      margin: 0 0 10px;
+      font-size: 20px;
+      letter-spacing: -.02em;
+    }
+
+    .feature-card p,
+    .destination-card p,
+    .step-card p {
+      margin: 0;
+      color: var(--muted);
+      line-height: 1.62;
+      font-size: 15px;
+    }
+
+    .destination-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 18px;
+    }
+
+    .destination-card {
+      min-height: 284px;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
+      overflow: hidden;
+      position: relative;
+    }
+
+    .destination-card::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(circle at 50% 16%, rgba(255,255,255,.18), transparent 28%), linear-gradient(180deg, transparent, rgba(0,0,0,.66));
+      z-index: 0;
+    }
+
+    .destination-card > * {
+      position: relative;
+      z-index: 1;
+    }
+
+    .moon { background: linear-gradient(160deg, rgba(183,140,255,.22), rgba(255,255,255,.06)); }
+    .orbit { background: linear-gradient(160deg, rgba(139,233,255,.22), rgba(255,255,255,.06)); }
+    .zero { background: linear-gradient(160deg, rgba(255,207,122,.20), rgba(255,255,255,.06)); }
+    .mars { background: linear-gradient(160deg, rgba(255,122,102,.20), rgba(255,255,255,.06)); }
+
+    .steps {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 18px;
+      counter-reset: step;
+    }
+
+    .step-card {
+      position: relative;
+    }
+
+    .step-card::before {
+      counter-increment: step;
+      content: "0" counter(step);
+      display: inline-flex;
+      width: 44px;
+      height: 44px;
+      align-items: center;
+      justify-content: center;
+      border-radius: 50%;
+      background: rgba(139,233,255,.12);
+      color: var(--accent);
+      font-weight: 900;
+      margin-bottom: 18px;
+    }
+
+    .proof {
+      display: grid;
+      grid-template-columns: .9fr 1.1fr;
+      gap: 26px;
+      align-items: center;
+    }
+
+    .proof-copy {
+      padding: 34px;
+      border-radius: var(--radius);
+      background: rgba(255,255,255,.06);
+      border: 1px solid var(--line);
+    }
+
+    .proof-copy h2 {
+      margin: 0 0 16px;
+      font-size: clamp(32px, 4vw, 52px);
+      line-height: 1.05;
+      letter-spacing: -.045em;
+    }
+
+    .proof-copy p {
+      color: var(--muted);
+      line-height: 1.75;
+      margin: 0;
+      font-size: 17px;
+    }
+
+    .stats {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 16px;
+    }
+
+    .stat {
+      min-height: 190px;
+      border-radius: 24px;
+      padding: 24px;
+      border: 1px solid var(--line);
+      background: linear-gradient(145deg, rgba(255,255,255,.12), rgba(255,255,255,.04));
+    }
+
+    .stat strong {
+      display: block;
+      font-size: 44px;
+      line-height: 1;
+      letter-spacing: -.04em;
+      margin-bottom: 12px;
+    }
+
+    .stat span {
+      color: var(--muted);
+      line-height: 1.5;
+    }
+
+    .final-cta {
+      text-align: center;
+      padding: 70px 24px;
+      border: 1px solid var(--line);
+      border-radius: 34px;
+      background:
+        radial-gradient(circle at 50% 0%, rgba(139,233,255,.18), transparent 34%),
+        linear-gradient(145deg, rgba(183,140,255,.14), rgba(255,255,255,.05));
+      box-shadow: var(--shadow);
+    }
+
+    .final-cta h2 {
+      max-width: 760px;
+      margin: 0 auto 18px;
+      font-size: clamp(36px, 5vw, 66px);
+      line-height: 1.02;
+      letter-spacing: -.055em;
+    }
+
+    .final-cta p {
+      max-width: 700px;
+      margin: 0 auto 30px;
+      color: var(--muted);
+      line-height: 1.7;
+      font-size: 18px;
+    }
+
+    .inline-form {
+      max-width: 590px;
+      margin: 0 auto;
+      display: flex;
+      gap: 12px;
+      padding: 8px;
+      border: 1px solid rgba(255,255,255,.15);
+      border-radius: 999px;
+      background: rgba(0,0,0,.23);
+    }
+
+    .inline-form input {
+      border: 0;
+      background: transparent;
+      flex: 1;
+    }
+
+    footer {
+      padding: 34px 0 54px;
+      color: rgba(246,247,255,.56);
+      font-size: 14px;
+    }
+
+    .footer-inner {
+      display: flex;
+      justify-content: space-between;
+      gap: 18px;
+      flex-wrap: wrap;
+      border-top: 1px solid rgba(255,255,255,.1);
+      padding-top: 24px;
+    }
+
+    @media (max-width: 960px) {
+      .hero-grid,
+      .signup-panel,
+      .proof {
+        grid-template-columns: 1fr;
+      }
+      .cards,
+      .destination-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+      .visual-wrap {
+        min-height: 500px;
+      }
+      .planet {
+        right: -120px;
+      }
+      .nav-links {
+        display: none;
+      }
+    }
+
+    @media (max-width: 640px) {
+      .container {
+        padding: 0 18px;
+      }
+      .hero {
+        padding-top: 56px;
+      }
+      .cards,
+      .destination-grid,
+      .steps,
+      .stats {
+        grid-template-columns: 1fr;
+      }
+      .visual-wrap {
+        min-height: 420px;
+      }
+      .planet {
+        width: 360px;
+        height: 360px;
+        right: -96px;
+      }
+      .orbit-card {
+        bottom: 0;
+      }
+      .inline-form {
+        border-radius: 24px;
+        flex-direction: column;
+        padding: 12px;
+      }
+      .signup-panel {
+        padding: 24px;
+      }
+      .button {
+        width: 100%;
+      }
+    }
+  </style>
+</head>
+<body>
+  <nav class="nav">
+    <div class="container nav-inner">
+      <a href="#top" class="brand" aria-label="Astravia home">
+        <span class="brand-mark"></span>
+        <span>Astravia</span>
+      </a>
+      <div class="nav-links" aria-label="Main navigation">
+        <a href="#features">Features</a>
+        <a href="#destinations">Destinations</a>
+        <a href="#how">How it works</a>
+        <a href="#signup" class="button">Join Early Access</a>
+      </div>
+    </div>
+  </nav>
+
+  <main id="top">
+    <section class="hero">
+      <div class="container hero-grid">
+        <div>
+          <div class="eyebrow"><span class="pulse"></span> AI-powered space travel planning</div>
+          <h1>Your first journey <span class="gradient-text">beyond Earth</span> starts here.</h1>
+          <p>Astravia is an AI-powered space travel planning platform for future civilian explorers. Compare orbital getaways, lunar flybys, astronaut training experiences, and zero-gravity escapes from one beautifully simple dashboard.</p>
+          <div class="hero-actions">
+            <a class="button" href="#signup">Join the Early Access List</a>
+            <a class="button secondary" href="#destinations">Preview Future Destinations</a>
+          </div>
+          <div class="microcopy">Be first to receive launch updates, destination previews, and exclusive space travel planning guides.</div>
+        </div>
+
+        <div class="visual-wrap" aria-hidden="true">
+          <div class="route-line"></div>
+          <div class="route-dot"></div>
+          <div class="planet"></div>
+          <div class="orbit-card">
+            <div class="card-head">
+              <div>
+                <div class="badge">Recommended by Nova AI</div>
+                <h3 style="margin-top:12px;">Low Earth Orbit Retreat</h3>
+              </div>
+              <div style="font-size:28px;">✦</div>
+            </div>
+            <p style="color:var(--muted); line-height:1.6; margin:0;">A three-day orbital stay matched to your travel goals, training timeline, and preferred view of Earth.</p>
+            <div class="metric-grid">
+              <div class="metric"><strong>3d</strong><span>Duration</span></div>
+              <div class="metric"><strong>LEO</strong><span>Destination</span></div>
+              <div class="metric"><strong>92%</strong><span>Fit score</span></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="signup">
+      <div class="container">
+        <div class="signup-panel">
+          <div>
+            <div class="eyebrow"><span class="pulse"></span> Waitlist now boarding</div>
+            <h2>Get your boarding pass to the future.</h2>
+            <p>Space tourism is closer than ever. Join the Astravia waitlist and get early access to destination previews, launch-window alerts, and our AI-powered space travel planner.</p>
+          </div>
+          <form class="signup-form" action="#" method="post">
+            <input type="email" name="email" placeholder="Enter your email address" aria-label="Email address" required />
+            <button class="button" type="submit">Reserve My Spot</button>
+            <p class="small">No spam. Just future-facing travel updates from the edge of possibility.</p>
+          </form>
+        </div>
+      </div>
+    </section>
+
+    <section id="features">
+      <div class="container">
+        <div class="section-title">
+          <h2>Plan smarter with your AI space concierge.</h2>
+          <p>Astravia uses AI to help you discover the space travel experiences that match your goals, comfort level, timeline, and sense of adventure.</p>
+        </div>
+        <div class="cards">
+          <article class="feature-card">
+            <div class="icon">◇</div>
+            <h3>Personalized Journey Matching</h3>
+            <p>Tell Astravia what kind of traveler you are, and Nova recommends the right experience, from a short zero-gravity flight to a multi-day orbital stay.</p>
+          </article>
+          <article class="feature-card">
+            <div class="icon">⏱</div>
+            <h3>Launch Window Alerts</h3>
+            <p>Stay informed about upcoming civilian space travel opportunities, training timelines, destination availability, and priority booking moments.</p>
+          </article>
+          <article class="feature-card">
+            <div class="icon">◐</div>
+            <h3>Destination Previews</h3>
+            <p>Explore immersive previews of orbital hotels, lunar flybys, Mars simulations, and suborbital retreats before choosing your path.</p>
+          </article>
+          <article class="feature-card">
+            <div class="icon">✓</div>
+            <h3>Readiness Guidance</h3>
+            <p>Learn what each experience requires, including training, fitness preparation, cost range, travel duration, and comfort level.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section id="destinations">
+      <div class="container">
+        <div class="section-title">
+          <h2>Where will you go first?</h2>
+          <p>Explore a new category of travel experiences designed for the next generation of explorers.</p>
+        </div>
+        <div class="destination-grid">
+          <article class="destination-card orbit">
+            <div class="badge">Orbital</div>
+            <h3>Low Earth Orbit Retreat</h3>
+            <p>Spend three unforgettable days watching Earth rise and fall beneath you from a private orbital habitat.</p>
+          </article>
+          <article class="destination-card moon">
+            <div class="badge">Lunar</div>
+            <h3>Lunar Flyby Experience</h3>
+            <p>Circle the Moon, witness the far side, and return home with a perspective few humans have ever known.</p>
+          </article>
+          <article class="destination-card zero">
+            <div class="badge">Suborbital</div>
+            <h3>Zero-Gravity Escape</h3>
+            <p>A short, thrilling suborbital journey designed for first-time space travelers.</p>
+          </article>
+          <article class="destination-card mars">
+            <div class="badge">Simulation</div>
+            <h3>Mars Training Simulation</h3>
+            <p>Prepare for tomorrow’s interplanetary missions with a fully immersive Earth-based Mars expedition.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section id="how">
+      <div class="container">
+        <div class="section-title">
+          <h2>Space travel planning, simplified.</h2>
+          <p>Astravia turns an overwhelming future into a clear, guided path.</p>
+        </div>
+        <div class="steps">
+          <article class="step-card">
+            <h3>Choose your dream destination</h3>
+            <p>Browse curated future travel experiences beyond Earth, from zero-gravity escapes to lunar flybys.</p>
+          </article>
+          <article class="step-card">
+            <h3>Let Astravia guide your options</h3>
+            <p>Your AI concierge compares timelines, training needs, comfort level, and estimated cost.</p>
+          </article>
+          <article class="step-card">
+            <h3>Join the right launch list</h3>
+            <p>Subscribe for early access, destination updates, and priority booking notifications.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <div class="container proof">
+        <div class="proof-copy">
+          <h2>Designed for the future of civilian space exploration.</h2>
+          <p>Astravia imagines a world where space travel is no longer limited to astronauts, billionaires, or science fiction. Our mission is to make the next era of exploration easier to understand, compare, and plan.</p>
+        </div>
+        <div class="stats">
+          <div class="stat"><strong>4</strong><span>Future travel categories: orbital, lunar, suborbital, and simulation experiences.</span></div>
+          <div class="stat"><strong>AI</strong><span>Guided recommendations for every explorer profile and comfort level.</span></div>
+          <div class="stat"><strong>01</strong><span>Simple waitlist to begin planning your first journey beyond Earth.</span></div>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <div class="container">
+        <div class="final-cta">
+          <h2>Don’t just imagine space travel. Start planning it.</h2>
+          <p>Subscribe for early access to Astravia and receive future destination previews, launch-window updates, and AI-powered travel planning tools.</p>
+          <form class="inline-form" action="#" method="post">
+            <input type="email" name="email" placeholder="Your email address" aria-label="Email address" required />
+            <button class="button" type="submit">Reserve My Place</button>
+          </form>
+          <p class="small" style="margin-top:18px;">Your journey begins with one small signup.</p>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="container footer-inner">
+      <div>© 2026 Astravia. A fictional SaaS concept for future explorers.</div>
+      <div>AI Space Concierge · Destination Previews · Launch Alerts</div>
+    </div>
+  </footer>
+</body>
+</html>
