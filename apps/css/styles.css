@@ -316,17 +316,68 @@ svg{display:block}
 
 /* Favorites / Order again */
 .list-page-scroll{--content-top:78px;--content-bottom:78px}
-.list-page-content{padding:17px}
-.page-tools{display:flex;justify-content:space-between;align-items:center;margin-bottom:14px}
-.view-toggle{display:flex;border:1px solid #d5d5d5;border-radius:999px;overflow:hidden}
-.view-toggle button{width:42px;height:36px;border:0;background:#fff;color:#888}.view-toggle button.active{background:#f1f1f1;color:var(--red)}
-.fav-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}
-.fav-card{border:1px solid #d8d8d8;border-radius:14px;overflow:hidden;background:#fff;position:relative}
-.fav-card .placeholder{height:112px}.fav-body{padding:10px}.fav-name{font-size:14px;font-weight:900;line-height:1.2}
-.fav-meta{font-size:12px;color:#888;margin-top:4px;line-height:1.3}.fav-price{font-size:14px;font-weight:900;margin-top:7px}
-.fav-heart{position:absolute;right:8px;top:8px;width:34px;height:34px;border:0;border-radius:50%;background:#fff;color:var(--red);display:grid;place-items:center;box-shadow:0 2px 5px rgba(0,0,0,.12)}
+.list-page-content{padding:16px 20px 24px}
+
+/* Neutral list/grid view icons like the Figma reference. */
+.page-tools{
+  display:flex;
+  justify-content:flex-end;
+  align-items:center;
+  min-height:54px;
+  margin-bottom:14px
+}
+.view-toggle{display:flex;align-items:center;gap:16px}
+.view-toggle button{
+  width:28px;height:32px;border:0;background:transparent;color:#b1b1b1;
+  display:grid;place-items:center;padding:0
+}
+.view-toggle button svg{width:24px;height:24px}
+.view-toggle button.active{background:transparent;color:#191919}
+.view-toggle button:active{background:transparent}
+
+/* Grid view */
+.fav-grid{display:grid;grid-template-columns:1fr 1fr;gap:18px}
+.fav-card{position:relative;background:#fff;min-width:0}
+.fav-card > a{display:block;text-decoration:none}
+.fav-card .placeholder{height:174px;border-radius:15px;overflow:hidden}
+.fav-body{padding:10px 0 0}
+.fav-name{font-size:18px;font-weight:900;line-height:1.3;color:#111}
+.fav-meta{font-size:16px;color:#8d8d8d;margin-top:6px;line-height:1.45}
+.fav-price{font-size:16px;font-weight:400;color:#8d8d8d;margin-top:5px}
+.fav-heart{
+  position:absolute;right:9px;top:9px;width:40px;height:40px;border:0;border-radius:50%;
+  background:#fff;color:var(--red);display:grid;place-items:center;
+  box-shadow:0 2px 8px rgba(0,0,0,.12);z-index:2
+}
+.fav-heart svg{width:22px;height:22px}
 .fav-heart svg path{fill:currentColor}
-.fav-grid.list{display:block}.fav-grid.list .fav-card{display:grid;grid-template-columns:105px 1fr;margin-bottom:10px}.fav-grid.list .fav-card .placeholder{height:100%}
+
+/* List view: image, text/details, and filled heart in one horizontal row. */
+.fav-grid.list{display:block;margin-left:-20px;margin-right:-20px}
+.fav-grid.list .fav-card{
+  display:grid;
+  grid-template-columns:100px 1fr 42px;
+  gap:15px;
+  align-items:start;
+  padding:24px 20px 22px;
+  border-bottom:1px solid var(--line);
+  min-height:160px
+}
+.fav-grid.list .fav-card > a{display:contents}
+.fav-grid.list .fav-card .placeholder{
+  width:100px;height:100px;border-radius:11px;grid-column:1;grid-row:1
+}
+.fav-grid.list .fav-body{padding:0;grid-column:2;grid-row:1}
+.fav-grid.list .fav-name{font-size:19px;line-height:1.25}
+.fav-grid.list .fav-meta{font-size:16px;line-height:1.45;margin-top:7px}
+.fav-grid.list .fav-price{color:#111;font-size:18px;font-weight:900;margin-top:7px}
+.fav-grid.list .fav-heart{
+  position:static;grid-column:3;grid-row:1;width:36px;height:36px;box-shadow:none;
+  background:transparent;justify-self:end;margin-top:7px
+}
+.fav-grid.list .fav-heart svg{width:27px;height:27px}
+
+/* Order Again */
 .order-card{border:1px solid #d8d8d8;border-radius:15px;padding:14px;margin-bottom:12px}
 .order-head{display:flex;justify-content:space-between;gap:10px}.order-head strong{font-size:16px}.order-date{font-size:13px;color:#888}
 .order-lines{font-size:14px;color:#777;line-height:1.45;margin-top:7px}.order-total{font-size:15px;font-weight:900;margin-top:8px}
@@ -338,7 +389,9 @@ svg{display:block}
 .progress{height:10px;background:#ececec;border-radius:999px;overflow:hidden;margin-top:12px}.progress span{display:block;width:58%;height:100%;background:var(--yellow)}
 .account-list{border:1px solid #ddd;border-radius:15px;overflow:hidden}
 .account-row{display:grid;grid-template-columns:38px 1fr 22px;gap:10px;align-items:center;min-height:64px;padding:10px 14px;border-bottom:1px solid var(--line);text-decoration:none}
-.account-row:last-child{border-bottom:0}.account-row strong{font-size:16px}.account-row span{font-size:13px;color:#888}.account-icon{width:34px;height:34px;border-radius:10px;background:#fff1f3;color:var(--red);display:grid;place-items:center}
+.account-row:last-child{border-bottom:0}.account-row strong{font-size:16px}.account-row span{font-size:13px;color:#888}.account-icon{width:34px;height:34px;color:#4f4f4f;display:grid;place-items:center}
+.account-icon svg{width:22px;height:22px}
+.account-row > span:last-child{color:#a0a0a0;font-size:22px;line-height:1}
 
 /* Desktop fit: preserve 440:956 ratio and stay inside viewport */
 @media (min-width:500px){
