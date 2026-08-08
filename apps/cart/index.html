@@ -83,6 +83,20 @@
   </div>
   <button class="place-order" id="placeOrder"><span class="place-badge" id="placeBadge"></span><span class="place-label">Place Order</span><span class="place-total" id="placeTotal"></span></button>
 </div>
+
+<div class="order-confirm-wrap" id="orderConfirmWrap" aria-hidden="true">
+  <div class="order-confirm-card" role="dialog" aria-modal="true" aria-labelledby="orderConfirmTitle">
+    <div class="order-confirm-icon">
+      <svg viewBox="0 0 24 24" aria-hidden="true">
+        <path class="icon-stroke" d="m5 12 4 4 10-10"/>
+      </svg>
+    </div>
+    <h2 id="orderConfirmTitle">Order Placed!</h2>
+    <p>Your order has been placed successfully.</p>
+    <button class="primary order-confirm-btn" id="orderConfirmBtn">Back to Home</button>
+  </div>
+</div>
+
 <div class="toast"></div>
 </div>
 
@@ -189,7 +203,12 @@ document.getElementById("placeOrder").onclick=()=>{
   // Only clear the current cart. Favorites and saved customizations remain.
   S.clearCart();
 
-  alert("Your order has been placed!");
+  const modal=document.getElementById("orderConfirmWrap");
+  modal.classList.add("show");
+  modal.setAttribute("aria-hidden","false");
+};
+
+document.getElementById("orderConfirmBtn").onclick=()=>{
   location.href="../";
 };
 

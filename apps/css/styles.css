@@ -591,3 +591,48 @@ svg{display:block}
 }
 .menu-list.has-cart{bottom:98px}
 .menu-list.no-cart{bottom:0}
+
+
+/* Stylized Place Order confirmation modal */
+.order-confirm-wrap{
+  position:absolute;
+  inset:0;
+  z-index:180;
+  background:rgba(0,0,0,.42);
+  display:none;
+  align-items:center;
+  justify-content:center;
+  padding:24px
+}
+.order-confirm-wrap.show{display:flex}
+.order-confirm-card{
+  width:min(100%,360px);
+  background:#fff;
+  border-radius:24px;
+  padding:26px 22px 22px;
+  text-align:center;
+  box-shadow:0 16px 40px rgba(0,0,0,.22)
+}
+.order-confirm-icon{
+  width:64px;
+  height:64px;
+  border-radius:50%;
+  margin:0 auto 14px;
+  background:#e8f6ef;
+  color:#137a52;
+  display:grid;
+  place-items:center
+}
+.order-confirm-icon svg{width:32px;height:32px}
+.order-confirm-card h2{
+  margin:0;
+  font-size:22px;
+  font-weight:900
+}
+.order-confirm-card p{
+  margin:8px 0 20px;
+  color:#777;
+  font-size:16px;
+  line-height:1.4
+}
+.order-confirm-btn{width:100%}
