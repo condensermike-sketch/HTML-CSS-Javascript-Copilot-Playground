@@ -52,8 +52,7 @@
 const menu=window.JOLLIBEE_MENU,S=window.JolliState;
 function cartEntryPrice(entry){
   if(entry.itemId){
-    const item=menu.items[entry.itemId];
-    return item ? item.price*(entry.quantity||1) : 0;
+    return S.configuredItemUnitPrice(entry.itemId,entry.customizations||{})*(entry.quantity||1);
   }
   const add=menu.upsells.find(x=>x.id===entry.addonId);
   return add ? add.price*(entry.quantity||1) : 0;

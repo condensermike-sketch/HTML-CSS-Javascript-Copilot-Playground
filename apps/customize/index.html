@@ -44,9 +44,48 @@ document.getElementById("title").textContent=group.title;document.getElementById
 document.getElementById("choices").innerHTML=group.options.map(o=>`<label class="choice-row"><input type="radio" name="opt" value="${o.value}" ${draft.customizations[type]===o.value||draft.customizations[type]?.startsWith(o.value+" · ")?"checked":""}><div class="choice-img placeholder"><svg viewBox="0 0 24 24"><rect class="icon-stroke" x="4" y="4" width="16" height="16" rx="2"/><circle class="icon-stroke" cx="9" cy="9" r="2"/><path class="icon-stroke" d="m5 17 4-4 3 3 2-2 5 5"/></svg></div><div><strong>${o.label}</strong>${o.priceDelta?`<small>+$${o.priceDelta.toFixed(2)}</small>`:""}${o.nested?`<small>Tap Apply to choose type</small>`:""}</div></label>`).join("");
 let chosenNested=null;
 function selected(){return document.querySelector('input[name="opt"]:checked')}
-document.querySelectorAll('input[name="opt"]').forEach(r=>r.onchange=()=>document.getElementById("apply").disabled=false);
+
+function openNested(opt){
+  const ng=menu.nestedGroups[opt.nested];
+  if(!ng)return;
+  document.getElementById("nestedTitle").textContent=ng.title.replace("Choose a ","");
+  document.getElementById("nestedOptions").innerHTML=ng.options.map(x=>`<label class="nested-option"><input type="radio" name="nested" value="${x}" ${draft.customizations[type]===x?"checked":""}><span>${x}</span></label>`).join("");
+  document.getElementById("nestedWrap").classList.add("show");
+  const existing=document.querySelector('input[name="nested"]:checked');
+  document.getElementById("nestedApply").disabled=!existing;
+  document.querySelectorAll('input[name="nested"]').forEach(n=>n.onchange=()=>document.getElementById("nestedApply").disabled=false);
+}
+
+document.querySelectorAll('input[name="opt"]').forEach(r=>r.onchange=()=>{
+  const opt=group.options.find(o=>o.value===r.value);
+  document.getElementById("apply").disabled=false;
+  // Soda behaves as a true sub-level: selecting it immediately opens the
+  // secondary Soda chooser, matching the Figma walkthrough.
+  if(opt&&opt.nested) openNested(opt);
+});
+
 if(selected())document.getElementById("apply").disabled=false;
-document.getElementById("apply").onclick=()=>{const r=selected();if(!r)return;const opt=group.options.find(o=>o.value===r.value);if(opt&&opt.nested){const ng=menu.nestedGroups[opt.nested];document.getElementById("nestedTitle").textContent=ng.title;document.getElementById("nestedOptions").innerHTML=ng.options.map(x=>`<label class="nested-option"><input type="radio" name="nested" value="${x}"><span>${x}</span></label>`).join("");document.getElementById("nestedWrap").classList.add("show");document.querySelectorAll('input[name="nested"]').forEach(n=>n.onchange=()=>document.getElementById("nestedApply").disabled=false);return}draft.customizations[type]=r.value;S.saveItemDraft(itemId,draft);location.href=document.getElementById("back").href};
-document.getElementById("nestedApply").onclick=()=>{const r=selected(),n=document.querySelector('input[name="nested"]:checked');if(!r||!n)return;draft.customizations[type]=n.value;S.saveItemDraft(itemId,draft);location.href=document.getElementById("back").href};
-document.getElementById("nestedWrap").onclick=e=>{if(e.target.id==="nestedWrap")e.currentTarget.classList.remove("show")};
+
+document.getElementById("apply").onclick=()=>{
+  const r=selected();if(!r)return;
+  const opt=group.options.find(o=>o.value===r.value);
+  if(opt&&opt.nested){openNested(opt);return}
+  draft.customizations[type]=r.value;
+  S.saveItemDraft(itemId,draft);
+  location.href=document.getElementById("back").href
+};
+
+document.getElementById("nestedApply").onclick=()=>{
+  const n=document.querySelector('input[name="nested"]:checked');
+  if(!n)return;
+  // Store the actual selected beverage name so the Item and Cart screens
+  // display "Mountain Dew", "Diet Pepsi", etc., not just "Soda".
+  draft.customizations[type]=n.value;
+  S.saveItemDraft(itemId,draft);
+  location.href=document.getElementById("back").href
+};
+
+document.getElementById("nestedWrap").onclick=e=>{
+  if(e.target.id==="nestedWrap")e.currentTarget.classList.remove("show")
+};
 </script></body></html>

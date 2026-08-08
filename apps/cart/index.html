@@ -92,7 +92,9 @@ const itemsEl=document.getElementById("cartItems");
 const bottom=document.getElementById("cartBottom");
 
 function itemPrice(e){
-  if(e.itemId){const i=menu.items[e.itemId];return i?i.price*(e.quantity||1):0}
+  if(e.itemId){
+    return S.configuredItemUnitPrice(e.itemId,e.customizations||{})*(e.quantity||1);
+  }
   const u=menu.upsells.find(x=>x.id===e.addonId);
   return u?u.price*(e.quantity||1):0;
 }

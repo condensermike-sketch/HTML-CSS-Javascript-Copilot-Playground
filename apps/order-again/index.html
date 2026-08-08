@@ -47,7 +47,7 @@
 <script>
 const menu=window.JOLLIBEE_MENU,S=window.JolliState,orders=[...S.sessionOrders(),...menu.seededOrders];
 function line(entry){if(entry.itemId){const i=menu.items[entry.itemId];return `${entry.quantity||1}× ${i.shortName||i.name}`}const u=menu.upsells.find(x=>x.id===entry.addonId);return `${entry.quantity||1}× ${u?u.name:"Add-on"}`}
-function price(entry){if(entry.itemId)return menu.items[entry.itemId].price*(entry.quantity||1);const u=menu.upsells.find(x=>x.id===entry.addonId);return (u?u.price:0)*(entry.quantity||1)}
+function price(entry){if(entry.itemId)return S.configuredItemUnitPrice(entry.itemId,entry.customizations||{})*(entry.quantity||1);const u=menu.upsells.find(x=>x.id===entry.addonId);return (u?u.price:0)*(entry.quantity||1)}
 document.getElementById("orders").innerHTML=orders.map((o,idx)=>{const total=(o.items||[]).reduce((n,e)=>n+price(e),0);return `<article class="order-card"><div class="order-head"><strong>${o.fulfillment||"Previous Order"}</strong><span class="order-date">${o.dateLabel||""}</span></div><div class="order-lines">${(o.items||[]).map(line).join("<br>")}</div><div class="order-total">${S.fmt(total)}</div><button class="primary" data-reorder="${idx}">Reorder</button></article>`}).join("");
 document.querySelectorAll("[data-reorder]").forEach(b=>b.onclick=()=>{const o=orders[Number(b.dataset.reorder)];S.setCart((o.items||[]).map(x=>JSON.parse(JSON.stringify(x))));location.href="../cart/"});
 </script></body></html>

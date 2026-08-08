@@ -129,12 +129,45 @@
 
   function fmt(n){ return "$"+Number(n).toFixed(2); }
 
+  function customizationDelta(itemId, customizations){
+    const menu=window.JOLLIBEE_MENU;
+    const item=menu && menu.items ? menu.items[itemId] : null;
+    if(!item || !customizations) return 0;
+
+    let total=0;
+    (item.customizations||[]).forEach(type=>{
+      const selected=customizations[type];
+      const group=menu.groups && menu.groups[type];
+      if(!selected || !group) return;
+
+      // Direct top-level option, e.g. Adobo Rice or Pineapple Quencher.
+      let opt=(group.options||[]).find(o=>o.value===selected);
+
+      // Nested option, e.g. Mountain Dew selected under Soda.
+      if(!opt){
+        opt=(group.options||[]).find(o=>{
+          if(!o.nested || !menu.nestedGroups || !menu.nestedGroups[o.nested]) return false;
+          return (menu.nestedGroups[o.nested].options||[]).includes(selected);
+        });
+      }
+
+      total += Number(opt && opt.priceDelta || 0);
+    });
+    return total;
+  }
+
+  function configuredItemUnitPrice(itemId, customizations){
+    const menu=window.JOLLIBEE_MENU;
+    const item=menu && menu.items ? menu.items[itemId] : null;
+    return item ? Number(item.price) + customizationDelta(itemId, customizations) : 0;
+  }
+
   window.JolliState = {
     appBase, hrefFor, get, set, remove, clearParticipantState,
     currentItemDraft, saveItemDraft, clearItemDraft,
     savedCustomizations, saveCustomizations,
     favorites, isFavorite, favoriteItem, removeFavorite,
     cart, setCart, cartCount, addCartItem, updateCartItem, removeCartItem, clearCart,
-    sessionOrders, addCompletedOrder, showToast, fmt
+    sessionOrders, addCompletedOrder, showToast, fmt, customizationDelta, configuredItemUnitPrice
   };
 })();
