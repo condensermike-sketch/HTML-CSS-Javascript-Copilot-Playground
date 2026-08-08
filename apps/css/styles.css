@@ -636,3 +636,134 @@ svg{display:block}
   line-height:1.4
 }
 .order-confirm-btn{width:100%}
+
+
+/* Rewards page refinement */
+.rewards-scroll{--content-top:78px;--content-bottom:78px;background:#f3f3f3}
+.rewards-page{padding:20px}
+.rewards-hero{
+  background:var(--red);
+  border-radius:20px;
+  min-height:228px;
+  color:#fff;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:center;
+  text-align:center;
+  padding:20px
+}
+.rewards-brand-small{
+  font-size:22px;
+  font-weight:400;
+  margin-bottom:4px
+}
+.rewards-wordmark{
+  font-size:46px;
+  line-height:1;
+  font-weight:900;
+  letter-spacing:-1.5px;
+  position:relative;
+  margin-bottom:32px
+}
+.rewards-wordmark::after{
+  content:"";
+  position:absolute;
+  left:50%;
+  bottom:-12px;
+  transform:translateX(-50%);
+  width:95px;
+  height:24px;
+  border-bottom:4px solid #fff;
+  border-radius:0 0 50% 50%
+}
+.rewards-points{
+  display:flex;
+  align-items:baseline;
+  gap:10px
+}
+.rewards-points strong{
+  font-size:40px;
+  line-height:1;
+  font-weight:900
+}
+.rewards-points span{
+  font-size:18px;
+  font-weight:400
+}
+
+.rewards-shop{
+  margin-top:22px;
+  background:#fff;
+  border-radius:20px;
+  overflow:hidden;
+  border:1px solid #dedede
+}
+.rewards-shop-head{
+  background:var(--red);
+  color:#fff;
+  text-align:center;
+  font-size:22px;
+  font-weight:900;
+  padding:18px 16px
+}
+.reward-offer{
+  display:grid;
+  grid-template-columns:90px 1fr;
+  gap:16px;
+  padding:20px;
+  border-bottom:1px solid #dedede
+}
+.reward-offer:last-child{border-bottom:0}
+.reward-offer-img{
+  width:90px;
+  height:90px;
+  border-radius:14px;
+  background:#f3f3f3;
+  display:grid;
+  place-items:center;
+  color:#aaa
+}
+.reward-offer-img svg{width:34px;height:34px}
+.reward-offer-body h3{
+  margin:0 0 3px;
+  font-size:18px;
+  line-height:1.2;
+  font-weight:900
+}
+.reward-offer-desc{
+  font-size:15px;
+  line-height:1.35;
+  color:#666;
+  margin:0
+}
+.reward-offer-exp{
+  font-size:13px;
+  color:#999;
+  margin-top:4px
+}
+.reward-offer-foot{
+  grid-column:2;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:12px;
+  margin-top:2px
+}
+.reward-cost{
+  font-size:18px;
+  font-weight:900
+}
+.reward-cost .red{color:var(--red)}
+.redeem-btn{
+  border:0;
+  background:#f5a500;
+  color:#111;
+  border-radius:999px;
+  min-height:50px;
+  padding:0 20px;
+  font-size:15px;
+  font-weight:900;
+  white-space:nowrap
+}
+.redeem-btn:active{transform:translateY(1px)}
