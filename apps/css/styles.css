@@ -591,14 +591,3 @@ svg{display:block}
 }
 .menu-list.has-cart{bottom:98px}
 .menu-list.no-cart{bottom:0}
-
-
-.place-order:disabled{
-  background:#d7d7d7;
-  color:#fff;
-  cursor:not-allowed;
-  box-shadow:none;
-}
-.place-order:disabled .place-badge{
-  color:#aaa;
-}
