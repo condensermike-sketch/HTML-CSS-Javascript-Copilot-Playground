@@ -767,3 +767,92 @@ svg{display:block}
   white-space:nowrap
 }
 .redeem-btn:active{transform:translateY(1px)}
+
+
+/* Account page refinement */
+.account-scroll{--content-top:78px;--content-bottom:78px;background:#f3f3f3}
+.account-page{padding:20px 0 10px}
+.account-hero{
+  margin:0 20px 14px;
+  background:var(--red);
+  border-radius:20px;
+  min-height:108px;
+  display:grid;
+  grid-template-columns:76px 1fr;
+  gap:14px;
+  align-items:center;
+  padding:18px 18px 18px 16px;
+  color:#fff
+}
+.account-avatar{
+  width:72px;height:72px;border-radius:50%;background:#fff;
+  display:grid;place-items:center;overflow:hidden
+}
+.account-avatar svg{width:44px;height:44px}
+.account-hero h1{
+  margin:0 0 4px;
+  font-size:20px;
+  line-height:1.15;
+  font-weight:900
+}
+.account-hero p{
+  margin:0;
+  font-size:16px;
+  line-height:1.25;
+  font-weight:400;
+  opacity:.98
+}
+
+.account-panel{
+  background:#fff;
+  border-top:1px solid var(--line);
+  border-bottom:1px solid var(--line)
+}
+.account-item{
+  min-height:81px;
+  display:grid;
+  grid-template-columns:30px 1fr 18px;
+  gap:16px;
+  align-items:center;
+  padding:0 22px;
+  border-bottom:1px solid var(--line);
+  text-decoration:none;
+  color:#111
+}
+.account-item:last-child{border-bottom:0}
+.account-item .left-icon{
+  width:28px;height:28px;color:#444;display:grid;place-items:center
+}
+.account-item .left-icon svg{width:27px;height:27px}
+.account-item .label{
+  font-size:17px;
+  font-weight:400;
+  line-height:1.2
+}
+.account-item .chev{
+  color:#9b9b9b;
+  display:grid;
+  place-items:center
+}
+.account-item .chev svg{width:18px;height:18px}
+
+/* Cross-browser sizing fix for My Cart customer-row icons.
+   Explicit dimensions prevent Safari/iOS from expanding inline SVGs. */
+.customer-row > svg:first-child{
+  width:22px !important;
+  height:22px !important;
+  min-width:22px;
+  min-height:22px;
+  max-width:22px;
+  max-height:22px;
+  flex-shrink:0
+}
+.customer-row > svg:last-child{
+  width:18px !important;
+  height:18px !important;
+  min-width:18px;
+  min-height:18px;
+  max-width:18px;
+  max-height:18px;
+  flex-shrink:0
+}
