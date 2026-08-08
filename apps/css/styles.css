@@ -393,20 +393,98 @@ svg{display:block}
 .account-icon svg{width:22px;height:22px}
 .account-row > span:last-child{color:#a0a0a0;font-size:22px;line-height:1}
 
-/* Desktop fit: preserve 440:956 ratio and stay inside viewport */
-@media (min-width:500px){
+/* Desktop preview: wider/shorter frame to closely match the Figma Make examples.
+   Mobile still uses the full device viewport. */
+@media (min-width:560px){
   body{
     height:100vh;
     display:grid;
     place-items:center;
-    padding:16px;
+    padding:8px;
     overflow:hidden;
   }
   .app-shell{
-    width:min(440px, calc((100vh - 32px) * 440 / 956));
-    height:min(956px, calc(100vh - 32px));
+    width:min(500px, calc((100vh - 16px) * 500 / 860));
+    height:min(860px, calc(100vh - 16px));
     min-height:0;
-    border-radius:36px;
+    border-radius:42px;
     box-shadow:0 8px 28px rgba(0,0,0,.28);
   }
 }
+
+
+/* Floating cart on Home: visible only when cart contains items. */
+.home-cart-fab{
+  position:absolute;
+  right:18px;
+  bottom:88px;
+  z-index:55;
+  width:62px;
+  height:62px;
+  border-radius:50%;
+  border:1px solid #d7d7d7;
+  background:#fff;
+  color:#252525;
+  display:none;
+  place-items:center;
+  text-decoration:none;
+  box-shadow:0 3px 9px rgba(0,0,0,.17)
+}
+.home-cart-fab.show{display:grid}
+.home-cart-fab svg{width:29px;height:29px}
+.home-cart-fab .cart-badge{
+  right:-2px;
+  top:-5px;
+  min-width:25px;
+  height:25px;
+  font-size:12px;
+  background:var(--red);
+  color:#fff;
+  border:2px solid #fff;
+}
+
+/* Menu does not use the global bottom navigation.
+   A cart CTA appears only when the cart has contents. */
+.menu-cart-cta{
+  position:absolute;
+  left:20px;
+  right:20px;
+  bottom:14px;
+  z-index:55;
+  height:70px;
+  border:0;
+  border-radius:999px;
+  background:var(--red);
+  color:#fff;
+  display:none;
+  grid-template-columns:54px 1fr auto;
+  align-items:center;
+  padding:0 22px 0 14px;
+  text-decoration:none;
+  box-shadow:0 3px 9px rgba(0,0,0,.08)
+}
+.menu-cart-cta.show{display:grid}
+.menu-cart-count{
+  width:42px;
+  height:42px;
+  border-radius:50%;
+  background:#fff;
+  color:var(--red);
+  display:grid;
+  place-items:center;
+  font-size:15px;
+  font-weight:900
+}
+.menu-cart-label{
+  text-align:center;
+  font-size:20px;
+  font-weight:900
+}
+.menu-cart-total{
+  min-width:74px;
+  text-align:right;
+  font-size:19px;
+  font-weight:900
+}
+.menu-list.has-cart{bottom:98px}
+.menu-list.no-cart{bottom:0}
