@@ -1,26 +1,153 @@
-<!doctype html><html><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><title>My Cart</title><link rel="preconnect" href="https://fonts.googleapis.com">
+<!doctype html><html><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><title>My Cart</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,200..1000;1,200..1000&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="../css/styles.css">
 <script src="../js/menu-data.js"></script>
-<script src="../js/app.js"></script></head><body><div class="app-shell">
+<script src="../js/app.js"></script></head>
+<body><div class="app-shell">
 <div class="white-topbar"><a class="back-btn" href="../"><svg viewBox="0 0 24 24"><path class="icon-stroke" d="m15 18-6-6 6-6"/></svg></a><div class="topbar-title">My Cart</div><div></div></div>
-<main class="app-scroll cart-scroll"><section class="cart-pickup"><div class="cart-location"><svg width="20" height="20" viewBox="0 0 24 24"><path class="icon-stroke" d="m4 10 8-6 8 6v10H4Z"/></svg><div><small>Pick up at:</small><strong>Beverly</strong><p>3821 Beverly Blvd, Los Angeles, CA 90004<br>Counter or Drive-Thru pickup</p></div></div><div class="fulfill"><button class="active">Counter</button><button>Drive-Thru</button></div></section><section class="cart-order" id="cartOrder"></section></main>
-<div class="bottom-action" id="placeWrap"><button class="primary place-order" id="placeOrder"><span style="display:flex;align-items:center;gap:10px"><span class="place-badge" id="placeBadge"></span>Place Order</span><span id="placeTotal"></span></button></div>
-<div class="toast"></div></div>
+
+<main class="app-scroll cart-scroll" id="cartScroll">
+  <section class="cart-section">
+    <h1 class="cart-section-title">Order Details</h1>
+    <div class="detail-row">
+      <svg viewBox="0 0 24 24"><rect class="icon-stroke" x="4" y="5" width="16" height="15" rx="2"/><path class="icon-stroke" d="M8 3v4M16 3v4M4 10h16"/></svg>
+      <div class="detail-main"><strong>Pick Up</strong> <span>ASAP · 12 mins</span></div>
+      <svg viewBox="0 0 24 24"><path class="icon-stroke" d="m9 6 6 6-6 6"/></svg>
+    </div>
+
+    <div class="location-copy">
+      <svg viewBox="0 0 24 24"><path class="icon-stroke" d="m4 10 8-6 8 6v10H4Z"/><path class="icon-stroke" d="M9 20v-6h6v6"/></svg>
+      <div><small>Pick up at:</small><strong>Beverly</strong><p>3821 Beverly Blvd, Los Angeles, CA 90004<br>1891.84 miles away · <a href="#">View Store Details</a></p></div>
+    </div>
+
+    <div class="fulfill">
+      <button class="active"><svg width="17" height="17" viewBox="0 0 24 24"><path class="icon-stroke" d="M7 10V7a5 5 0 0 1 10 0v3"/><rect class="icon-stroke" x="5" y="10" width="14" height="10" rx="2"/></svg>Counter</button>
+      <button><svg width="17" height="17" viewBox="0 0 24 24"><path class="icon-stroke" d="M3 7h11v9H3zM14 10h4l3 3v3h-7z"/><circle class="icon-stroke" cx="7" cy="18" r="2"/><circle class="icon-stroke" cx="18" cy="18" r="2"/></svg>Drive-Thru</button>
+    </div>
+
+    <div class="customer-row">
+      <svg viewBox="0 0 24 24"><path class="icon-stroke" d="M6 3h4l2 5-3 2a16 16 0 0 0 5 5l2-3 5 2v4c0 1-1 2-2 2C10 20 4 14 4 5c0-1 1-2 2-2Z"/></svg>
+      <div><strong>Username</strong><span>(859) 559-1945</span></div>
+      <svg viewBox="0 0 24 24"><path class="icon-stroke" d="m9 6 6 6-6 6"/></svg>
+    </div>
+  </section>
+
+  <section class="cart-section">
+    <div class="cart-order-head"><h2>My Order</h2></div>
+    <div class="cart-count" id="cartCount"></div>
+    <div id="cartItems"></div>
+    <a class="add-items-btn" href="../menu/"><span style="font-size:20px;font-weight:400">+</span> Add Items</a>
+  </section>
+
+  <section class="cart-upsell">
+    <h2>Picked Just For You</h2>
+    <div class="upsell-strip" id="upsellStrip"></div>
+  </section>
+</main>
+
+<div class="cart-bottom" id="cartBottom">
+  <div class="cart-summary">
+    <div class="summary-line"><span>Subtotal</span><span id="subtotal"></span></div>
+    <div class="summary-line"><span>Tax (9.75%)</span><span id="tax"></span></div>
+    <div class="summary-line total"><span>Order Total</span><span id="total"></span></div>
+  </div>
+  <button class="place-order" id="placeOrder"><span class="place-badge" id="placeBadge"></span><span class="place-label">Place Order</span><span class="place-total" id="placeTotal"></span></button>
+</div>
+<div class="toast"></div>
+</div>
+
 <script>
-const menu=window.JOLLIBEE_MENU,S=window.JolliState,wrap=document.getElementById("cartOrder");
-function priceOf(entry){if(entry.itemId)return menu.items[entry.itemId].price*(entry.quantity||1);const u=menu.upsells.find(x=>x.id===entry.addonId);return u?(u.price*(entry.quantity||1)):0}
+const menu=window.JOLLIBEE_MENU,S=window.JolliState;
+const itemsEl=document.getElementById("cartItems");
+const bottom=document.getElementById("cartBottom");
+
+function itemPrice(e){
+  if(e.itemId){const i=menu.items[e.itemId];return i?i.price*(e.quantity||1):0}
+  const u=menu.upsells.find(x=>x.id===e.addonId);
+  return u?u.price*(e.quantity||1):0;
+}
+function entryName(e){
+  if(e.itemId)return menu.items[e.itemId]?.name||"Menu Item";
+  return menu.upsells.find(x=>x.id===e.addonId)?.name||"Add-on";
+}
+function placeholder(){
+  return `<svg viewBox="0 0 24 24"><rect class="icon-stroke" x="4" y="4" width="16" height="16" rx="2"/><circle class="icon-stroke" cx="9" cy="9" r="2"/><path class="icon-stroke" d="m5 17 4-4 3 3 2-2 5 5"/></svg>`;
+}
+
 function draw(){
   const cart=S.cart();
-  if(!cart.length){wrap.innerHTML=`<div class="empty-state"><svg viewBox="0 0 24 24"><path class="icon-stroke" d="M3 4h2l2.5 11h10l2-7H6"/><circle class="icon-stroke" cx="9" cy="20" r="1"/><circle class="icon-stroke" cx="18" cy="20" r="1"/></svg><h2>Your cart is empty</h2><p>Add something delicious from the menu.</p><a class="yellow" href="../menu/">Browse Menu</a></div>`;document.getElementById("placeWrap").style.display="none";return}
-  document.getElementById("placeWrap").style.display="block";
-  const sub=cart.reduce((n,e)=>n+priceOf(e),0),tax=sub*.0975,total=sub+tax;
-  wrap.innerHTML=`<h2>My Order</h2><div class="cart-count">${S.cartCount()} item${S.cartCount()===1?"":"s"} in cart</div>`+cart.map((e,i)=>{if(e.itemId){const it=menu.items[e.itemId],meta=Object.values(e.customizations||{}).join(" · ");return `<article class="cart-item" data-index="${i}"><div class="cart-item-img placeholder"><svg viewBox="0 0 24 24"><rect class="icon-stroke" x="4" y="4" width="16" height="16" rx="2"/><circle class="icon-stroke" cx="9" cy="9" r="2"/><path class="icon-stroke" d="m5 17 4-4 3 3 2-2 5 5"/></svg></div><div><div class="cart-item-name">${it.name}</div><div class="cart-meta">${meta}</div><div class="cart-item-price">${S.fmt(priceOf(e))}</div><div class="cart-actions"><a class="cart-link" href="../item/?id=${it.id}&edit=${i}">Edit</a></div></div><button class="delete-btn" data-delete="${i}" aria-label="Delete"><svg width="20" height="20" viewBox="0 0 24 24"><path class="icon-stroke" d="M4 7h16M9 7V4h6v3M7 7l1 13h8l1-13M10 11v5M14 11v5"/></svg></button></article>`}const u=menu.upsells.find(x=>x.id===e.addonId);return `<article class="cart-item" data-index="${i}"><div class="cart-item-img placeholder"><svg viewBox="0 0 24 24"><rect class="icon-stroke" x="4" y="4" width="16" height="16" rx="2"/><circle class="icon-stroke" cx="9" cy="9" r="2"/><path class="icon-stroke" d="m5 17 4-4 3 3 2-2 5 5"/></svg></div><div><div class="cart-item-name">${u.name}</div><div class="cart-item-price">${S.fmt(priceOf(e))}</div></div><button class="delete-btn" data-delete="${i}"><svg width="20" height="20" viewBox="0 0 24 24"><path class="icon-stroke" d="M4 7h16M9 7V4h6v3M7 7l1 13h8l1-13M10 11v5M14 11v5"/></svg></button></article>`}).join("")+`<div class="cart-summary"><div class="summary-line"><span>Subtotal</span><span>${S.fmt(sub)}</span></div><div class="summary-line"><span>Tax (9.75%)</span><span>${S.fmt(tax)}</span></div><div class="summary-line total"><span>Order Total</span><span>${S.fmt(total)}</span></div></div>`;
-  document.getElementById("placeBadge").textContent=S.cartCount();document.getElementById("placeTotal").textContent=S.fmt(total);
-  document.querySelectorAll("[data-delete]").forEach(b=>b.onclick=()=>{const idx=Number(b.dataset.delete),row=b.closest(".cart-item");b.innerHTML='<span class="spinner"></span>';setTimeout(()=>{S.removeCartItem(idx);draw()},550)})
+  if(!cart.length){
+    document.getElementById("cartScroll").innerHTML=`<div class="empty-state"><svg viewBox="0 0 24 24"><path class="icon-stroke" d="M3 4h2l2.5 11h10l2-7H6"/><circle class="icon-stroke" cx="9" cy="20" r="1"/><circle class="icon-stroke" cx="18" cy="20" r="1"/></svg><h2>Your cart is empty</h2><p>Add something delicious from the menu.</p><a class="yellow" href="../menu/">Browse Menu</a></div>`;
+    bottom.style.display="none";
+    return;
+  }
+  bottom.style.display="block";
+  document.getElementById("cartCount").textContent=`${S.cartCount()} item${S.cartCount()===1?"":"s"} in cart`;
+
+  itemsEl.innerHTML=cart.map((e,i)=>{
+    const meta=e.itemId?Object.values(e.customizations||{}).join(" · "):"";
+    const edit=e.itemId?`<a class="cart-edit" href="../item/?id=${e.itemId}&edit=${i}">Edit</a>`:"";
+    return `<article class="cart-item" data-index="${i}">
+      <div class="cart-item-img placeholder">${placeholder()}</div>
+      <div>
+        <div class="cart-item-name">${entryName(e)}</div>
+        ${meta?`<div class="cart-meta">${meta}</div>`:""}
+        <div class="cart-item-price">${S.fmt(itemPrice(e))}</div>
+      </div>
+      <div class="cart-item-controls">
+        <div class="qty-control">
+          <button data-minus="${i}" aria-label="${(e.quantity||1)<=1?"Delete item":"Decrease quantity"}">
+            ${(e.quantity||1)<=1?`<svg width="17" height="17" viewBox="0 0 24 24"><path class="icon-stroke" d="M5 7h14M9 7V4h6v3M8 7l1 13h6l1-13"/></svg>`:"−"}
+          </button>
+          <span>${e.quantity||1}</span>
+          <button data-plus="${i}" aria-label="Increase quantity">+</button>
+        </div>
+        ${edit}
+      </div>
+    </article>`;
+  }).join("");
+
+  const sub=cart.reduce((n,e)=>n+itemPrice(e),0),tax=sub*.0975,total=sub+tax;
+  document.getElementById("subtotal").textContent=S.fmt(sub);
+  document.getElementById("tax").textContent=S.fmt(tax);
+  document.getElementById("total").textContent=S.fmt(total);
+  document.getElementById("placeTotal").textContent=S.fmt(total);
+  document.getElementById("placeBadge").textContent=S.cartCount();
+
+  document.querySelectorAll("[data-plus]").forEach(b=>b.onclick=()=>{
+    const idx=Number(b.dataset.plus),c=S.cart();c[idx].quantity=(c[idx].quantity||1)+1;S.setCart(c);draw();
+  });
+  document.querySelectorAll("[data-minus]").forEach(b=>b.onclick=()=>{
+    const idx=Number(b.dataset.minus),c=S.cart(),q=c[idx].quantity||1;
+    if(q>1){c[idx].quantity=q-1;S.setCart(c);draw();return}
+    const control=b.closest(".qty-control");control.innerHTML='<span class="spinner" style="grid-column:1/-1;justify-self:center"></span>';
+    setTimeout(()=>{S.removeCartItem(idx);draw()},550);
+  });
 }
+
+document.getElementById("upsellStrip").innerHTML=menu.upsells.map(u=>`<div class="cart-upsell-card">
+  <div class="cart-upsell-img placeholder">${placeholder()}<button class="cart-upsell-add" data-add="${u.id}">+</button></div>
+  <div class="cart-upsell-name">${u.name}</div><div class="cart-upsell-price">${S.fmt(u.price)}</div>
+</div>`).join("");
+
+document.querySelectorAll("[data-add]").forEach(b=>b.onclick=()=>{
+  S.addCartItem({addonId:b.dataset.add,quantity:1});
+  draw();
+});
+
+document.querySelectorAll(".fulfill button").forEach(b=>b.onclick=()=>{
+  document.querySelectorAll(".fulfill button").forEach(x=>x.classList.remove("active"));
+  b.classList.add("active");
+});
+
+document.getElementById("placeOrder").onclick=()=>{
+  const cart=S.cart();if(!cart.length)return;
+  const fulfillment=document.querySelector(".fulfill button.active")?.textContent.trim()||"Counter";
+  S.addCompletedOrder({id:"user-"+Date.now(),dateLabel:"Today",fulfillment:fulfillment+" Pickup · Beverly",items:JSON.parse(JSON.stringify(cart))});
+  S.clearCart();
+  location.href="../?ordered=1";
+};
 draw();
-document.querySelectorAll(".fulfill button").forEach(b=>b.onclick=()=>{document.querySelectorAll(".fulfill button").forEach(x=>x.classList.remove("active"));b.classList.add("active")});
-document.getElementById("placeOrder").onclick=()=>{const cart=S.cart();if(!cart.length)return;S.addCompletedOrder({id:"user-"+Date.now(),dateLabel:"Today",fulfillment:"Counter Pickup · Beverly",items:cart});S.clearCart();location.href="../?ordered=1"};
 </script></body></html>
