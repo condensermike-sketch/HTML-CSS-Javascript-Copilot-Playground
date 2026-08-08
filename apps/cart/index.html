@@ -118,7 +118,7 @@ function draw(){
 
   itemsEl.innerHTML=cart.map((e,i)=>{
     const meta=e.itemId?Object.values(e.customizations||{}).join(" · "):"";
-    const edit=e.itemId?`<a class="cart-edit" href="../item/?id=${e.itemId}&edit=${i}">Edit</a>`:"";
+    const edit=e.itemId?`<a class="cart-edit" href="../item/?id=${e.itemId}&edit=${i}&seed=1">Edit</a>`:"";
     return `<article class="cart-item" data-index="${i}">
       <div class="cart-item-img placeholder">${placeholder()}</div>
       <div>

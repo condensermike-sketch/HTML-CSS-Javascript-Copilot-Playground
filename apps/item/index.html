@@ -42,9 +42,15 @@
 const menu=window.JOLLIBEE_MENU,S=window.JolliState,params=new URLSearchParams(location.search);
 const id=params.get("id")||"chickenjoy-2pc-side",item=menu.items[id]||menu.items["chickenjoy-2pc-side"];
 const editIndex=params.has("edit")?Number(params.get("edit")):null;
+const seedFromCart=params.get("seed")==="1";
 let draft;
-if(editIndex!==null && S.cart()[editIndex]){const c=S.cart()[editIndex];draft={quantity:c.quantity,customizations:{...c.customizations}};S.saveItemDraft(id,draft)}
-else draft=S.currentItemDraft(id);
+if(editIndex!==null && seedFromCart && S.cart()[editIndex]){
+  const c=S.cart()[editIndex];
+  draft={quantity:c.quantity,customizations:{...c.customizations}};
+  S.saveItemDraft(id,draft);
+}else{
+  draft=S.currentItemDraft(id);
+}
 const saved=S.savedCustomizations(id);
 if(saved && !Object.keys(draft.customizations||{}).length){draft.customizations={...saved};S.saveItemDraft(id,draft);document.getElementById("savedBanner").classList.add("show")}
 document.getElementById("backLink").href=editIndex!==null?"../cart/":"../menu/";
