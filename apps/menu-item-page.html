@@ -173,6 +173,11 @@
     font-weight: 900; /* Black */
     color: #242424;
     margin-top: 3px;
+    min-height: 21px;
+  }
+
+  .selection:empty {
+    display: none;
   }
   .swap {
     border:0;
@@ -423,7 +428,7 @@
             <img src="data:image/jpeg;base64,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" alt="" />
             <div class="label">
               How would you like your chicken?<br>(Required)
-              <span class="selection" id="chickenSelection">All Original</span>
+              <span class="selection" id="chickenSelection"></span>
             </div>
             <button class="swap" data-type="chicken">Swap</button>
           </div>
@@ -432,7 +437,7 @@
             <img src="data:image/jpeg;base64,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" alt="" />
             <div class="label">
               Gravy (Required)
-              <span class="selection" id="gravySelection">Small Chickenjoy Gravy</span>
+              <span class="selection" id="gravySelection"></span>
             </div>
             <button class="swap" data-type="gravy">Swap</button>
           </div>
@@ -481,8 +486,8 @@
   let activeType = null;
 
   const selections = {
-    chicken: "All Original",
-    gravy: "Small Chickenjoy Gravy"
+    chicken: null,
+    gravy: null
   };
 
   const options = {
@@ -504,8 +509,12 @@
   const minus = document.getElementById("minus");
 
   function extraCaloriesPerItem() {
-    const chicken = options.chicken.find(x => x[0] === selections.chicken)?.[1] || 0;
-    const gravy = options.gravy.find(x => x[0] === selections.gravy)?.[1] || 0;
+    const chicken = selections.chicken
+      ? (options.chicken.find(x => x[0] === selections.chicken)?.[1] || 0)
+      : 0;
+    const gravy = selections.gravy
+      ? (options.gravy.find(x => x[0] === selections.gravy)?.[1] || 0)
+      : 0;
     return chicken + gravy;
   }
 
