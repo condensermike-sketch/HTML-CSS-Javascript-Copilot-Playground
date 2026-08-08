@@ -40,9 +40,13 @@ window.JOLLIBEE_MENU = {
     drink: {
       title:"Drink",
       options:[
+        {value:"Pineapple Quencher", label:"Pineapple Quencher", priceDelta:0.50},
         {value:"Bottled Water", label:"Bottled Water"},
         {value:"Soda", label:"Soda", nested:"soda"},
-        {value:"Mango Freeze", label:"Mango Freeze", priceDelta:1.50}
+        {value:"Coconut Dream Freeze", label:"Coconut Dream Freeze", priceDelta:1.80},
+        {value:"Strawberry Bliss Freeze", label:"Strawberry Bliss Freeze", priceDelta:1.80},
+        {value:"Lychee Iced Tea", label:"Lychee Iced Tea", priceDelta:0.50},
+        {value:"Passion Fruit Iced Tea", label:"Passion Fruit Iced Tea", priceDelta:0.50}
       ]
     },
     gravy: {
@@ -58,7 +62,7 @@ window.JOLLIBEE_MENU = {
   nestedGroups: {
     soda: {
       title:"Choose a Soda",
-      options:["Mountain Dew","Pink Lemonade","Brisk Lemon Iced Tea","Mug Root Beer","Pepsi","Diet Pepsi"]
+      options:["Raspberry Ice Tea","Diet Pepsi","Mountain Dew","Pink Lemonade","Brisk Lemon Iced Tea","Mug Root Beer"]
     }
   },
 
