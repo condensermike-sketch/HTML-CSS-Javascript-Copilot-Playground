@@ -81,7 +81,7 @@
     <div class="summary-line"><span>Tax (9.75%)</span><span id="tax"></span></div>
     <div class="summary-line total"><span>Order Total</span><span id="total"></span></div>
   </div>
-  <button class="place-order" id="placeOrder"><span class="place-badge" id="placeBadge"></span><span class="place-label">Place Order</span><span class="place-total" id="placeTotal"></span></button>
+  <button class="place-order" id="placeOrder" disabled aria-disabled="true"><span class="place-badge" id="placeBadge"></span><span class="place-label">Place Order</span><span class="place-total" id="placeTotal"></span></button>
 </div>
 <div class="toast"></div>
 </div>
@@ -172,12 +172,5 @@ document.querySelectorAll(".fulfill button").forEach(b=>b.onclick=()=>{
   b.classList.add("active");
 });
 
-document.getElementById("placeOrder").onclick=()=>{
-  const cart=S.cart();if(!cart.length)return;
-  const fulfillment=document.querySelector(".fulfill button.active")?.textContent.trim()||"Counter";
-  S.addCompletedOrder({id:"user-"+Date.now(),dateLabel:"Today",fulfillment:fulfillment+" Pickup · Beverly",items:JSON.parse(JSON.stringify(cart))});
-  S.clearCart();
-  location.href="../?ordered=1";
-};
 draw();
 </script></body></html>
