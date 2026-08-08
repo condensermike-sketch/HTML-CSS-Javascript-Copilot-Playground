@@ -299,6 +299,7 @@ svg{
   border:0;
   background:transparent;
   color:#a4a4a4;
+  text-decoration:none;
   padding:0;
   display:flex;
   flex-direction:column;
@@ -571,28 +572,28 @@ svg{
   </main>
 
   <nav class="bottom-nav">
-    <button class="nav-btn active" data-nav="home">
+    <a class="nav-btn active" href="./" aria-label="Home">
       <svg viewBox="0 0 24 24"><path class="stroke" d="m4 10 8-6 8 6v10H4Z"/><path class="stroke" d="M9 20v-6h6v6"/></svg>
       <span>Home</span>
-    </button>
-    <button class="nav-btn" data-nav="menu">
+    </a>
+    <a class="nav-btn" href="./menu/" aria-label="Menu">
       <svg viewBox="0 0 24 24"><path class="stroke" d="M4 7h16M4 12h16M4 17h16"/></svg>
       <span>Menu</span>
-    </button>
-    <button class="nav-btn rewards-label" data-nav="rewards">
+    </a>
+    <a class="nav-btn rewards-label" href="./rewards/" aria-label="Rewards">
       <span class="reward-float">
         <svg viewBox="0 0 24 24"><path class="stroke" d="M8 4h8v8a4 4 0 0 1-8 0Z"/><path class="stroke" d="M9 18h6M12 16v2"/><path class="stroke" d="M8 7H5v2a3 3 0 0 0 3 3M16 7h3v2a3 3 0 0 1-3 3"/></svg>
       </span>
       <span>Rewards</span>
-    </button>
-    <button class="nav-btn" data-nav="favorites">
+    </a>
+    <a class="nav-btn" href="./favorites/" aria-label="Favorites">
       <svg viewBox="0 0 24 24"><path class="stroke" d="M20.8 4.8a5.3 5.3 0 0 0-7.5 0L12 6.1l-1.3-1.3a5.3 5.3 0 0 0-7.5 7.5L12 21l8.8-8.7a5.3 5.3 0 0 0 0-7.5Z"/></svg>
       <span>Favorites</span>
-    </button>
-    <button class="nav-btn" data-nav="account">
+    </a>
+    <a class="nav-btn" href="./account/" aria-label="Account">
       <svg viewBox="0 0 24 24"><circle class="stroke" cx="12" cy="8" r="3.5"/><path class="stroke" d="M5 20a7 7 0 0 1 14 0"/></svg>
       <span>Account</span>
-    </button>
+    </a>
   </nav>
 
   <section class="search-screen" id="searchScreen">
@@ -636,13 +637,6 @@ svg{
     </nav>
   </section>
 
-  <section class="stub" id="menuStub">
-    <div class="stub-head">Menu</div>
-    <div class="stub-body">
-      This placeholder only confirms that the Home screen's Menu button is wired correctly. We can build the actual Menu screen next.
-      <br><button id="backHome">Back to Home</button>
-    </div>
-  </section>
 </div>
 
 <script>
@@ -695,18 +689,8 @@ document.getElementById("cancelSearch").addEventListener("click",()=>{
 });
 searchInput.addEventListener("input",e=>drawSearch(e.target.value));
 
-const menuStub=document.getElementById("menuStub");
-document.querySelector('[data-nav="menu"]').addEventListener("click",()=>{
-  menuStub.classList.add("show");
-  history.pushState({view:"menu"},"","#menu");
-});
-document.getElementById("backHome").addEventListener("click",()=>{
-  menuStub.classList.remove("show");
-  history.replaceState({},"",location.pathname);
-});
 window.addEventListener("popstate",()=>{
   searchScreen.classList.remove("show");
-  menuStub.classList.remove("show");
 });
 </script>
 </body>
