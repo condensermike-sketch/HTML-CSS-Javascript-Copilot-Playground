@@ -22,8 +22,8 @@
 }
 
 *{box-sizing:border-box}
-html,body{margin:0;min-height:100%;font-family:var(--font);font-optical-sizing:auto;color:var(--ink);background:#efefef}
-body{min-height:100dvh}
+html,body{margin:0;height:100%;font-family:var(--font);font-optical-sizing:auto;color:var(--ink);background:#efefef;overflow:hidden}
+body{height:100dvh}
 button,input,select{font:inherit}
 button,a{ -webkit-tap-highlight-color:transparent }
 a{color:inherit}
@@ -34,19 +34,20 @@ svg{display:block}
 .app-shell{
   width:min(100vw,440px);
   height:100dvh;
-  min-height:640px;
   margin:0 auto;
   background:#fff;
   position:relative;
   overflow:hidden;
+  display:flex;
+  flex-direction:column;
 }
 
 .app-scroll{
-  position:absolute;
-  left:0; right:0;
-  top:var(--content-top,0px);
-  bottom:var(--content-bottom,0px);
-  overflow:auto;
+  flex:1 1 auto;
+  min-height:0;
+  overflow-y:auto;
+  overflow-x:hidden;
+  -webkit-overflow-scrolling:touch;
   scrollbar-width:none;
   overscroll-behavior:contain;
   background:#fff;
@@ -54,13 +55,13 @@ svg{display:block}
 .app-scroll::-webkit-scrollbar{display:none}
 
 .top-red{
-  position:absolute;left:0;right:0;top:0;z-index:30;
-  height:116px;
+  flex:0 0 auto;
+  min-height:64px;
   background:var(--red);
   color:#fff;
-  padding:calc(18px + env(safe-area-inset-top)) 17px 12px;
+  padding:calc(10px + env(safe-area-inset-top)) 17px 10px;
   display:flex;
-  align-items:flex-end;
+  align-items:center;
 }
 .top-red-row{width:100%;display:grid;grid-template-columns:1fr auto;align-items:center;gap:12px}
 .pickup small{display:block;font-size:13px;line-height:1;font-weight:400;opacity:.95}
@@ -78,14 +79,14 @@ svg{display:block}
 }
 
 .white-topbar{
-  position:absolute;left:0;right:0;top:0;z-index:35;
-  height:78px;
-  padding:calc(15px + env(safe-area-inset-top)) 17px 10px;
+  flex:0 0 auto;
+  min-height:64px;
+  padding:calc(10px + env(safe-area-inset-top)) 17px 10px;
   background:#fff;
   border-bottom:1px solid var(--line);
   display:grid;
   grid-template-columns:40px 1fr 40px;
-  align-items:end;
+  align-items:center;
 }
 .white-topbar.no-line{border-bottom:0}
 .topbar-title{font-size:var(--top-nav);font-weight:900;text-align:center;align-self:center}
@@ -93,8 +94,8 @@ svg{display:block}
 .back-btn svg{width:25px;height:25px}
 
 .bottom-nav{
-  position:absolute;left:0;right:0;bottom:0;z-index:40;
-  height:78px;
+  flex:0 0 auto;
+  min-height:78px;
   padding:8px 9px calc(6px + env(safe-area-inset-bottom));
   background:#fff;
   border-top:1px solid #d8d8d8;
@@ -149,7 +150,7 @@ svg{display:block}
 .toast.success{background:var(--green-bg);color:var(--green)}
 
 .bottom-action{
-  position:absolute;left:0;right:0;bottom:0;z-index:50;
+  flex:0 0 auto;
   min-height:79px;padding:10px 17px calc(10px + env(safe-area-inset-bottom));
   background:#fff;border-top:1px solid var(--line)
 }
@@ -161,7 +162,6 @@ svg{display:block}
 @keyframes spin{to{transform:rotate(360deg)}}
 
 /* Home */
-.home-scroll{--content-top:116px;--content-bottom:78px}
 .home-content{padding:15px 17px 28px}
 .profile-card{
   min-height:66px;border:1px solid #d0d0d0;border-radius:15px;
@@ -188,16 +188,16 @@ svg{display:block}
 .category-label{min-height:49px;padding:10px 9px 8px;font-size:14px;line-height:1.16;font-weight:900}
 
 /* Search overlay */
-.search-overlay{position:absolute;inset:0;background:#fff;z-index:100;display:none}
-.search-overlay.show{display:block}
+.search-overlay{position:absolute;inset:0;background:#fff;z-index:100;display:none;flex-direction:column}
+.search-overlay.show{display:flex}
 .search-header{
-  height:116px;background:var(--red);padding:calc(25px + env(safe-area-inset-top)) 17px 13px;
-  display:flex;align-items:flex-end;gap:8px
+  flex:0 0 auto;min-height:64px;background:var(--red);padding:calc(10px + env(safe-area-inset-top)) 17px 10px;
+  display:flex;align-items:center;gap:8px
 }
 .search-box{height:42px;flex:1;background:#fff;border-radius:24px;display:flex;align-items:center;padding:0 14px;gap:8px;color:#999}
 .search-box input{border:0;outline:0;width:100%;font-size:15px;background:transparent}
 .search-cancel{border:0;background:transparent;color:#fff;font-weight:900}
-.search-results{position:absolute;left:0;right:0;top:116px;bottom:0;overflow:auto}
+.search-results{flex:1 1 auto;min-height:0;overflow:auto}
 .search-label{padding:12px 17px 6px;font-size:12px;font-weight:900;letter-spacing:.04em;color:#aaa}
 .search-row{min-height:68px;padding:10px 17px;border-bottom:1px solid var(--line);display:grid;grid-template-columns:43px 1fr auto;gap:12px;align-items:center;text-decoration:none}
 .search-thumb{width:40px;height:40px;border-radius:6px}
@@ -205,7 +205,7 @@ svg{display:block}
 
 /* Menu */
 .menu-tabs{
-  position:absolute;left:0;right:0;top:116px;z-index:28;height:47px;background:#fff;
+  flex:0 0 auto;height:47px;background:#fff;
   border-bottom:1px solid var(--line);overflow-x:auto;white-space:nowrap;scrollbar-width:none
 }
 .menu-tabs::-webkit-scrollbar{display:none}
@@ -215,7 +215,8 @@ svg{display:block}
 .menu-tab.active{color:var(--red);font-weight:900}
 .menu-tab.active::after{content:"";position:absolute;left:12px;right:12px;bottom:0;height:2px;background:var(--red)}
 .menu-tab:first-child.active::after{left:0}
-.menu-list{position:absolute;left:0;right:0;top:163px;bottom:78px;overflow-y:auto;scroll-behavior:smooth;scrollbar-width:none}
+.menu-list{position:relative;flex:1 1 auto;min-height:0;overflow-y:auto;overflow-x:hidden;scroll-behavior:smooth;scrollbar-width:none;overscroll-behavior:contain}
+.menu-list::-webkit-scrollbar{display:none}
 .menu-section{scroll-margin-top:8px}
 .menu-section h2{margin:0;padding:18px 17px 10px;font-size:20px;font-weight:900}
 .menu-coming{padding:4px 17px 28px;color:#b2b2b2;font-size:14px}
@@ -230,7 +231,6 @@ svg{display:block}
 .menu-plus{align-self:center;justify-self:end;width:37px;height:37px;border-radius:50%;border:0;background:var(--red);color:#fff;font-size:24px;display:grid;place-items:center;text-decoration:none}
 
 /* Item */
-.item-scroll{--content-top:78px;--content-bottom:79px}
 .item-hero{height:205px;margin:0 40px 12px;border-radius:15px}
 .item-title-row{display:grid;grid-template-columns:1fr auto;gap:14px;padding:0 17px}
 .item-title-row h1{font-size:20px;line-height:1.22;margin:0;font-weight:900}
@@ -258,7 +258,6 @@ svg{display:block}
 .favorite-btn.filled svg path{fill:currentColor}
 
 /* Customize */
-.customize-scroll{--content-top:78px;--content-bottom:79px}
 .customize-intro{padding:18px 17px 10px;font-size:16px}
 .customize-intro span{display:block;color:#888;font-size:14px;margin-top:2px}
 .choice-row{min-height:91px;display:grid;grid-template-columns:34px 55px 1fr;gap:10px;align-items:center;padding:10px 17px;border-bottom:1px solid var(--line)}
@@ -289,7 +288,6 @@ svg{display:block}
 .upsell-actions{padding:14px 17px 0;display:grid;gap:10px}.upsell-actions button{width:100%}
 
 /* Cart */
-.cart-scroll{--content-top:78px;--content-bottom:144px;background:#fff}
 .cart-section{padding:16px 18px}
 .cart-section + .cart-section{border-top:10px solid #f4f4f4}
 .cart-section-title{font-size:20px;font-weight:900;margin:0 0 14px}
@@ -391,7 +389,7 @@ svg{display:block}
 .cart-upsell-price{font-size:12px;color:#999;margin-top:3px}
 
 .cart-bottom{
-  position:absolute;left:0;right:0;bottom:0;z-index:55;
+  flex:0 0 auto;
   min-height:144px;background:#fff;border-top:1px solid var(--line);
   padding:9px 18px calc(10px + env(safe-area-inset-bottom))
 }
@@ -418,7 +416,6 @@ svg{display:block}
 .empty-state h2{font-size:20px;margin:0 0 6px;color:#222}
 
 /* Favorites / Order again */
-.list-page-scroll{--content-top:78px;--content-bottom:78px}
 .list-page-content{padding:16px 20px 24px}
 
 /* Neutral list/grid view icons like the Figma reference. */
@@ -589,8 +586,8 @@ svg{display:block}
   font-size:19px;
   font-weight:900
 }
-.menu-list.has-cart{bottom:98px}
-.menu-list.no-cart{bottom:0}
+.menu-list.has-cart{padding-bottom:98px}
+.menu-list.no-cart{padding-bottom:0}
 
 
 /* Stylized Place Order confirmation modal */
@@ -639,7 +636,7 @@ svg{display:block}
 
 
 /* Rewards page refinement */
-.rewards-scroll{--content-top:78px;--content-bottom:78px;background:#f3f3f3}
+.rewards-scroll{background:#f3f3f3}
 .rewards-page{padding:20px}
 .rewards-hero{
   background:var(--red);
@@ -770,7 +767,7 @@ svg{display:block}
 
 
 /* Account page refinement */
-.account-scroll{--content-top:78px;--content-bottom:78px;background:#f3f3f3}
+.account-scroll{background:#f3f3f3}
 .account-page{padding:20px 0 10px}
 .account-hero{
   margin:0 20px 14px;
