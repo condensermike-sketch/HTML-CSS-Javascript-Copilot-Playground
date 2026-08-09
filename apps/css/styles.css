@@ -997,3 +997,14 @@ a:active{
   background:#fff;
   color:var(--red) !important;
 }
+
+/* Order Again add-on favorite support */
+.order-favorite.addon-favorite{
+  color:#8d8d8d;
+}
+.order-favorite.addon-favorite.active{
+  color:var(--red);
+}
+.order-favorite.addon-favorite.active svg path{
+  fill:currentColor;
+}

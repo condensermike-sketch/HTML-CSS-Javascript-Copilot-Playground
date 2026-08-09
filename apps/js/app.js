@@ -99,6 +99,20 @@
     set("favorites",favorites().filter(f=>f.itemId!==itemId));
   }
 
+  // Add-on favorites use addonId so existing menu-item favorite behavior is unchanged.
+  function isAddonFavorite(addonId){ return favorites().some(f=>f.addonId===addonId); }
+  function favoriteAddon(addonId){
+    let favs=favorites();
+    const idx=favs.findIndex(f=>f.addonId===addonId);
+    if(idx>=0) favs.splice(idx,1);
+    else favs.unshift({addonId});
+    set("favorites",favs);
+    return idx<0;
+  }
+  function removeAddonFavorite(addonId){
+    set("favorites",favorites().filter(f=>f.addonId!==addonId));
+  }
+
   function cart(){ return get("cart",[]); }
   function setCart(c){ set("cart",c); }
   function cartCount(){ return cart().reduce((n,x)=>n+(x.quantity||1),0); }
@@ -166,7 +180,7 @@
     appBase, hrefFor, get, set, remove, clearParticipantState,
     currentItemDraft, saveItemDraft, clearItemDraft,
     savedCustomizations, saveCustomizations,
-    favorites, isFavorite, favoriteItem, removeFavorite,
+    favorites, isFavorite, favoriteItem, removeFavorite, isAddonFavorite, favoriteAddon, removeAddonFavorite,
     cart, setCart, cartCount, addCartItem, updateCartItem, removeCartItem, clearCart,
     sessionOrders, addCompletedOrder, showToast, fmt, customizationDelta, configuredItemUnitPrice
   };
