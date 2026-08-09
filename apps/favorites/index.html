@@ -3,7 +3,7 @@
 <link href="https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,200..1000;1,200..1000&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="../css/styles.css">
 <script src="../js/menu-data.js"></script>
-<script src="../js/app.js"></script><script>
+<script src="../js/app.js?v=20260808-addon-favorites-2"></script><script>
 (function (m, a, z, e) {
   var s, t, u, v;
   try {
@@ -49,6 +49,15 @@
 <div class="toast"></div></div>
 <script>
 const menu=window.JOLLIBEE_MENU,S=window.JolliState,el=document.getElementById("favorites");let mode="grid";
+
+function removeAddonFavoriteSafe(addonId){
+  if(typeof S.removeAddonFavorite==="function"){
+    S.removeAddonFavorite(addonId);
+    return;
+  }
+  const favs=(S.favorites?S.favorites():S.get("favorites",[])).filter(f=>f.addonId!==addonId);
+  S.set("favorites",favs);
+}
 
 function placeholder(){
   return `<svg viewBox="0 0 24 24"><rect class="icon-stroke" x="4" y="4" width="16" height="16" rx="2"/><circle class="icon-stroke" cx="9" cy="9" r="2"/><path class="icon-stroke" d="m5 17 4-4 3 3 2-2 5 5"/></svg>`;
@@ -108,7 +117,7 @@ function draw(){
     draw();
   });
   document.querySelectorAll("[data-remove-addon]").forEach(b=>b.onclick=()=>{
-    S.removeAddonFavorite(b.dataset.removeAddon);
+    removeAddonFavoriteSafe(b.dataset.removeAddon);
     draw();
   });
 }

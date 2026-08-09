@@ -3,7 +3,7 @@
 <link href="https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,200..1000;1,200..1000&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="../css/styles.css">
 <script src="../js/menu-data.js"></script>
-<script src="../js/app.js"></script><script>
+<script src="../js/app.js?v=20260808-addon-favorites-2"></script><script>
 (function (m, a, z, e) {
   var s, t, u, v;
   try {
@@ -47,6 +47,23 @@
 <script>
 const menu=window.JOLLIBEE_MENU,S=window.JolliState,orders=[...S.sessionOrders(),...menu.seededOrders];
 
+function addonIsFavorite(addonId){
+  if(typeof S.isAddonFavorite==="function") return S.isAddonFavorite(addonId);
+  return (S.favorites?S.favorites():S.get("favorites",[])).some(f=>f.addonId===addonId);
+}
+
+function toggleAddonFavorite(addonId){
+  if(typeof S.favoriteAddon==="function") return S.favoriteAddon(addonId);
+
+  let favs=S.favorites?S.favorites():S.get("favorites",[]);
+  const idx=favs.findIndex(f=>f.addonId===addonId);
+  const added=idx<0;
+  if(added) favs.unshift({addonId});
+  else favs.splice(idx,1);
+  S.set("favorites",favs);
+  return added;
+}
+
 function price(entry){
   if(entry.itemId)return S.configuredItemUnitPrice(entry.itemId,entry.customizations||{})*(entry.quantity||1);
   const u=menu.upsells.find(x=>x.id===entry.addonId);
@@ -76,7 +93,7 @@ function itemLine(entry,orderIndex,lineIndex){
   }
 
   const u=menu.upsells.find(x=>x.id===entry.addonId);
-  const active=S.isAddonFavorite(entry.addonId);
+  const active=addonIsFavorite(entry.addonId);
   return `<div class="order-line">
     <div class="order-line-copy">
       <strong>${entry.quantity||1}× ${u?u.name:"Add-on"}</strong>
@@ -133,7 +150,7 @@ function drawOrders(){
     const entry=orders[oi]?.items?.[li];
     if(!entry || !entry.addonId)return;
 
-    const added=S.favoriteAddon(entry.addonId);
+    const added=toggleAddonFavorite(entry.addonId);
     S.showToast(added?"Saved to Favorites":"Removed from Favorites");
     drawOrders();
   });
