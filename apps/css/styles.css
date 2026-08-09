@@ -981,3 +981,19 @@ a:active{
 .menu-tab:first-child.active::after{
   left:0 !important;
 }
+
+
+/* Menu View Cart CTA text color fix */
+.menu-cart-cta,
+.menu-cart-cta:visited,
+.menu-cart-cta:hover,
+.menu-cart-cta:active,
+.menu-cart-label,
+.menu-cart-total{
+  color:#fff !important;
+}
+
+.menu-cart-count{
+  background:#fff;
+  color:var(--red) !important;
+}
