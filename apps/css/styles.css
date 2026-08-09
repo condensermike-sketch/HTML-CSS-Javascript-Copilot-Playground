@@ -892,37 +892,3 @@ a:active{
 .order-favorite svg{width:22px;height:22px}
 .order-favorite.active{color:var(--red)}
 .order-favorite.active svg path{fill:currentColor}
-
-
-/* Safari/iOS control normalization */
-.upsell-close,
-.fulfill button,
-.icon-btn,
-.back-btn,
-.menu-tab,
-.view-toggle button,
-.order-favorite,
-.fav-heart,
-.delete-btn,
-.cart-delete-only,
-.cart-upsell-add{
-  -webkit-appearance:none;
-  appearance:none;
-  -webkit-tap-highlight-color:transparent;
-}
-
-.upsell-close{
-  color:#222;
-}
-
-.fulfill button{
-  color:#222;
-}
-
-.fulfill button svg{
-  color:inherit;
-}
-
-.fulfill button.active{
-  color:#fff;
-}
