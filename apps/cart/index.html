@@ -143,7 +143,7 @@ function draw(){
       <div class="cart-item-controls">
         <div class="qty-control">
           <button data-minus="${i}" aria-label="${(e.quantity||1)<=1?"Delete item":"Decrease quantity"}">
-            ${(e.quantity||1)<=1?`<svg width="17" height="17" viewBox="0 0 24 24"><path class="icon-stroke" d="M5 7h14M9 7V4h6v3M8 7l1 13h6l1-13"/></svg>`:"−"}
+            ${(e.quantity||1)<=1?`<svg width="22" height="22" viewBox="0 0 24 24"><path class="icon-stroke" d="M5 7h14M9 7V4h6v3M8 7l1 13h6l1-13"/></svg>`:"−"}
           </button>
           <span>${e.quantity||1}</span>
           <button data-plus="${i}" aria-label="Increase quantity">+</button>

@@ -1024,3 +1024,33 @@ a:active{
   grid-column:2;
   grid-row:1
 }
+
+
+/* Readability refinement: darker body/supporting copy */
+:root{
+  --text:#666;
+  --muted:#888;
+}
+
+.small-copy,
+.item-desc,
+.cart-location p,
+.cart-meta,
+.reward-offer-desc,
+.account-item .label,
+.order-line-copy{
+  color:#666;
+}
+
+.profile-points,
+.custom-label,
+.custom-unset,
+.choice-row small,
+.cart-count,
+.detail-main span,
+.location-copy small,
+.customer-row span,
+.reward-offer-exp,
+.fav-meta{
+  color:#777;
+}
