@@ -926,3 +926,58 @@ a:active{
 .fulfill button.active{
   color:#fff;
 }
+
+
+/* Cleanup fixes: cross-browser CTA/icon colors */
+.yellow,
+.yellow:visited,
+.yellow:hover,
+.yellow:active{
+  color:#161616 !important;
+}
+
+.menu-plus,
+.menu-plus:visited,
+.menu-plus:hover,
+.menu-plus:active{
+  color:#fff !important;
+}
+
+.stepper button{
+  color:#222 !important;
+  -webkit-appearance:none;
+  appearance:none;
+}
+.stepper span{
+  color:#111;
+}
+
+.menu-tab{
+  scroll-margin-left:18px;
+}
+
+
+/* Menu category nav alignment refinement */
+.menu-tabs-inner{
+  padding-left:0 !important;
+}
+
+.menu-tab{
+  padding-left:10px;
+  padding-right:18px;
+  scroll-margin-left:0 !important;
+}
+
+.menu-tab:first-child{
+  padding-left:10px;
+  margin-right:0;
+}
+
+.menu-tab.active::after{
+  left:0 !important;
+  right:0 !important;
+}
+
+.menu-tab:first-child.active::after{
+  left:0 !important;
+}
