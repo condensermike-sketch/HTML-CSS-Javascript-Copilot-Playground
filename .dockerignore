@@ -1,0 +1,4 @@
+*
+!apps/
+!apps/**
+**/.DS_Store
