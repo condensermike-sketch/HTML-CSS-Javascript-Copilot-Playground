@@ -493,8 +493,9 @@ svg{display:block}
 .account-icon svg{width:22px;height:22px}
 .account-row > span:last-child{color:#a0a0a0;font-size:22px;line-height:1}
 
-/* Desktop preview: wider/shorter frame to closely match the Figma Make examples.
-   Mobile still uses the full device viewport. */
+/* Desktop preview: frame sized to iPhone 17's CSS viewport (402x874) so the
+   card reads as a phone, not a stretched tablet. Mobile still uses the full
+   device viewport. */
 @media (min-width:560px){
   body{
     height:100vh;
@@ -504,8 +505,8 @@ svg{display:block}
     overflow:hidden;
   }
   .app-shell{
-    width:min(500px, calc((100vh - 16px) * 500 / 860));
-    height:min(860px, calc(100vh - 16px));
+    width:min(402px, calc((100vh - 16px) * 402 / 874));
+    height:min(874px, calc(100vh - 16px));
     min-height:0;
     border-radius:42px;
     box-shadow:0 8px 28px rgba(0,0,0,.28);
