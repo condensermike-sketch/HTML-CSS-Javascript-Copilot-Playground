@@ -495,20 +495,24 @@ svg{display:block}
 .account-icon svg{width:22px;height:22px}
 .account-row > span:last-child{color:#a0a0a0;font-size:22px;line-height:1}
 
-/* Desktop preview: frame sized to iPhone 17's CSS viewport (402x874) so the
-   card reads as a phone, not a stretched tablet. Mobile still uses the full
-   device viewport. */
+/* Desktop preview: frame width fixed to iPhone 17's CSS viewport (402px) so
+   it never squeezes narrower on tall/short browser windows. Height is capped
+   at iPhone 17's screen height (874px) but shrinks to fit shorter browser
+   windows, same as a real phone screen — the chrome (header, bottom-nav)
+   stays fixed/visible and only .app-scroll (already the sole scrolling
+   element everywhere in this app) scrolls internally, so the page itself
+   never needs a scrollbar. Mobile still uses the full device viewport. */
 @media (min-width:560px){
   body{
-    height:100vh;
+    height:100dvh;
     display:grid;
     place-items:center;
-    padding:8px;
+    padding:16px;
     overflow:hidden;
   }
   .app-shell{
-    width:min(402px, calc((100vh - 16px) * 402 / 874));
-    height:min(874px, calc(100vh - 16px));
+    width:402px;
+    height:min(874px, calc(100dvh - 32px));
     min-height:0;
     border-radius:42px;
     box-shadow:0 8px 28px rgba(0,0,0,.28);
