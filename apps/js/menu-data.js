@@ -11,9 +11,9 @@ window.JOLLIBEE_MENU = {
     { id:"spaghetti", label:"Jolly Spaghetti", items:["jolly-spaghetti-solo"] },
     { id:"palabok", label:"Palabok Fiesta", items:[] },
     { id:"burger-steak", label:"Burger Steak", items:[] },
-    { id:"sides", label:"Sides", items:[] },
+    { id:"sides", label:"Sides", items:["adobo-rice","side-jolly-spaghetti","jolly-crispy-fries-large","jolly-crispy-fries","mashed-potatoes-large","mashed-potatoes","steamed-rice","large-gravy","gravy"] },
     { id:"drinks", label:"Drinks", items:[] },
-    { id:"desserts", label:"Desserts", items:[] }
+    { id:"desserts", label:"Desserts", items:["peach-mango-pie","ube-pie","pie-snack-pack"] }
   ],
 
   groups: {
@@ -146,6 +146,56 @@ window.JOLLIBEE_MENU = {
       price:6.99,
       calories:610,
       customizations:[]
+    },
+
+    "adobo-rice":{
+      id:"adobo-rice", category:"sides", name:"Adobo Rice", shortName:"Adobo Rice",
+      description:"A side of Adobo Rice.", price:3.99, calories:250, customizations:[]
+    },
+    "side-jolly-spaghetti":{
+      id:"side-jolly-spaghetti", category:"sides", name:"Side Jolly Spaghetti", shortName:"Side Jolly Spaghetti",
+      description:"A side portion of our one-of-a-kind Jolly Spaghetti.", price:3.99, calories:360, customizations:[]
+    },
+    "jolly-crispy-fries-large":{
+      id:"jolly-crispy-fries-large", category:"sides", name:"Jolly Crispy Fries Large", shortName:"Large Jolly Crispy Fries",
+      description:"A large serving of our Jolly Crispy Fries.", price:3.99, calories:520, customizations:[]
+    },
+    "jolly-crispy-fries":{
+      id:"jolly-crispy-fries", category:"sides", name:"Jolly Crispy Fries", shortName:"Jolly Crispy Fries",
+      description:"A regular serving of our Jolly Crispy Fries.", price:2.69, calories:340, customizations:[]
+    },
+    "mashed-potatoes-large":{
+      id:"mashed-potatoes-large", category:"sides", name:"Mashed Potatoes Large", shortName:"Large Mashed Potatoes",
+      description:"A large serving of our mashed potatoes and gravy.", price:3.99, calories:340, customizations:[]
+    },
+    "mashed-potatoes":{
+      id:"mashed-potatoes", category:"sides", name:"Mashed Potatoes", shortName:"Mashed Potatoes",
+      description:"A regular serving of our mashed potatoes and gravy.", price:2.69, calories:170, customizations:[]
+    },
+    "steamed-rice":{
+      id:"steamed-rice", category:"sides", name:"Steamed Rice", shortName:"Steamed Rice",
+      description:"A side of steamed rice.", price:2.69, calories:190, customizations:[]
+    },
+    "large-gravy":{
+      id:"large-gravy", category:"sides", name:"Large Gravy", shortName:"Large Gravy",
+      description:"Our savory gravy in a large size.", price:2.19, calories:120, customizations:[]
+    },
+    "gravy":{
+      id:"gravy", category:"sides", name:"Gravy", shortName:"Gravy",
+      description:"Our savory gravy.", price:0.00, calories:60, customizations:[]
+    },
+
+    "peach-mango-pie":{
+      id:"peach-mango-pie", category:"desserts", name:"Peach Mango Pie", shortName:"Peach Mango Pie",
+      description:"Sweet and flaky Peach Mango Pie made with real Philippine mangoes.", price:2.99, calories:270, customizations:[]
+    },
+    "ube-pie":{
+      id:"ube-pie", category:"desserts", name:"Ube Pie", shortName:"Ube Pie",
+      description:"Sweet and flaky Ube Pie filled with real ube, with a smooth texture and mild sweet flavor.", price:2.99, calories:270, customizations:[]
+    },
+    "pie-snack-pack":{
+      id:"pie-snack-pack", category:"desserts", name:"6pc Pie Snack Pack", shortName:"6pc Pie Snack Pack",
+      description:"Six pies of your choice, including Peach Mango Pie and available limited-time pie flavors.", price:16.00, calories:1620, customizations:[]
     }
   },
 
