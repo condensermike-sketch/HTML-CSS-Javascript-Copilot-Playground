@@ -46,8 +46,77 @@
 </div>
 <script>
 const menu=window.JOLLIBEE_MENU,S=window.JolliState,orders=[...S.sessionOrders(),...menu.seededOrders];
-function line(entry){if(entry.itemId){const i=menu.items[entry.itemId];return `${entry.quantity||1}× ${i.shortName||i.name}`}const u=menu.upsells.find(x=>x.id===entry.addonId);return `${entry.quantity||1}× ${u?u.name:"Add-on"}`}
-function price(entry){if(entry.itemId)return S.configuredItemUnitPrice(entry.itemId,entry.customizations||{})*(entry.quantity||1);const u=menu.upsells.find(x=>x.id===entry.addonId);return (u?u.price:0)*(entry.quantity||1)}
-document.getElementById("orders").innerHTML=orders.map((o,idx)=>{const total=(o.items||[]).reduce((n,e)=>n+price(e),0);return `<article class="order-card"><div class="order-head"><strong>${o.fulfillment||"Previous Order"}</strong><span class="order-date">${o.dateLabel||""}</span></div><div class="order-lines">${(o.items||[]).map(line).join("<br>")}</div><div class="order-total">${S.fmt(total)}</div><button class="primary" data-reorder="${idx}">Reorder</button></article>`}).join("");
-document.querySelectorAll("[data-reorder]").forEach(b=>b.onclick=()=>{const o=orders[Number(b.dataset.reorder)];S.setCart((o.items||[]).map(x=>JSON.parse(JSON.stringify(x))));location.href="../cart/"});
+
+function price(entry){
+  if(entry.itemId)return S.configuredItemUnitPrice(entry.itemId,entry.customizations||{})*(entry.quantity||1);
+  const u=menu.upsells.find(x=>x.id===entry.addonId);
+  return (u?u.price:0)*(entry.quantity||1)
+}
+
+function itemLine(entry,orderIndex,lineIndex){
+  if(entry.itemId){
+    const i=menu.items[entry.itemId];
+    const meta=Object.values(entry.customizations||{}).join(" · ");
+    const active=S.isFavorite(entry.itemId);
+    return `<div class="order-line">
+      <div class="order-line-copy">
+        <strong>${entry.quantity||1}× ${i.shortName||i.name}</strong>
+        ${meta?`<span>${meta}</span>`:""}
+      </div>
+      <button class="order-favorite ${active?"active":""}"
+              data-fav-order="${orderIndex}"
+              data-fav-line="${lineIndex}"
+              aria-label="${active?"Remove from Favorites":"Save to Favorites"}"
+              title="${active?"Remove from Favorites":"Save to Favorites"}">
+        <svg viewBox="0 0 24 24" aria-hidden="true">
+          <path class="icon-stroke" d="M20.8 4.8a5.3 5.3 0 0 0-7.5 0L12 6.1l-1.3-1.3a5.3 5.3 0 0 0-7.5 7.5L12 21l8.8-8.7a5.3 5.3 0 0 0 0-7.5Z"/>
+        </svg>
+      </button>
+    </div>`;
+  }
+
+  const u=menu.upsells.find(x=>x.id===entry.addonId);
+  return `<div class="order-line">
+    <div class="order-line-copy">
+      <strong>${entry.quantity||1}× ${u?u.name:"Add-on"}</strong>
+    </div>
+    <div></div>
+  </div>`;
+}
+
+function drawOrders(){
+  document.getElementById("orders").innerHTML=orders.map((o,idx)=>{
+    const total=(o.items||[]).reduce((n,e)=>n+price(e),0);
+    return `<article class="order-card">
+      <div class="order-head">
+        <strong>${o.fulfillment||"Previous Order"}</strong>
+        <span class="order-date">${o.dateLabel||""}</span>
+      </div>
+      <div class="order-lines">
+        ${(o.items||[]).map((e,lineIdx)=>itemLine(e,idx,lineIdx)).join("")}
+      </div>
+      <div class="order-total">${S.fmt(total)}</div>
+      <button class="primary" data-reorder="${idx}">Reorder</button>
+    </article>`;
+  }).join("");
+
+  document.querySelectorAll("[data-reorder]").forEach(b=>b.onclick=()=>{
+    const o=orders[Number(b.dataset.reorder)];
+    S.setCart((o.items||[]).map(x=>JSON.parse(JSON.stringify(x))));
+    location.href="../cart/";
+  });
+
+  document.querySelectorAll("[data-fav-order]").forEach(b=>b.onclick=()=>{
+    const oi=Number(b.dataset.favOrder);
+    const li=Number(b.dataset.favLine);
+    const entry=orders[oi]?.items?.[li];
+    if(!entry || !entry.itemId)return;
+
+    const added=S.favoriteItem(entry.itemId,entry.customizations||{});
+    S.showToast(added?"Saved to Favorites":"Removed from Favorites");
+    drawOrders();
+  });
+}
+
+drawOrders();
 </script></body></html>

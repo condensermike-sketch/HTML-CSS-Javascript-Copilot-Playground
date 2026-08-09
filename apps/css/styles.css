@@ -856,3 +856,39 @@ svg{display:block}
   max-height:18px;
   flex-shrink:0
 }
+
+/* Cross-browser link color reset.
+   Prevents Safari/iOS from applying default blue to prototype navigation links. */
+a,
+a:visited,
+a:hover,
+a:active{
+  color:inherit;
+}
+.location-copy a,
+.cart-link{
+  color:var(--red);
+}
+
+/* Order Again: item-level Favorite actions */
+.order-lines{display:grid;gap:0;margin-top:10px}
+.order-line{
+  display:grid;
+  grid-template-columns:1fr 38px;
+  gap:10px;
+  align-items:center;
+  min-height:48px;
+  padding:8px 0;
+  border-bottom:1px solid var(--line)
+}
+.order-line:last-child{border-bottom:0}
+.order-line-copy{font-size:14px;line-height:1.4;color:#777}
+.order-line-copy strong{display:block;color:#222;font-size:15px;font-weight:900}
+.order-line-copy span{display:block;margin-top:2px;color:#929292;font-size:13px}
+.order-favorite{
+  width:36px;height:36px;border:0;border-radius:50%;background:transparent;
+  color:#8d8d8d;display:grid;place-items:center;padding:0
+}
+.order-favorite svg{width:22px;height:22px}
+.order-favorite.active{color:var(--red)}
+.order-favorite.active svg path{fill:currentColor}
