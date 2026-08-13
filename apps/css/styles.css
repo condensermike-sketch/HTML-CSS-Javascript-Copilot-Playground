@@ -267,6 +267,17 @@ svg{display:block}
 .choice-img{width:55px;height:55px;border-radius:8px}
 .choice-row strong{font-size:18px;line-height:1.15}
 .choice-row small{display:block;font-size:14px;color:#888;margin-top:3px}
+
+/* Quantity-type customization groups (e.g. Sauces): each row starts unpriced
+   and reveals its price + stepper only once at least one has been added. */
+.qty-row{min-height:91px;display:grid;grid-template-columns:55px 1fr auto;gap:10px;align-items:center;padding:10px 17px;border-bottom:1px solid var(--line)}
+.qty-row strong{font-size:18px;line-height:1.15}
+.qty-row small{display:block;font-size:14px;color:#888;margin-top:3px;height:0;overflow:hidden;opacity:0;transition:height .16s ease,opacity .12s ease}
+.qty-row.on small{height:18px;opacity:1}
+.qty-row small.free{color:var(--green);font-weight:900}
+.qty-row .stepper{width:108px;display:none}
+.qty-row.on .stepper{display:grid}
+.qty-row.on .menu-plus{display:none}
 .nested-trigger{border:0;background:transparent;width:100%;text-align:left;padding:0;color:inherit}
 .apply-btn{width:100%}
 .nested-sheet-wrap{position:absolute;inset:0;background:rgba(0,0,0,.4);z-index:130;display:none;align-items:flex-end}

@@ -2,6 +2,12 @@
 
 Guidance for Claude Code (or any future agent) working in this repository.
 
+> **Companion file:** `AGENTS.md` at the repo root carries the same project guidance for
+> ChatGPT/Codex, Copilot, and Cursor (which read `AGENTS.md`, not `CLAUDE.md`). The
+> Claude-Code-specific tooling notes below (Browser pane, `preview_start`, screenshot
+> coordinates) live only here. **If you change a project fact in this file, mirror it in
+> `AGENTS.md`.** Teammate onboarding for the ChatGPT path: `docs/setup-with-chatgpt.md`.
+
 ## What this repo actually is
 
 The repo name (`HTML-CSS-Javascript-Copilot-Playground`) and its root-level files are
@@ -95,6 +101,15 @@ full-bleed mobile screen. It inherits the same flex-column behavior from the bas
 
 ## Running / previewing locally
 
+**Default: use Docker on port 8080** (user preference as of 2026-08-12). The compose
+service `web` is usually already running — check with `docker compose ps`, and
+`docker compose up -d` if it isn't. The app is then at `http://localhost:8080/`
+(**not** `/apps/` — the container's web root *is* `apps/`; see the Docker section below).
+`./apps` is bind-mounted, so edits are live without a rebuild or restart. Don't spin up an
+ad-hoc `python3 -m http.server` on a random port anymore.
+
+The `python3 -m http.server` notes below are the fallback for when Docker isn't available.
+
 This is a static site (plain `<script src>` tags, no bundler, no build step) so any static
 file server works. **Do not use the `preview_start` tool's own subprocess launcher in this
 environment** — its subprocess sandbox blocks the `getcwd()` syscall entirely (confirmed:
@@ -171,7 +186,9 @@ config, no `.env`/volume mounts.
 ## Git / collaboration setup
 
 - `origin` is not the user's own repo — the user has collaborator **WRITE** access to it,
-  not ownership/admin.
+  not ownership/admin. **The owner is the user's teammate** (the one being onboarded in
+  `docs/setup-with-chatgpt.md`), so anything needing repo admin — settings, GitHub App
+  installs, branch protection — is a quick ask to them, not an external blocker.
 - That repo is itself a fork of another upstream repo (likely just the original template
   author — not an active collaborator on this work).
 - **The repo owner is the person the user is actually collaborating with.** Workflow:

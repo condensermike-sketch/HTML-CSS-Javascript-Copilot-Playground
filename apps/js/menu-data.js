@@ -1,6 +1,7 @@
 
 window.JOLLIBEE_MENU = {
   categories: [
+    { id:"nuggets", label:"Chicken Nuggets", items:["chicken-nuggets-5pc"] },
     { id:"chickenjoy", label:"Chickenjoy Fried Chicken", items:["chickenjoy-2pc-side","chickenjoy-2pc-side-drink"] },
     { id:"sandwiches", label:"Chicken Sandwiches", items:["chicken-sandwich-deluxe"] },
     { id:"meal-deals", label:"Meal Deals", items:["chickenjoy-meal-deal"] },
@@ -13,7 +14,7 @@ window.JOLLIBEE_MENU = {
     { id:"burger-steak", label:"Burger Steak", items:[] },
     { id:"sides", label:"Sides", items:["adobo-rice","side-jolly-spaghetti","jolly-crispy-fries-large","jolly-crispy-fries","mashed-potatoes-large","mashed-potatoes","steamed-rice","large-gravy","gravy"] },
     { id:"drinks", label:"Drinks", items:[] },
-    { id:"desserts", label:"Desserts", items:["peach-mango-pie","ube-pie","pie-snack-pack"] }
+    { id:"desserts", label:"Desserts", items:["peach-mango-pie","ube-pie"] }
   ],
 
   groups: {
@@ -56,6 +57,18 @@ window.JOLLIBEE_MENU = {
         {value:"Regular Chickenjoy Gravy", label:"Regular Chickenjoy Gravy"},
         {value:"No Gravy", label:"No Gravy"}
       ]
+    },
+    sauces: {
+      title:"Sauces",
+      quantity:true,
+      options:[
+        {value:"Signature Dipping Sauce", label:"Signature Dipping Sauce", priceDelta:0.50},
+        {value:"Small Chickenjoy Gravy", label:"Small Chickenjoy Gravy", priceDelta:1.29},
+        {value:"BBQ Dipping Sauce", label:"BBQ Dipping Sauce", priceDelta:0.50},
+        {value:"Honey Mustard Dipping Sauce", label:"Honey Mustard Dipping Sauce", priceDelta:0.50},
+        {value:"Sriracha Mayo Dipping Sauce", label:"Sriracha Mayo Dipping Sauce", priceDelta:0.50},
+        {value:"Buttermilk Ranch Dipping Sauce", label:"Buttermilk Ranch Dipping Sauce", priceDelta:0.50}
+      ]
     }
   },
 
@@ -67,6 +80,16 @@ window.JOLLIBEE_MENU = {
   },
 
   items: {
+    "chicken-nuggets-5pc":{
+      id:"chicken-nuggets-5pc",
+      category:"nuggets",
+      name:"5pc Chicken Nuggets",
+      shortName:"5pc Chicken Nuggets",
+      description:"Crispy, juicy, perfectly seasoned chicken breast nuggets with 100% white meat made for dipping or enjoying on their own.",
+      price:4.49,
+      calories:0,
+      customizations:["sauces"]
+    },
     "chickenjoy-2pc-side":{
       id:"chickenjoy-2pc-side",
       category:"chickenjoy",
@@ -187,23 +210,18 @@ window.JOLLIBEE_MENU = {
 
     "peach-mango-pie":{
       id:"peach-mango-pie", category:"desserts", name:"Peach Mango Pie", shortName:"Peach Mango Pie",
-      description:"Sweet and flaky Peach Mango Pie made with real Philippine mangoes.", price:2.99, calories:270, customizations:[]
+      description:"Sweet and flaky Peach Mango Pie made with real Philippine Mangoes", price:2.99, calories:270, customizations:[]
     },
     "ube-pie":{
       id:"ube-pie", category:"desserts", name:"Ube Pie", shortName:"Ube Pie",
-      description:"Sweet and flaky Ube Pie filled with real ube, with a smooth texture and mild sweet flavor.", price:2.99, calories:270, customizations:[]
-    },
-    "pie-snack-pack":{
-      id:"pie-snack-pack", category:"desserts", name:"6pc Pie Snack Pack", shortName:"6pc Pie Snack Pack",
-      description:"Six pies of your choice, including Peach Mango Pie and available limited-time pie flavors.", price:16.00, calories:1620, customizations:[]
+      description:"Sweet and flaky Ube pie filled with real ube. Ube or purple yam has a smooth texture, and a mild sweet flavor.", price:2.99, calories:310, customizations:[]
     }
   },
 
   upsells:[
     {id:"peach-mango-pie", name:"Peach Mango Pie", price:2.99, calories:270},
     {id:"steamed-rice", name:"Steamed Rice", price:2.99, calories:190},
-    {id:"mango-freeze", name:"Mango Freeze", price:5.29, calories:320},
-    {id:"pie-snack-pack", name:"6pc Pie Snack Pack", price:16.00, calories:1620}
+    {id:"mango-freeze", name:"Mango Freeze", price:5.29, calories:320}
   ],
 
   seededOrders:[

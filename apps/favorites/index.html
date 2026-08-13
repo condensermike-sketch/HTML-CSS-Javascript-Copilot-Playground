@@ -74,7 +74,7 @@ function favoriteCard(x){
   if(x.itemId){
     const item=menu.items[x.itemId];
     if(!item)return "";
-    const meta=Object.values(x.customizations||{}).join(" · ");
+    const meta=S.customizationParts(x.itemId,x.customizations||{}).join(" · ");
     return regularFavoriteCard(item,meta,"data-remove-item",item.id);
   }
 

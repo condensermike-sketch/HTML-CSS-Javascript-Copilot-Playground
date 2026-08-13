@@ -73,7 +73,7 @@ function price(entry){
 function itemLine(entry,orderIndex,lineIndex){
   if(entry.itemId){
     const i=menu.items[entry.itemId];
-    const meta=Object.values(entry.customizations||{}).join(" · ");
+    const meta=S.customizationParts(entry.itemId,entry.customizations||{}).join(" · ");
     const active=S.isFavorite(entry.itemId);
     return `<div class="order-line">
       <div class="order-line-copy">
