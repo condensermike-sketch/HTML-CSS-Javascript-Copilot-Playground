@@ -143,6 +143,24 @@
 
   function fmt(n){ return "$"+Number(n).toFixed(2); }
 
+  // Quantity-type groups (e.g. Sauces) store {optionValue: count} instead of a
+  // single string. One cup is free per order — the most expensive one selected —
+  // and every additional cup is charged at its own priceDelta.
+  function quantityGroupCount(selected){
+    return Object.values(selected||{}).reduce((n,q)=>n+Number(q||0),0);
+  }
+  function quantityGroupDelta(group, selected){
+    const cups=[];
+    Object.entries(selected||{}).forEach(([value,qty])=>{
+      const opt=(group.options||[]).find(o=>o.value===value);
+      if(!opt) return;
+      for(let i=0;i<Number(qty||0);i++) cups.push(Number(opt.priceDelta||0));
+    });
+    if(!cups.length) return 0;
+    cups.sort((a,b)=>b-a);
+    return cups.slice(1).reduce((sum,p)=>sum+p,0);
+  }
+
   function customizationDelta(itemId, customizations){
     const menu=window.JOLLIBEE_MENU;
     const item=menu && menu.items ? menu.items[itemId] : null;
@@ -153,6 +171,11 @@
       const selected=customizations[type];
       const group=menu.groups && menu.groups[type];
       if(!selected || !group) return;
+
+      if(group.quantity){
+        total += quantityGroupDelta(group, selected);
+        return;
+      }
 
       // Direct top-level option, e.g. Adobo Rice or Pineapple Quencher.
       let opt=(group.options||[]).find(o=>o.value===selected);
@@ -170,6 +193,26 @@
     return total;
   }
 
+  // Readable summary pieces for a saved customizations object, e.g. for a
+  // quantity group: ["Small Chickenjoy Gravy, 2× BBQ Dipping Sauce"].
+  // Single-select groups pass their stored string straight through.
+  function customizationParts(itemId, customizations){
+    const menu=window.JOLLIBEE_MENU;
+    const item=menu && menu.items ? menu.items[itemId] : null;
+    if(!item || !customizations) return [];
+    return (item.customizations||[]).map(type=>{
+      const group=menu.groups && menu.groups[type];
+      const value=customizations[type];
+      if(!group || !value) return null;
+      if(group.quantity){
+        const entries=Object.entries(value).filter(([,q])=>q>0);
+        if(!entries.length) return null;
+        return entries.map(([name,q])=>q>1?`${q}× ${name}`:name).join(", ");
+      }
+      return value;
+    }).filter(Boolean);
+  }
+
   function configuredItemUnitPrice(itemId, customizations){
     const menu=window.JOLLIBEE_MENU;
     const item=menu && menu.items ? menu.items[itemId] : null;
@@ -182,6 +225,7 @@
     savedCustomizations, saveCustomizations,
     favorites, isFavorite, favoriteItem, removeFavorite, isAddonFavorite, favoriteAddon, removeAddonFavorite,
     cart, setCart, cartCount, addCartItem, updateCartItem, removeCartItem, clearCart,
-    sessionOrders, addCompletedOrder, showToast, fmt, customizationDelta, configuredItemUnitPrice
+    sessionOrders, addCompletedOrder, showToast, fmt, customizationDelta, configuredItemUnitPrice,
+    quantityGroupCount, quantityGroupDelta, customizationParts
   };
 })();

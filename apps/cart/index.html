@@ -131,7 +131,7 @@ function draw(){
   document.getElementById("cartCount").textContent=`${S.cartCount()} item${S.cartCount()===1?"":"s"} in cart`;
 
   itemsEl.innerHTML=cart.map((e,i)=>{
-    const meta=e.itemId?Object.values(e.customizations||{}).join(" · "):"";
+    const meta=e.itemId?S.customizationParts(e.itemId,e.customizations||{}).join(" · "):"";
     const edit=e.itemId?`<a class="cart-edit" href="../item/?id=${e.itemId}&edit=${i}&seed=1">Edit</a>`:"";
     return `<article class="cart-item" data-index="${i}">
       <div class="cart-item-img placeholder">${placeholder()}</div>
