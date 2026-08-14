@@ -1,10 +1,82 @@
-<!doctype html><html><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><meta name="theme-color" content="#ffffff"><title>Menu Item</title><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,200..1000;1,200..1000&display=swap" rel="stylesheet"><link rel="stylesheet" href="../css/styles.css?v=3"><script src="../js/menu-data.js"></script><script src="../js/app.js"></script></head><body><div class="app-shell">
+<!doctype html><html><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><meta name="theme-color" content="#ffffff"><title>Menu Item</title><link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,200..1000;1,200..1000&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../css/styles.css?v=2">
+<script src="../js/menu-data.js"></script>
+<script src="../js/app.js"></script><script>
+(function (m, a, z, e) {
+  var s, t, u, v;
+  try {
+    t = m.sessionStorage.getItem('maze-us');
+  } catch (err) {}
+
+  if (!t) {
+    t = new Date().getTime();
+    try {
+      m.sessionStorage.setItem('maze-us', t);
+    } catch (err) {}
+  }
+
+  u = document.currentScript || (function () {
+    var w = document.getElementsByTagName('script');
+    return w[w.length - 1];
+  })();
+  v = u && u.nonce;
+
+  s = a.createElement('script');
+  s.src = z + '?apiKey=' + e;
+  s.async = true;
+  if (v) s.setAttribute('nonce', v);
+  a.getElementsByTagName('head')[0].appendChild(s);
+  m.mazeUniversalSnippetApiKey = e;
+})(window, document, 'https://snippet.maze.co/maze-universal-loader.js', '07cbf368-f585-4dcc-8a0b-966c9d7e76ab');
+</script>
+</head><body><div class="app-shell">
 <div class="white-topbar no-line"><a class="back-btn" id="backLink" href="../menu/"><svg viewBox="0 0 24 24"><path class="icon-stroke" d="m15 18-6-6 6-6"/></svg></a><div></div><button class="back-btn favorite-btn" id="favoriteBtn" aria-label="Favorite"><svg viewBox="0 0 24 24"><path class="icon-stroke" d="M20.8 4.8a5.3 5.3 0 0 0-7.5 0L12 6.1l-1.3-1.3a5.3 5.3 0 0 0-7.5 7.5L12 21l8.8-8.7a5.3 5.3 0 0 0 0-7.5Z"/></svg></button></div>
-<main class="app-scroll item-scroll"><div class="item-hero placeholder"><svg viewBox="0 0 24 24"><rect class="icon-stroke" x="4" y="4" width="16" height="16" rx="2"/><circle class="icon-stroke" cx="9" cy="9" r="2"/><path class="icon-stroke" d="m5 17 4-4 3 3 2-2 5 5"/></svg></div><div class="item-title-row"><h1 id="itemName"></h1><div class="item-price" id="itemPrice"></div></div><p class="item-desc" id="itemDesc"></p><div class="saved-banner" id="savedBanner"><svg width="20" height="20" viewBox="0 0 24 24"><path class="icon-stroke" d="m5 12 4 4 10-10"/></svg><span>Saved customizations applied</span></div><section class="custom-wrap"><div class="custom-head"><h2 class="section-title">Customize</h2><span style="color:var(--red);font-size:26px">⌃</span></div><div id="customRows"></div><label class="save-custom-row" id="saveRow"><input type="checkbox" id="saveFuture"><span>Save customization for future orders?</span></label><div class="nutrition-box"><svg width="24" height="24" viewBox="0 0 24 24"><path class="icon-stroke" d="M12 3 2.8 20h18.4Z"/><path class="icon-stroke" d="M12 9v5M12 17h.01"/></svg><div>2,000 calories a day is used for general nutrition advice, but calorie needs may vary.</div></div><div class="item-calories">Total calories: <strong id="calories"></strong></div></section></main><div class="bottom-action"><div class="item-action-grid"><div class="stepper"><button id="minus">−</button><span id="qty">1</span><button id="plus">+</button></div><button class="primary add-cart" id="addBtn" disabled><span id="addLabel">Add To Cart</span><span id="actionPrice"></span></button></div></div><div class="upsell-wrap" id="upsell"><div class="upsell-sheet"><div class="upsell-head"><button class="upsell-close" id="upsellX">×</button><h2>Picked Just For You</h2><div></div></div><div id="upsellRows"></div><div class="upsell-actions"><button class="primary" id="checkout">Proceed To Checkout</button><button class="secondary" id="upsellClose">Close</button></div></div></div><div class="toast"></div></div>
+<main class="app-scroll item-scroll"><div class="item-hero placeholder"><svg viewBox="0 0 24 24"><rect class="icon-stroke" x="4" y="4" width="16" height="16" rx="2"/><circle class="icon-stroke" cx="9" cy="9" r="2"/><path class="icon-stroke" d="m5 17 4-4 3 3 2-2 5 5"/></svg></div><div class="item-title-row"><h1 id="itemName"></h1><div class="item-price" id="itemPrice"></div></div><p class="item-desc" id="itemDesc"></p><div class="saved-banner" id="savedBanner"><svg width="20" height="20" viewBox="0 0 24 24"><path class="icon-stroke" d="m5 12 4 4 10-10"/></svg><span>Saved customizations applied</span></div>
+<section class="custom-wrap"><div class="custom-head"><h2 class="section-title">Customize</h2><span style="color:var(--red);font-size:26px">⌃</span></div><div id="customRows"></div><label class="save-custom-row" id="saveRow"><input type="checkbox" id="saveFuture"><span>Save customization for future orders?</span></label><div class="nutrition-box"><svg width="24" height="24" viewBox="0 0 24 24"><path class="icon-stroke" d="M12 3 2.8 20h18.4Z"/><path class="icon-stroke" d="M12 9v5M12 17h.01"/></svg><div>2,000 calories a day is used for general nutrition advice, but calorie needs may vary.</div></div><div class="item-calories">Total calories: <strong id="calories"></strong></div></section></main>
+<div class="bottom-action"><div class="item-action-grid"><div class="stepper"><button id="minus">−</button><span id="qty">1</span><button id="plus">+</button></div><button class="primary add-cart" id="addBtn" disabled><span id="addLabel">Add To Cart</span><span id="actionPrice"></span></button></div></div>
+<div class="upsell-wrap" id="upsell"><div class="upsell-sheet"><div class="upsell-head"><button class="upsell-close" id="upsellX">×</button><h2>Picked Just For You</h2><div></div></div><div id="upsellRows"></div><div class="upsell-actions"><button class="primary" id="checkout">Proceed To Checkout</button><button class="secondary" id="upsellClose">Close</button></div></div></div>
+<div class="toast"></div></div>
 <script>
-const menu=window.JOLLIBEE_MENU,S=window.JolliState,params=new URLSearchParams(location.search);const id=params.get("id")||"chickenjoy-2pc-side",item=menu.items[id]||menu.items["chickenjoy-2pc-side"];const editIndex=params.has("edit")?Number(params.get("edit")):null;const seedFromCart=params.get("seed")==="1";let draft;if(editIndex!==null&&seedFromCart&&S.cart()[editIndex]){const c=S.cart()[editIndex];draft={quantity:c.quantity,customizations:{...c.customizations}};S.saveItemDraft(id,draft)}else draft=S.currentItemDraft(id);const saved=S.savedCustomizations(id);if(saved&&!Object.keys(draft.customizations||{}).length){draft.customizations={...saved};S.saveItemDraft(id,draft);document.getElementById("savedBanner").classList.add("show")}document.getElementById("backLink").href=editIndex!==null?"../cart/":"../menu/";document.getElementById("itemName").textContent=item.name;document.getElementById("itemPrice").textContent=S.fmt(item.price);document.getElementById("itemDesc").textContent=item.description;document.getElementById("saveRow").style.display=item.customizations.length?"flex":"none";
-function quantitySummary(group,value){const entries=Object.entries(value||{}).filter(([,q])=>q>0);if(!entries.length)return "";const cups=[];entries.forEach(([name,q])=>{const opt=group.options.find(o=>o.value===name);for(let i=0;i<q;i++)cups.push({name,priceDelta:opt?Number(opt.priceDelta||0):0})});cups.sort((a,b)=>b.priceDelta-a.priceDelta);const freeName=cups[0].name.replace(" Dipping Sauce","");return cups.length>1?`${cups.length} cups · ${freeName} included`:`${freeName} included`}
+const menu=window.JOLLIBEE_MENU,S=window.JolliState,params=new URLSearchParams(location.search);
+const id=params.get("id")||"chickenjoy-2pc-side",item=menu.items[id]||menu.items["chickenjoy-2pc-side"];
+const editIndex=params.has("edit")?Number(params.get("edit")):null;
+const seedFromCart=params.get("seed")==="1";
+let draft;
+if(editIndex!==null && seedFromCart && S.cart()[editIndex]){
+  const c=S.cart()[editIndex];
+  draft={quantity:c.quantity,customizations:{...c.customizations}};
+  S.saveItemDraft(id,draft);
+}else{
+  draft=S.currentItemDraft(id);
+}
+const saved=S.savedCustomizations(id);
+if(saved && !Object.keys(draft.customizations||{}).length){draft.customizations={...saved};S.saveItemDraft(id,draft);document.getElementById("savedBanner").classList.add("show")}
+document.getElementById("backLink").href=editIndex!==null?"../cart/":"../menu/";
+document.getElementById("itemName").textContent=item.name;document.getElementById("itemPrice").textContent=S.fmt(item.price);document.getElementById("itemDesc").textContent=item.description;
+document.getElementById("saveRow").style.display=item.customizations.length?"flex":"none";
+function quantitySummary(group,value){
+  const entries=Object.entries(value||{}).filter(([,q])=>q>0);
+  if(!entries.length)return "";
+  const cups=[];
+  entries.forEach(([name,q])=>{const opt=group.options.find(o=>o.value===name);for(let i=0;i<q;i++)cups.push({name,priceDelta:opt?Number(opt.priceDelta||0):0})});
+  cups.sort((a,b)=>b.priceDelta-a.priceDelta);
+  const freeName=cups[0].name.replace(" Dipping Sauce","");
+  return cups.length>1?`${cups.length} cups · ${freeName} included`:`${freeName} included`;
+}
 function customizationHasValue(g,v){return g.quantity?S.quantityGroupCount(v)>0:!!v}
 document.getElementById("customRows").innerHTML=item.customizations.map(type=>{const g=menu.groups[type],v=draft.customizations[type],has=customizationHasValue(g,v),summary=g.quantity?quantitySummary(g,v):v;return `<div class="custom-row"><div class="custom-thumb placeholder"><svg viewBox="0 0 24 24"><rect class="icon-stroke" x="4" y="4" width="16" height="16" rx="2"/><circle class="icon-stroke" cx="9" cy="9" r="2"/><path class="icon-stroke" d="m5 17 4-4 3 3 2-2 5 5"/></svg></div><div><div class="custom-label">${g.title} (Required)</div><div class="${has?"custom-value":"custom-unset"}">${has?summary:"Choose an option"}</div></div><a class="yellow" href="../customize/?item=${item.id}&type=${type}${editIndex!==null?`&edit=${editIndex}`:""}">${has?"Change":"Choose"}</a></div>`}).join("");
-function requiredDone(){return item.customizations.every(t=>{const g=menu.groups[t],v=draft.customizations&&draft.customizations[t];return customizationHasValue(g,v)})}function render(){document.getElementById("qty").textContent=draft.quantity;document.getElementById("actionPrice").textContent=S.fmt(S.configuredItemUnitPrice(id,draft.customizations)*draft.quantity);document.getElementById("calories").textContent=(item.calories*draft.quantity)+" Cal";document.getElementById("addBtn").disabled=!requiredDone();document.getElementById("addLabel").textContent=editIndex!==null?"Update Cart":"Add To Cart";document.getElementById("favoriteBtn").classList.toggle("filled",S.isFavorite(id));S.syncCartIndicators()}render();document.getElementById("plus").onclick=()=>{draft.quantity++;S.saveItemDraft(id,draft);render()};document.getElementById("minus").onclick=()=>{if(draft.quantity>1)draft.quantity--;S.saveItemDraft(id,draft);render()};document.getElementById("favoriteBtn").onclick=()=>{const added=S.favoriteItem(id,draft.customizations||{});render();S.showToast(added?"Saved to Favorites":"Removed from Favorites")};document.getElementById("saveFuture").checked=!!saved;document.getElementById("addBtn").onclick=()=>{if(document.getElementById("saveFuture").checked)S.saveCustomizations(id,draft.customizations);const entry={itemId:id,quantity:draft.quantity,customizations:{...draft.customizations},addons:[]};if(editIndex!==null){S.updateCartItem(editIndex,entry);S.clearItemDraft(id);location.href="../cart/";return}S.addCartItem(entry);S.clearItemDraft(id);S.syncCartIndicators();document.getElementById("upsell").classList.add("show")};document.getElementById("upsellRows").innerHTML=menu.upsells.map(u=>`<div class="upsell-row"><div class="upsell-img placeholder"><svg viewBox="0 0 24 24"><rect class="icon-stroke" x="4" y="4" width="16" height="16" rx="2"/><circle class="icon-stroke" cx="9" cy="9" r="2"/><path class="icon-stroke" d="m5 17 4-4 3 3 2-2 5 5"/></svg></div><div><div class="upsell-name">${u.name}</div><div class="upsell-meta">+${S.fmt(u.price)} · +${u.calories} Cal</div></div><button class="yellow" data-up="${u.id}">Add To Cart</button></div>`).join("");document.querySelectorAll("[data-up]").forEach(b=>b.onclick=()=>{S.addCartItem({addonId:b.dataset.up,quantity:1});b.textContent="Added";b.disabled=true;S.syncCartIndicators()});function closeUpsell(){document.getElementById("upsell").classList.remove("show")}document.getElementById("upsellX").onclick=closeUpsell;document.getElementById("upsellClose").onclick=closeUpsell;document.getElementById("checkout").onclick=()=>location.href="../cart/";
+function requiredDone(){return item.customizations.every(t=>{const g=menu.groups[t],v=draft.customizations&&draft.customizations[t];return customizationHasValue(g,v)})}
+function render(){document.getElementById("qty").textContent=draft.quantity;document.getElementById("actionPrice").textContent=S.fmt(S.configuredItemUnitPrice(id,draft.customizations)*draft.quantity);document.getElementById("calories").textContent=(item.calories*draft.quantity)+" Cal";document.getElementById("addBtn").disabled=!requiredDone();document.getElementById("addLabel").textContent=editIndex!==null?"Update Cart":"Add To Cart";document.getElementById("favoriteBtn").classList.toggle("filled",S.isFavorite(id))}
+render();
+document.getElementById("plus").onclick=()=>{draft.quantity++;S.saveItemDraft(id,draft);render()};
+document.getElementById("minus").onclick=()=>{if(draft.quantity>1)draft.quantity--;S.saveItemDraft(id,draft);render()};
+document.getElementById("favoriteBtn").onclick=()=>{const added=S.favoriteItem(id,draft.customizations||{});render();S.showToast(added?"Saved to Favorites":"Removed from Favorites")};
+document.getElementById("saveFuture").checked=!!saved;
+document.getElementById("addBtn").onclick=()=>{if(document.getElementById("saveFuture").checked)S.saveCustomizations(id,draft.customizations);const entry={itemId:id,quantity:draft.quantity,customizations:{...draft.customizations},addons:[]};if(editIndex!==null){S.updateCartItem(editIndex,entry);S.clearItemDraft(id);location.href="../cart/";return}S.addCartItem(entry);S.clearItemDraft(id);document.getElementById("upsell").classList.add("show")};
+document.getElementById("upsellRows").innerHTML=menu.upsells.map(u=>`<div class="upsell-row"><div class="upsell-img placeholder"><svg viewBox="0 0 24 24"><rect class="icon-stroke" x="4" y="4" width="16" height="16" rx="2"/><circle class="icon-stroke" cx="9" cy="9" r="2"/><path class="icon-stroke" d="m5 17 4-4 3 3 2-2 5 5"/></svg></div><div><div class="upsell-name">${u.name}</div><div class="upsell-meta">+${S.fmt(u.price)} · +${u.calories} Cal</div></div><button class="yellow" data-up="${u.id}">Add To Cart</button></div>`).join("");
+document.querySelectorAll("[data-up]").forEach(b=>b.onclick=()=>{S.addCartItem({addonId:b.dataset.up,quantity:1});b.textContent="Added";b.disabled=true});
+function closeUpsell(){document.getElementById("upsell").classList.remove("show")}
+document.getElementById("upsellX").onclick=closeUpsell;document.getElementById("upsellClose").onclick=closeUpsell;document.getElementById("checkout").onclick=()=>location.href="../cart/";
 </script></body></html>
