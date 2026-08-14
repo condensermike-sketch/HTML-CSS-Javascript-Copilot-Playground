@@ -89,6 +89,9 @@ svg{display:block}
   align-items:center;
 }
 .white-topbar.no-line{border-bottom:0}
+.white-topbar .header-cart-link{color:#333;text-decoration:none}
+.white-topbar .cart-badge{background:var(--red);color:#fff;border:2px solid #fff}
+.white-topbar.header-cart-expanded{grid-template-columns:40px 1fr 40px 40px;column-gap:4px}
 .topbar-title{font-size:var(--top-nav);font-weight:900;text-align:center;align-self:center}
 .back-btn{width:36px;height:36px;border:0;background:transparent;padding:0;display:grid;place-items:center;text-decoration:none;color:#333}
 .back-btn svg{width:25px;height:25px}
@@ -183,6 +186,26 @@ svg{display:block}
 }
 .shortcut .big{grid-column:1/3;width:31px;height:31px;justify-self:center;color:#3e3e3e}
 .shortcut strong{font-size:15px;font-weight:900;align-self:end}
+
+/* Home shortcut hierarchy: Order Again primary, Favorites secondary */
+.home-shortcuts{grid-template-columns:1fr}
+.home-order-again-primary{
+  height:92px;border-color:#d1d1d1;background:#fff;color:#555;
+  grid-template-columns:48px 1fr 22px;grid-template-rows:1fr;align-items:center;padding:16px 17px
+}
+.home-order-again-primary .big{
+  grid-column:1;grid-row:1;width:38px;height:38px;justify-self:start;color:#555
+}
+.home-order-again-primary strong{font-size:18px;align-self:center;color:#555}
+.home-order-again-primary > svg:last-child{color:#555}
+.home-favorites-secondary{
+  height:58px;background:#fff;grid-template-columns:30px 1fr 22px;grid-template-rows:1fr;
+  align-items:center;padding:11px 14px
+}
+.home-favorites-secondary .big{
+  grid-column:1;grid-row:1;width:23px;height:23px;justify-self:start;color:#555
+}
+.home-favorites-secondary strong{font-size:14px;align-self:center;color:#555}
 .home-heading{font-size:22px;font-weight:900;margin:19px 0 12px}
 .category-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}
 .category-card{border:1px solid #d1d1d1;border-radius:14px;overflow:hidden;background:#fff;text-decoration:none}
@@ -526,36 +549,6 @@ svg{display:block}
   }
 }
 
-
-/* Floating cart on Home: visible only when cart contains items. */
-.home-cart-fab{
-  position:absolute;
-  right:18px;
-  bottom:88px;
-  z-index:55;
-  width:62px;
-  height:62px;
-  border-radius:50%;
-  border:1px solid #d7d7d7;
-  background:#fff;
-  color:#252525;
-  display:none;
-  place-items:center;
-  text-decoration:none;
-  box-shadow:0 3px 9px rgba(0,0,0,.17)
-}
-.home-cart-fab.show{display:grid}
-.home-cart-fab svg{width:29px;height:29px}
-.home-cart-fab .cart-badge{
-  right:-2px;
-  top:-5px;
-  min-width:25px;
-  height:25px;
-  font-size:12px;
-  background:var(--red);
-  color:#fff;
-  border:2px solid #fff;
-}
 
 /* Menu does not use the global bottom navigation.
    A cart CTA appears only when the cart has contents. */
