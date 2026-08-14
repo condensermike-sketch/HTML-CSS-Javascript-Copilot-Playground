@@ -8,13 +8,18 @@
 
   function appBase(){
     const href = location.href;
+    const markers = ["/apps-dev/", "/apps/"];
     if(location.protocol === "file:"){
-      const idx = href.indexOf("/apps/");
-      return idx >= 0 ? href.slice(0, idx + 6) : new URL("../", href).href;
+      for(const marker of markers){
+        const idx = href.indexOf(marker);
+        if(idx >= 0) return href.slice(0, idx + marker.length);
+      }
+      return new URL("../", href).href;
     }
-    const marker = "/apps/";
-    const idx = location.pathname.indexOf(marker);
-    if(idx >= 0) return location.origin + location.pathname.slice(0, idx + marker.length);
+    for(const marker of markers){
+      const idx = location.pathname.indexOf(marker);
+      if(idx >= 0) return location.origin + location.pathname.slice(0, idx + marker.length);
+    }
     return location.origin + "/";
   }
 
@@ -54,7 +59,9 @@
   // Ordinary link navigation between prototype pages is "navigate", so state survives.
   if(CONFIG.testMode && CONFIG.clearOnReload && navType()==="reload"){
     clearParticipantState();
-    if(!location.pathname.endsWith("/apps/") && !location.pathname.endsWith("/apps/index.html")){
+    const atAppHome = ["/apps-dev/", "/apps-dev/index.html", "/apps/", "/apps/index.html"]
+      .some(path=>location.pathname.endsWith(path));
+    if(!atAppHome){
       location.replace(hrefFor(""));
       return;
     }
@@ -114,12 +121,63 @@
   }
 
   function cart(){ return get("cart",[]); }
-  function setCart(c){ set("cart",c); }
   function cartCount(){ return cart().reduce((n,x)=>n+(x.quantity||1),0); }
+
+  function renderHeaderCartIndicator(){
+    if(!document.body) return;
+
+    document.querySelectorAll(".header-cart-link").forEach(el=>el.remove());
+    document.querySelectorAll(".white-topbar.header-cart-expanded").forEach(el=>{
+      el.classList.remove("header-cart-expanded");
+    });
+    const menuRow=document.querySelector(".top-red-row.menu-header-cart-expanded");
+    if(menuRow){
+      menuRow.classList.remove("menu-header-cart-expanded");
+      menuRow.style.gridTemplateColumns="40px 1fr";
+    }
+
+    const count=cartCount();
+    if(count<1 || /\/cart\/?(?:index\.html)?$/.test(location.pathname)) return;
+
+    const link=document.createElement("a");
+    link.className="icon-btn header-cart-link";
+    link.href=hrefFor("cart/");
+    link.setAttribute("aria-label",`Cart, ${count} item${count===1?"":"s"}`);
+    link.innerHTML=`<svg width="25" height="25" viewBox="0 0 24 24" aria-hidden="true"><path class="icon-stroke" d="M3 4h2l2.2 10.2a2 2 0 0 0 2 1.6h7.9a2 2 0 0 0 2-1.6L21 7H6"/><circle class="icon-stroke" cx="10" cy="20" r="1"/><circle class="icon-stroke" cx="18" cy="20" r="1"/></svg><span class="cart-badge">${count}</span>`;
+
+    const homeActions=document.querySelector(".top-red .header-actions");
+    if(homeActions){
+      homeActions.appendChild(link);
+      return;
+    }
+
+    const menuHeader=document.querySelector(".top-red-row[style*='grid-template-columns:40px 1fr']");
+    if(menuHeader){
+      menuHeader.classList.add("menu-header-cart-expanded");
+      menuHeader.style.gridTemplateColumns="40px 1fr auto";
+      menuHeader.appendChild(link);
+      return;
+    }
+
+    const whiteTopbar=document.querySelector(".white-topbar");
+    if(!whiteTopbar) return;
+    const last=whiteTopbar.lastElementChild;
+    if(last && last.children.length===0 && !last.textContent.trim()){
+      last.appendChild(link);
+    }else{
+      whiteTopbar.classList.add("header-cart-expanded");
+      whiteTopbar.appendChild(link);
+    }
+  }
+
+  function setCart(c){ set("cart",c); renderHeaderCartIndicator(); }
   function addCartItem(entry){ const c=cart(); c.push(entry); setCart(c); return c.length-1; }
   function updateCartItem(index,entry){ const c=cart(); if(c[index]) c[index]=entry; setCart(c); }
   function removeCartItem(index){ const c=cart(); c.splice(index,1); setCart(c); }
   function clearCart(){ setCart([]); }
+
+  if(document.readyState==="loading") document.addEventListener("DOMContentLoaded",renderHeaderCartIndicator);
+  else renderHeaderCartIndicator();
 
   function sessionOrders(){ return get("completedOrders",[]); }
   function addCompletedOrder(order){
@@ -224,7 +282,7 @@
     currentItemDraft, saveItemDraft, clearItemDraft,
     savedCustomizations, saveCustomizations,
     favorites, isFavorite, favoriteItem, removeFavorite, isAddonFavorite, favoriteAddon, removeAddonFavorite,
-    cart, setCart, cartCount, addCartItem, updateCartItem, removeCartItem, clearCart,
+    cart, setCart, cartCount, addCartItem, updateCartItem, removeCartItem, clearCart, renderHeaderCartIndicator,
     sessionOrders, addCompletedOrder, showToast, fmt, customizationDelta, configuredItemUnitPrice,
     quantityGroupCount, quantityGroupDelta, customizationParts
   };
