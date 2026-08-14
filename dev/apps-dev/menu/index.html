@@ -1,80 +1,10 @@
-<!doctype html><html><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><meta name="theme-color" content="#e9163d"><title>Menu</title><link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,200..1000;1,200..1000&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="../css/styles.css?v=2">
-<script src="../js/menu-data.js"></script>
-<script src="../js/app.js"></script><script>
-(function (m, a, z, e) {
-  var s, t, u, v;
-  try {
-    t = m.sessionStorage.getItem('maze-us');
-  } catch (err) {}
-
-  if (!t) {
-    t = new Date().getTime();
-    try {
-      m.sessionStorage.setItem('maze-us', t);
-    } catch (err) {}
-  }
-
-  u = document.currentScript || (function () {
-    var w = document.getElementsByTagName('script');
-    return w[w.length - 1];
-  })();
-  v = u && u.nonce;
-
-  s = a.createElement('script');
-  s.src = z + '?apiKey=' + e;
-  s.async = true;
-  if (v) s.setAttribute('nonce', v);
-  a.getElementsByTagName('head')[0].appendChild(s);
-  m.mazeUniversalSnippetApiKey = e;
-})(window, document, 'https://snippet.maze.co/maze-universal-loader.js', '07cbf368-f585-4dcc-8a0b-966c9d7e76ab');
-</script>
-</head><body><div class="app-shell">
-<header class="top-red"><div class="top-red-row" style="grid-template-columns:40px 1fr">
-<a href="../" style="color:white;text-decoration:none;display:grid;place-items:center;width:34px;height:38px">
-<svg width="27" height="27" viewBox="0 0 24 24"><path class="icon-stroke" d="m15 18-6-6 6-6"/></svg></a>
-<div class="pickup"><small>Pick up from</small><strong>Beverly <svg width="14" height="14" viewBox="0 0 24 24"><path class="icon-stroke" d="m7 9 5 5 5-5"/></svg></strong></div>
-</div></header>
-<nav class="menu-tabs"><div class="menu-tabs-inner" id="tabs"></div></nav>
-<main class="menu-list" id="menuList"></main>
-
-
-
-<a class="menu-cart-cta" id="menuCartCta" href="../cart/">
-<span class="menu-cart-count" id="menuCartCount"></span>
-<span class="menu-cart-label">View Cart</span>
-<span class="menu-cart-total" id="menuCartTotal"></span>
-</a>
-</div>
+<!doctype html><html><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><meta name="theme-color" content="#e9163d"><title>Menu</title><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,200..1000;1,200..1000&display=swap" rel="stylesheet"><link rel="stylesheet" href="../css/styles.css?v=3"><script src="../js/menu-data.js"></script><script src="../js/app.js"></script></head><body><div class="app-shell">
+<header class="top-red"><div class="top-red-row with-cart"><a href="../" style="color:white;text-decoration:none;display:grid;place-items:center;width:34px;height:38px"><svg width="27" height="27" viewBox="0 0 24 24"><path class="icon-stroke" d="m15 18-6-6 6-6"/></svg></a><div class="pickup"><small>Pick up from</small><strong>Beverly <svg width="14" height="14" viewBox="0 0 24 24"><path class="icon-stroke" d="m7 9 5 5 5-5"/></svg></strong></div><a class="header-cart" href="../cart/" data-cart-label><svg viewBox="0 0 24 24"><path class="icon-stroke" d="M3 4h2l2.5 11h10l2-7H6"/><circle class="icon-stroke" cx="9" cy="20" r="1"/><circle class="icon-stroke" cx="18" cy="20" r="1"/></svg><span class="cart-badge" data-cart-count>0</span></a></div></header>
+<nav class="menu-tabs"><div class="menu-tabs-inner" id="tabs"></div></nav><main class="menu-list" id="menuList"></main>
+<a class="menu-cart-cta" id="menuCartCta" href="../cart/"><span class="menu-cart-count" id="menuCartCount"></span><span class="menu-cart-label">View Cart</span><span class="menu-cart-total" id="menuCartTotal"></span></a></div>
 <script>
 const menu=window.JOLLIBEE_MENU,S=window.JolliState;
-function cartEntryPrice(entry){
-  if(entry.itemId){
-    return S.configuredItemUnitPrice(entry.itemId,entry.customizations||{})*(entry.quantity||1);
-  }
-  const add=menu.upsells.find(x=>x.id===entry.addonId);
-  return add ? add.price*(entry.quantity||1) : 0;
-}
-function updateMenuCart(){
-  const cart=S.cart(), count=S.cartCount(), cta=document.getElementById("menuCartCta");
-  const total=cart.reduce((sum,e)=>sum+cartEntryPrice(e),0);
-  const has=count>0;
-  cta.classList.toggle("show",has);
-  document.getElementById("menuList").classList.toggle("has-cart",has);
-  document.getElementById("menuList").classList.toggle("no-cart",!has);
-  document.getElementById("menuCartCount").textContent=count;
-  document.getElementById("menuCartTotal").textContent=S.fmt(total);
-}
-
-const tabs=document.getElementById("tabs"),list=document.getElementById("menuList");
-tabs.innerHTML=menu.categories.map((c,i)=>`<button class="menu-tab ${i===0?"active":""}" data-id="${c.id}">${c.label}</button>`).join("");
-list.innerHTML=menu.categories.map(c=>`<section class="menu-section" id="${c.id}"><h2>${c.label}</h2>${c.items.length?c.items.map(id=>{const i=menu.items[id];return `<article class="menu-product"><div class="menu-thumb placeholder"><svg viewBox="0 0 24 24"><rect class="icon-stroke" x="4" y="4" width="16" height="16" rx="2"/><circle class="icon-stroke" cx="9" cy="9" r="2"/><path class="icon-stroke" d="m5 17 4-4 3 3 2-2 5 5"/></svg></div><div><div class="menu-product-name">${i.name}</div><div class="menu-product-desc">${i.description}</div><div class="menu-price">$${i.price.toFixed(2)}</div></div><a class="menu-plus" href="../item/?id=${i.id}" aria-label="Open ${i.name}">+</a></article>`}).join(""):`<div class="menu-coming">Coming soon</div>`}</section>`).join("");
-let timer=null,program=false;
-function setActive(id,center=true){document.querySelectorAll(".menu-tab").forEach(t=>{const a=t.dataset.id===id;t.classList.toggle("active",a);if(a&&center)t.scrollIntoView({behavior:"smooth",inline:"start",block:"nearest"})})}
-document.querySelectorAll(".menu-tab").forEach(t=>t.onclick=()=>{program=true;setActive(t.dataset.id);list.scrollTo({top:document.getElementById(t.dataset.id).offsetTop-2,behavior:"smooth"});clearTimeout(timer);timer=setTimeout(()=>program=false,650)})
-list.onscroll=()=>{if(program)return;requestAnimationFrame(()=>{let cur=menu.categories[0].id,y=list.scrollTop+30;document.querySelectorAll(".menu-section").forEach(s=>{if(s.offsetTop<=y)cur=s.id});setActive(cur)})};
-updateMenuCart();
-if(location.hash){setTimeout(()=>{const id=location.hash.slice(1);const el=document.getElementById(id);if(el){list.scrollTop=el.offsetTop;setActive(id)}},80)}
+function cartEntryPrice(entry){if(entry.itemId)return S.configuredItemUnitPrice(entry.itemId,entry.customizations||{})*(entry.quantity||1);const add=menu.upsells.find(x=>x.id===entry.addonId);return add?add.price*(entry.quantity||1):0}
+function updateMenuCart(){const cart=S.cart(),count=S.cartCount(),cta=document.getElementById("menuCartCta"),total=cart.reduce((sum,e)=>sum+cartEntryPrice(e),0),has=count>0;cta.classList.toggle("show",has);document.getElementById("menuList").classList.toggle("has-cart",has);document.getElementById("menuList").classList.toggle("no-cart",!has);document.getElementById("menuCartCount").textContent=count;document.getElementById("menuCartTotal").textContent=S.fmt(total);S.syncCartIndicators()}
+const tabs=document.getElementById("tabs"),list=document.getElementById("menuList");tabs.innerHTML=menu.categories.map((c,i)=>`<button class="menu-tab ${i===0?"active":""}" data-id="${c.id}">${c.label}</button>`).join("");list.innerHTML=menu.categories.map(c=>`<section class="menu-section" id="${c.id}"><h2>${c.label}</h2>${c.items.length?c.items.map(id=>{const i=menu.items[id];return `<article class="menu-product"><div class="menu-thumb placeholder"><svg viewBox="0 0 24 24"><rect class="icon-stroke" x="4" y="4" width="16" height="16" rx="2"/><circle class="icon-stroke" cx="9" cy="9" r="2"/><path class="icon-stroke" d="m5 17 4-4 3 3 2-2 5 5"/></svg></div><div><div class="menu-product-name">${i.name}</div><div class="menu-product-desc">${i.description}</div><div class="menu-price">$${i.price.toFixed(2)}</div></div><a class="menu-plus" href="../item/?id=${i.id}" aria-label="Open ${i.name}">+</a></article>`}).join(""):`<div class="menu-coming">Coming soon</div>`}</section>`).join("");let timer=null,program=false;function setActive(id,center=true){document.querySelectorAll(".menu-tab").forEach(t=>{const a=t.dataset.id===id;t.classList.toggle("active",a);if(a&&center)t.scrollIntoView({behavior:"smooth",inline:"start",block:"nearest"})})}document.querySelectorAll(".menu-tab").forEach(t=>t.onclick=()=>{program=true;setActive(t.dataset.id);list.scrollTo({top:document.getElementById(t.dataset.id).offsetTop-2,behavior:"smooth"});clearTimeout(timer);timer=setTimeout(()=>program=false,650)});list.onscroll=()=>{if(program)return;requestAnimationFrame(()=>{let cur=menu.categories[0].id,y=list.scrollTop+30;document.querySelectorAll(".menu-section").forEach(s=>{if(s.offsetTop<=y)cur=s.id});setActive(cur)})};updateMenuCart();if(location.hash){setTimeout(()=>{const id=location.hash.slice(1),el=document.getElementById(id);if(el){list.scrollTop=el.offsetTop;setActive(id)}},80)}
 </script></body></html>

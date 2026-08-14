@@ -1,4 +1,3 @@
-
 (function(){
   const CONFIG = {
     testMode: true,
@@ -9,12 +8,14 @@
   function appBase(){
     const href = location.href;
     if(location.protocol === "file:"){
-      const idx = href.indexOf("/apps/");
-      return idx >= 0 ? href.slice(0, idx + 6) : new URL("../", href).href;
+      const idx = href.indexOf("/apps-dev/");
+      return idx >= 0 ? href.slice(0, idx + 10) : new URL("../", href).href;
     }
-    const marker = "/apps/";
-    const idx = location.pathname.indexOf(marker);
-    if(idx >= 0) return location.origin + location.pathname.slice(0, idx + marker.length);
+    const markers = ["/apps-dev/","/apps/"];
+    for(const marker of markers){
+      const idx = location.pathname.indexOf(marker);
+      if(idx >= 0) return location.origin + location.pathname.slice(0, idx + marker.length);
+    }
     return location.origin + "/";
   }
 
@@ -36,7 +37,6 @@
 
   function clearParticipantState(){
     const target = store();
-    [...Array(target.length)].forEach((_,i)=>{});
     const keys=[];
     for(let i=0;i<target.length;i++){
       const k=target.key(i);
@@ -44,17 +44,14 @@
     }
     keys.forEach(k=>target.removeItem(k));
   }
-
   function navType(){
     const e = performance.getEntriesByType && performance.getEntriesByType("navigation")[0];
     return e ? e.type : "";
   }
 
-  // Maze mode: a true browser reload becomes a fresh participant.
-  // Ordinary link navigation between prototype pages is "navigate", so state survives.
   if(CONFIG.testMode && CONFIG.clearOnReload && navType()==="reload"){
     clearParticipantState();
-    if(!location.pathname.endsWith("/apps/") && !location.pathname.endsWith("/apps/index.html")){
+    if(!location.pathname.endsWith("/apps-dev/") && !location.pathname.endsWith("/apps-dev/index.html") && !location.pathname.endsWith("/apps/") && !location.pathname.endsWith("/apps/index.html")){
       location.replace(hrefFor(""));
       return;
     }
@@ -74,7 +71,6 @@
     delete drafts[itemId];
     set("drafts",drafts);
   }
-
   function savedCustomizations(itemId){
     const all=get("savedCustomizations",{});
     return all[itemId] || null;
@@ -99,7 +95,6 @@
     set("favorites",favorites().filter(f=>f.itemId!==itemId));
   }
 
-  // Add-on favorites use addonId so existing menu-item favorite behavior is unchanged.
   function isAddonFavorite(addonId){ return favorites().some(f=>f.addonId===addonId); }
   function favoriteAddon(addonId){
     let favs=favorites();
@@ -114,12 +109,22 @@
   }
 
   function cart(){ return get("cart",[]); }
-  function setCart(c){ set("cart",c); }
   function cartCount(){ return cart().reduce((n,x)=>n+(x.quantity||1),0); }
+  function syncCartIndicators(){
+    const count=cartCount();
+    document.querySelectorAll("[data-cart-count]").forEach(el=>{ el.textContent=count; });
+    document.querySelectorAll("[data-cart-label]").forEach(el=>{
+      el.setAttribute("aria-label",`View cart, ${count} item${count===1?"":"s"}`);
+    });
+  }
+  function setCart(c){ set("cart",c); syncCartIndicators(); }
   function addCartItem(entry){ const c=cart(); c.push(entry); setCart(c); return c.length-1; }
   function updateCartItem(index,entry){ const c=cart(); if(c[index]) c[index]=entry; setCart(c); }
   function removeCartItem(index){ const c=cart(); c.splice(index,1); setCart(c); }
   function clearCart(){ setCart([]); }
+
+  if(document.readyState==="loading") document.addEventListener("DOMContentLoaded",syncCartIndicators);
+  else syncCartIndicators();
 
   function sessionOrders(){ return get("completedOrders",[]); }
   function addCompletedOrder(order){
@@ -140,12 +145,8 @@
     clearTimeout(el._timer);
     el._timer=setTimeout(()=>el.classList.remove("show"),1800);
   }
-
   function fmt(n){ return "$"+Number(n).toFixed(2); }
 
-  // Quantity-type groups (e.g. Sauces) store {optionValue: count} instead of a
-  // single string. One cup is free per order — the most expensive one selected —
-  // and every additional cup is charged at its own priceDelta.
   function quantityGroupCount(selected){
     return Object.values(selected||{}).reduce((n,q)=>n+Number(q||0),0);
   }
@@ -177,25 +178,18 @@
         return;
       }
 
-      // Direct top-level option, e.g. Adobo Rice or Pineapple Quencher.
       let opt=(group.options||[]).find(o=>o.value===selected);
-
-      // Nested option, e.g. Mountain Dew selected under Soda.
       if(!opt){
         opt=(group.options||[]).find(o=>{
           if(!o.nested || !menu.nestedGroups || !menu.nestedGroups[o.nested]) return false;
           return (menu.nestedGroups[o.nested].options||[]).includes(selected);
         });
       }
-
       total += Number(opt && opt.priceDelta || 0);
     });
     return total;
   }
 
-  // Readable summary pieces for a saved customizations object, e.g. for a
-  // quantity group: ["Small Chickenjoy Gravy, 2× BBQ Dipping Sauce"].
-  // Single-select groups pass their stored string straight through.
   function customizationParts(itemId, customizations){
     const menu=window.JOLLIBEE_MENU;
     const item=menu && menu.items ? menu.items[itemId] : null;
@@ -224,7 +218,7 @@
     currentItemDraft, saveItemDraft, clearItemDraft,
     savedCustomizations, saveCustomizations,
     favorites, isFavorite, favoriteItem, removeFavorite, isAddonFavorite, favoriteAddon, removeAddonFavorite,
-    cart, setCart, cartCount, addCartItem, updateCartItem, removeCartItem, clearCart,
+    cart, setCart, cartCount, addCartItem, updateCartItem, removeCartItem, clearCart, syncCartIndicators,
     sessionOrders, addCompletedOrder, showToast, fmt, customizationDelta, configuredItemUnitPrice,
     quantityGroupCount, quantityGroupDelta, customizationParts
   };
