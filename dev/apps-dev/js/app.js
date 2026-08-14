@@ -45,13 +45,27 @@
     keys.forEach(k=>target.removeItem(k));
   }
   function navType(){
-    const e = performance.getEntriesByType && performance.getEntriesByType("navigation")[0];
-    return e ? e.type : "";
+    // Navigation Timing Level 2 (modern browsers).
+    const entries = performance.getEntriesByType && performance.getEntriesByType("navigation");
+    if(entries && entries[0] && entries[0].type) return entries[0].type;
+
+    // Legacy Navigation Timing fallback. A value of 1 means reload.
+    if(performance.navigation && performance.navigation.type === 1) return "reload";
+    return "";
   }
 
+  function isAppRootPath(){
+    return /\/(?:apps-dev|apps)\/(?:index\.html)?$/.test(location.pathname);
+  }
+
+  // Test-environment behavior: a browser reload from any nested app screen
+  // returns to that environment's root. For the current GitHub Pages dev build,
+  // /HTML-CSS-Javascript-Copilot-Playground/dev/apps-dev/menu/ therefore reloads to
+  // /HTML-CSS-Javascript-Copilot-Playground/dev/apps-dev/. Normal link navigation
+  // is unaffected because its navigation type is "navigate", not "reload".
   if(CONFIG.testMode && CONFIG.clearOnReload && navType()==="reload"){
     clearParticipantState();
-    if(!location.pathname.endsWith("/apps-dev/") && !location.pathname.endsWith("/apps-dev/index.html") && !location.pathname.endsWith("/apps/") && !location.pathname.endsWith("/apps/index.html")){
+    if(!isAppRootPath()){
       location.replace(hrefFor(""));
       return;
     }
