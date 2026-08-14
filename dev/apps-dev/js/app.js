@@ -8,13 +8,18 @@
 
   function appBase(){
     const href = location.href;
+    const markers = ["/apps-dev/", "/apps/"];
     if(location.protocol === "file:"){
-      const idx = href.indexOf("/apps/");
-      return idx >= 0 ? href.slice(0, idx + 6) : new URL("../", href).href;
+      for(const marker of markers){
+        const idx = href.indexOf(marker);
+        if(idx >= 0) return href.slice(0, idx + marker.length);
+      }
+      return new URL("../", href).href;
     }
-    const marker = "/apps/";
-    const idx = location.pathname.indexOf(marker);
-    if(idx >= 0) return location.origin + location.pathname.slice(0, idx + marker.length);
+    for(const marker of markers){
+      const idx = location.pathname.indexOf(marker);
+      if(idx >= 0) return location.origin + location.pathname.slice(0, idx + marker.length);
+    }
     return location.origin + "/";
   }
 
@@ -54,7 +59,9 @@
   // Ordinary link navigation between prototype pages is "navigate", so state survives.
   if(CONFIG.testMode && CONFIG.clearOnReload && navType()==="reload"){
     clearParticipantState();
-    if(!location.pathname.endsWith("/apps/") && !location.pathname.endsWith("/apps/index.html")){
+    const atAppHome = ["/apps-dev/", "/apps-dev/index.html", "/apps/", "/apps/index.html"]
+      .some(path=>location.pathname.endsWith(path));
+    if(!atAppHome){
       location.replace(hrefFor(""));
       return;
     }

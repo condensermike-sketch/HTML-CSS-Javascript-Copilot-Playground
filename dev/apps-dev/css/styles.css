@@ -550,36 +550,6 @@ svg{display:block}
 }
 
 
-/* Floating cart on Home: visible only when cart contains items. */
-.home-cart-fab{
-  position:absolute;
-  right:18px;
-  bottom:88px;
-  z-index:55;
-  width:62px;
-  height:62px;
-  border-radius:50%;
-  border:1px solid #d7d7d7;
-  background:#fff;
-  color:#252525;
-  display:none;
-  place-items:center;
-  text-decoration:none;
-  box-shadow:0 3px 9px rgba(0,0,0,.17)
-}
-.home-cart-fab.show{display:grid}
-.home-cart-fab svg{width:29px;height:29px}
-.home-cart-fab .cart-badge{
-  right:-2px;
-  top:-5px;
-  min-width:25px;
-  height:25px;
-  font-size:12px;
-  background:var(--red);
-  color:#fff;
-  border:2px solid #fff;
-}
-
 /* Menu does not use the global bottom navigation.
    A cart CTA appears only when the cart has contents. */
 .menu-cart-cta{
