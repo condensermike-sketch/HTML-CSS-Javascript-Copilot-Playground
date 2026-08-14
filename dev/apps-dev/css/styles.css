@@ -89,6 +89,9 @@ svg{display:block}
   align-items:center;
 }
 .white-topbar.no-line{border-bottom:0}
+.white-topbar .header-cart-link{color:#333;text-decoration:none}
+.white-topbar .cart-badge{background:var(--red);color:#fff;border:2px solid #fff}
+.white-topbar.header-cart-expanded{grid-template-columns:40px 1fr 40px 40px;column-gap:4px}
 .topbar-title{font-size:var(--top-nav);font-weight:900;text-align:center;align-self:center}
 .back-btn{width:36px;height:36px;border:0;background:transparent;padding:0;display:grid;place-items:center;text-decoration:none;color:#333}
 .back-btn svg{width:25px;height:25px}
