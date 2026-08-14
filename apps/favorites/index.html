@@ -2,8 +2,8 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,200..1000;1,200..1000&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="../css/styles.css?v=2">
-<script src="../js/menu-data.js"></script>
-<script src="../js/app.js?v=20260808-addon-favorites-2"></script><script>
+<script src="../js/menu-data.js?v=20260814-burgersteak-3pc"></script>
+<script src="../js/app.js?v=20260814-preset-favorite"></script><script>
 (function (m, a, z, e) {
   var s, t, u, v;
   try {
@@ -49,6 +49,20 @@
 <div class="toast"></div></div>
 <script>
 const menu=window.JOLLIBEE_MENU,S=window.JolliState,el=document.getElementById("favorites");let mode="grid";
+
+// Seed the item-page draft with this favorite's saved customizations before
+// navigating, the same way editing a cart entry seeds its draft, so the
+// customize rows show the favorited selections instead of starting blank.
+el.addEventListener("click",(e)=>{
+  const a=e.target.closest("a[href*='../item/?id=']");
+  if(!a)return;
+  const url=new URL(a.getAttribute("href"),location.href);
+  const itemId=url.searchParams.get("id");
+  const fav=S.favorites().find(f=>f.itemId===itemId);
+  if(fav && fav.customizations && Object.keys(fav.customizations).length){
+    S.saveItemDraft(itemId,{quantity:1,customizations:{...fav.customizations}});
+  }
+});
 
 function placeholder(){
   return `<svg viewBox="0 0 24 24"><rect class="icon-stroke" x="4" y="4" width="16" height="16" rx="2"/><circle class="icon-stroke" cx="9" cy="9" r="2"/><path class="icon-stroke" d="m5 17 4-4 3 3 2-2 5 5"/></svg>`;

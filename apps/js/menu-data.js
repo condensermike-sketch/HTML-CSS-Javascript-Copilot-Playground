@@ -2,18 +2,18 @@
 window.JOLLIBEE_MENU = {
   categories: [
     { id:"nuggets", label:"Chicken Nuggets", items:["chicken-nuggets-5pc"] },
-    { id:"chickenjoy", label:"Chickenjoy Fried Chicken", items:["chickenjoy-2pc-side","chickenjoy-2pc-side-drink"] },
+    { id:"chickenjoy", label:"Chickenjoy Fried Chicken", items:[] },
     { id:"sandwiches", label:"Chicken Sandwiches", items:["chicken-sandwich-deluxe"] },
-    { id:"meal-deals", label:"Meal Deals", items:["chickenjoy-meal-deal"] },
-    { id:"perfect-pairs", label:"Perfect Pairs", items:["chickenjoy-1pc-spaghetti","chickenjoy-2pc-spaghetti"] },
+    { id:"meal-deals", label:"Meal Deals", items:[] },
+    { id:"perfect-pairs", label:"Perfect Pairs", items:[] },
     { id:"family", label:"Family Meals", items:["family-bucket-8pc"] },
     { id:"tenders", label:"Chicken Tenders", items:[] },
     { id:"burgers", label:"Burgers", items:[] },
     { id:"spaghetti", label:"Jolly Spaghetti", items:["jolly-spaghetti-solo"] },
     { id:"palabok", label:"Palabok Fiesta", items:[] },
-    { id:"burger-steak", label:"Burger Steak", items:[] },
+    { id:"burger-steak", label:"Burger Steak", items:["burger-steak-2pc","burger-steak-3pc"] },
     { id:"sides", label:"Sides", items:["adobo-rice","side-jolly-spaghetti","jolly-crispy-fries-large","jolly-crispy-fries","mashed-potatoes-large","mashed-potatoes","steamed-rice","large-gravy","gravy"] },
-    { id:"drinks", label:"Drinks", items:[] },
+    { id:"drinks", label:"Drinks", items:["pineapple-quencher","pineapple-quencher-half-gallon","bottled-water","mango-coconut-quencher","dragonfruit-sunset-quencher","mango-freeze","guava-quencher"] },
     { id:"desserts", label:"Desserts", items:["peach-mango-pie","ube-pie"] }
   ],
 
@@ -47,7 +47,11 @@ window.JOLLIBEE_MENU = {
         {value:"Coconut Dream Freeze", label:"Coconut Dream Freeze", priceDelta:1.80},
         {value:"Strawberry Bliss Freeze", label:"Strawberry Bliss Freeze", priceDelta:1.80},
         {value:"Lychee Iced Tea", label:"Lychee Iced Tea", priceDelta:0.50},
-        {value:"Passion Fruit Iced Tea", label:"Passion Fruit Iced Tea", priceDelta:0.50}
+        {value:"Passion Fruit Iced Tea", label:"Passion Fruit Iced Tea", priceDelta:0.50},
+        {value:"Mango Coconut Quencher", label:"Mango Coconut Quencher"},
+        {value:"Dragonfruit Sunset Quencher", label:"Dragonfruit Sunset Quencher"},
+        {value:"Mango Freeze", label:"Mango Freeze"},
+        {value:"Guava Quencher", label:"Guava Quencher"}
       ]
     },
     gravy: {
@@ -90,26 +94,6 @@ window.JOLLIBEE_MENU = {
       calories:0,
       customizations:["sauces"]
     },
-    "chickenjoy-2pc-side":{
-      id:"chickenjoy-2pc-side",
-      category:"chickenjoy",
-      name:"2pc Chickenjoy w/ Biscuit + 1 Side",
-      shortName:"2pc Chickenjoy Meal",
-      description:"2pc of our next-level crispy, next-level juicy Chickenjoy fried chicken served with a buttermilk biscuit and your choice of one side.",
-      price:8.99,
-      calories:880,
-      customizations:["chicken","side"]
-    },
-    "chickenjoy-2pc-side-drink":{
-      id:"chickenjoy-2pc-side-drink",
-      category:"chickenjoy",
-      name:"2pc Chickenjoy w/ Biscuit + 1 Side and Drink",
-      shortName:"2pc Chickenjoy Combo",
-      description:"2pc Chickenjoy with a biscuit, one side and your choice of drink.",
-      price:11.49,
-      calories:1040,
-      customizations:["chicken","side","drink"]
-    },
     "chicken-sandwich-deluxe":{
       id:"chicken-sandwich-deluxe",
       category:"sandwiches",
@@ -119,36 +103,6 @@ window.JOLLIBEE_MENU = {
       price:10.99,
       calories:990,
       customizations:["side","drink"]
-    },
-    "chickenjoy-meal-deal":{
-      id:"chickenjoy-meal-deal",
-      category:"meal-deals",
-      name:"2pc Chickenjoy Meal Deal",
-      shortName:"Chickenjoy Meal Deal",
-      description:"2pc crispy, juicy Chickenjoy with one side and a drink.",
-      price:12.00,
-      calories:1080,
-      customizations:["chicken","side","drink"]
-    },
-    "chickenjoy-1pc-spaghetti":{
-      id:"chickenjoy-1pc-spaghetti",
-      category:"perfect-pairs",
-      name:"1pc Chickenjoy w/ Jolly Spaghetti",
-      shortName:"1pc Chickenjoy + Spaghetti",
-      description:"One piece of Chickenjoy paired with Jollibee's signature Jolly Spaghetti.",
-      price:10.99,
-      calories:840,
-      customizations:["chicken","gravy"]
-    },
-    "chickenjoy-2pc-spaghetti":{
-      id:"chickenjoy-2pc-spaghetti",
-      category:"perfect-pairs",
-      name:"2pc Chickenjoy w/ Jolly Spaghetti",
-      shortName:"2pc Chickenjoy + Spaghetti",
-      description:"Two pieces of Chickenjoy paired with Jollibee's signature Jolly Spaghetti.",
-      price:11.99,
-      calories:1050,
-      customizations:["chicken","gravy"]
     },
     "family-bucket-8pc":{
       id:"family-bucket-8pc",
@@ -169,6 +123,26 @@ window.JOLLIBEE_MENU = {
       price:6.99,
       calories:610,
       customizations:[]
+    },
+    "burger-steak-2pc":{
+      id:"burger-steak-2pc",
+      category:"burger-steak",
+      name:"2pc Burger Steak w/ 1 Side",
+      shortName:"2pc Burger Steak",
+      description:"2 beef burger patties smothered with mushroom gravy. Served with white rice.",
+      price:10.99,
+      calories:570,
+      customizations:["side"]
+    },
+    "burger-steak-3pc":{
+      id:"burger-steak-3pc",
+      category:"burger-steak",
+      name:"3pc Burger Steak w/ 1 Side & Drink",
+      shortName:"3pc Burger Steak",
+      description:"3 beef burger patties smothered with mushroom gravy. Served with white rice and a fountain drink.",
+      price:15.99,
+      calories:750,
+      customizations:["side","drink"]
     },
 
     "adobo-rice":{
@@ -208,6 +182,35 @@ window.JOLLIBEE_MENU = {
       description:"Our savory gravy.", price:0.00, calories:60, customizations:[]
     },
 
+    "pineapple-quencher":{
+      id:"pineapple-quencher", category:"drinks", name:"Pineapple Quencher", shortName:"Pineapple Quencher",
+      description:"A sweet and refreshing taste of the Philippines with our signature Pineapple Quencher.", price:3.99, calories:180, customizations:[]
+    },
+    "pineapple-quencher-half-gallon":{
+      id:"pineapple-quencher-half-gallon", category:"drinks", name:"Half Gallon Pineapple Quencher", shortName:"Half Gallon Pineapple Quencher",
+      description:"Half gallon of our sweet and refreshing signature Pineapple Quencher.", price:18.99, calories:0, customizations:[]
+    },
+    "bottled-water":{
+      id:"bottled-water", category:"drinks", name:"Bottled Water", shortName:"Bottled Water",
+      description:"", price:3.49, calories:0, customizations:[]
+    },
+    "mango-coconut-quencher":{
+      id:"mango-coconut-quencher", category:"drinks", name:"Mango Coconut Quencher", shortName:"Mango Coconut Quencher",
+      description:"Our tropical inspired blend of strawberry, passionfruit and coconut served with mango jelly", price:4.99, calories:160, customizations:[]
+    },
+    "dragonfruit-sunset-quencher":{
+      id:"dragonfruit-sunset-quencher", category:"drinks", name:"Dragonfruit Sunset Quencher", shortName:"Dragonfruit Sunset Quencher",
+      description:"Our mango and passionfruit quencher served with real dragon fruit bits", price:4.99, calories:150, customizations:[]
+    },
+    "mango-freeze":{
+      id:"mango-freeze", category:"drinks", name:"Mango Freeze", shortName:"Mango Freeze",
+      description:"Refreshing mango blended into a smooth freeze — a pure, fruity delight that's refreshingly sweet with every sip.", price:5.29, calories:0, customizations:[]
+    },
+    "guava-quencher":{
+      id:"guava-quencher", category:"drinks", name:"Guava Quencher", shortName:"Guava Quencher",
+      description:"Bursting with tropical guava and hints of strawberry and passion fruit. A sweet, refreshing cool-down. Garnishment not included.", price:3.99, calories:120, customizations:[]
+    },
+
     "peach-mango-pie":{
       id:"peach-mango-pie", category:"desserts", name:"Peach Mango Pie", shortName:"Peach Mango Pie",
       description:"Sweet and flaky Peach Mango Pie made with real Philippine Mangoes", price:2.99, calories:270, customizations:[]
@@ -221,26 +224,31 @@ window.JOLLIBEE_MENU = {
   upsells:[
     {id:"peach-mango-pie", name:"Peach Mango Pie", price:2.99, calories:270},
     {id:"steamed-rice", name:"Steamed Rice", price:2.99, calories:190},
-    {id:"mango-freeze", name:"Mango Freeze", price:5.29, calories:320}
+    {id:"mango-freeze", name:"Mango Freeze", price:5.29, calories:0}
   ],
 
   seededOrders:[
     {
       id:"seed-order-1",
-      dateLabel:"Aug 3",
+      dateLabel:"Aug 10",
       fulfillment:"Counter Pickup · Beverly",
       items:[
-        { itemId:"chickenjoy-2pc-side", quantity:1, customizations:{chicken:"All Original",side:"Jolly Crispy Fries Regular"} }
+        { itemId:"chicken-sandwich-deluxe", quantity:1, customizations:{side:"Jolly Crispy Fries Regular",drink:"Bottled Water"} },
+        { addonId:"peach-mango-pie", quantity:1 }
       ]
     },
     {
       id:"seed-order-2",
-      dateLabel:"Jul 25",
+      dateLabel:"Jul 28",
       fulfillment:"Drive-Thru · Beverly",
       items:[
-        { itemId:"chickenjoy-2pc-side-drink", quantity:1, customizations:{chicken:"All Spicy",side:"Mashed Potato Regular",drink:"Pink Lemonade"} },
-        { addonId:"peach-mango-pie", quantity:1 }
+        { itemId:"family-bucket-8pc", quantity:1, customizations:{chicken:"All Original"} },
+        { itemId:"chicken-nuggets-5pc", quantity:1, customizations:{sauces:{"BBQ Dipping Sauce":1,"Honey Mustard Dipping Sauce":1}} }
       ]
     }
+  ],
+
+  seededFavorites:[
+    { itemId:"chicken-sandwich-deluxe", customizations:{side:"Jolly Crispy Fries Regular",drink:"Bottled Water"} }
   ]
 };

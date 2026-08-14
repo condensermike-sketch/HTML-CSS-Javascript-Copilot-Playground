@@ -2,8 +2,8 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,200..1000;1,200..1000&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="../css/styles.css?v=2">
-<script src="../js/menu-data.js"></script>
-<script src="../js/app.js"></script><script>
+<script src="../js/menu-data.js?v=20260814-burgersteak-3pc"></script>
+<script src="../js/app.js?v=20260814-preset-favorite"></script><script>
 (function (m, a, z, e) {
   var s, t, u, v;
   try {
@@ -39,7 +39,7 @@
 </div>
 <script>
 const menu=window.JOLLIBEE_MENU,S=window.JolliState,p=new URLSearchParams(location.search);
-const itemId=p.get("item")||"chickenjoy-2pc-side",type=p.get("type")||"side",edit=p.get("edit"),item=menu.items[itemId],group=menu.groups[type],draft=S.currentItemDraft(itemId);
+const itemId=p.get("item")||"chicken-sandwich-deluxe",type=p.get("type")||"side",edit=p.get("edit"),item=menu.items[itemId],group=menu.groups[type],draft=S.currentItemDraft(itemId);
 document.getElementById("title").textContent=group.title;document.getElementById("back").href=`../item/?id=${itemId}${edit!==null?`&edit=${edit}`:""}`;
 
 if(group.quantity){
