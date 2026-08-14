@@ -82,6 +82,21 @@
     set("drafts",drafts);
   }
 
+  // Whether the shopper checked "Save customization for future orders" before
+  // finishing all required picks. Choosing each customization round-trips
+  // through the Customize page (a full reload of item/index.html), so this
+  // has to persist the same way the draft itself does, or the checkbox state
+  // is lost by the time Add To Cart is clicked.
+  function saveIntent(itemId){
+    const intents=get("saveIntents",{});
+    return !!intents[itemId];
+  }
+  function setSaveIntent(itemId,value){
+    const intents=get("saveIntents",{});
+    if(value) intents[itemId]=true; else delete intents[itemId];
+    set("saveIntents",intents);
+  }
+
   function savedCustomizations(itemId){
     const all=get("savedCustomizations",{});
     return all[itemId] || null;
@@ -309,7 +324,7 @@
   window.JolliState = {
     appBase, hrefFor, get, set, remove, clearParticipantState,
     currentItemDraft, saveItemDraft, clearItemDraft,
-    savedCustomizations, saveCustomizations,
+    savedCustomizations, saveCustomizations, saveIntent, setSaveIntent,
     favorites, isFavorite, favoriteItem, removeFavorite, isAddonFavorite, favoriteAddon, removeAddonFavorite,
     cart, setCart, cartCount, addCartItem, updateCartItem, removeCartItem, clearCart, renderHeaderCartIndicator,
     sessionOrders, addCompletedOrder, showToast, fmt, customizationDelta, configuredItemUnitPrice,
