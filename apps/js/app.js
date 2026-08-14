@@ -92,32 +92,61 @@
     set("savedCustomizations",all);
   }
 
-  function favorites(){ return get("favorites",[]); }
+  // Preset favorites (menu.seededFavorites) always show up, the same way
+  // seededOrders always show up in Order Again. A seed can still be
+  // unfavorited during a session — that's tracked as a "removedSeeds"
+  // tombstone rather than mutating the static menu data.
+  function seedFavoriteKey(entry){ return entry.itemId ? "item:"+entry.itemId : "addon:"+entry.addonId; }
+  function seededFavoritesData(){
+    const menu=window.JOLLIBEE_MENU;
+    return (menu && menu.seededFavorites) || [];
+  }
+  function removedSeedKeys(){ return get("removedSeeds",[]); }
+  function tombstoneSeed(key){
+    const r=removedSeedKeys();
+    if(!r.includes(key)) set("removedSeeds",[...r,key]);
+  }
+  function rawFavorites(){ return get("favorites",[]); }
+  function setRawFavorites(favs){ set("favorites",favs); }
+
+  function favorites(){
+    const removed=removedSeedKeys();
+    const raw=rawFavorites();
+    const rawKeys=raw.map(seedFavoriteKey);
+    const activeSeeds=seededFavoritesData().filter(s=>!removed.includes(seedFavoriteKey(s)) && !rawKeys.includes(seedFavoriteKey(s)));
+    return [...raw, ...activeSeeds];
+  }
   function isFavorite(itemId){ return favorites().some(f=>f.itemId===itemId); }
   function favoriteItem(itemId,customizations){
-    let favs=favorites();
-    const idx=favs.findIndex(f=>f.itemId===itemId);
-    if(idx>=0) favs.splice(idx,1);
-    else favs.unshift({itemId,customizations:{...customizations}});
-    set("favorites",favs);
-    return idx<0;
+    const wasFavorite=isFavorite(itemId);
+    if(wasFavorite){
+      setRawFavorites(rawFavorites().filter(f=>f.itemId!==itemId));
+      tombstoneSeed("item:"+itemId);
+    }else{
+      setRawFavorites([{itemId,customizations:{...customizations}}, ...rawFavorites()]);
+    }
+    return !wasFavorite;
   }
   function removeFavorite(itemId){
-    set("favorites",favorites().filter(f=>f.itemId!==itemId));
+    setRawFavorites(rawFavorites().filter(f=>f.itemId!==itemId));
+    tombstoneSeed("item:"+itemId);
   }
 
   // Add-on favorites use addonId so existing menu-item favorite behavior is unchanged.
   function isAddonFavorite(addonId){ return favorites().some(f=>f.addonId===addonId); }
   function favoriteAddon(addonId){
-    let favs=favorites();
-    const idx=favs.findIndex(f=>f.addonId===addonId);
-    if(idx>=0) favs.splice(idx,1);
-    else favs.unshift({addonId});
-    set("favorites",favs);
-    return idx<0;
+    const wasFavorite=isAddonFavorite(addonId);
+    if(wasFavorite){
+      setRawFavorites(rawFavorites().filter(f=>f.addonId!==addonId));
+      tombstoneSeed("addon:"+addonId);
+    }else{
+      setRawFavorites([{addonId}, ...rawFavorites()]);
+    }
+    return !wasFavorite;
   }
   function removeAddonFavorite(addonId){
-    set("favorites",favorites().filter(f=>f.addonId!==addonId));
+    setRawFavorites(rawFavorites().filter(f=>f.addonId!==addonId));
+    tombstoneSeed("addon:"+addonId);
   }
 
   function cart(){ return get("cart",[]); }
