@@ -1,0 +1,16 @@
+UX testing iteration — Order Again + persistent cart
+August 14, 2026
+
+Implemented:
+- Promoted Order Again to the primary Home shortcut with stronger size, border, color, and visual emphasis.
+- Demoted Favorites to a compact secondary shortcut while keeping it immediately accessible.
+- Replaced the Home notification action with a persistent cart icon and item-count badge.
+- Added the persistent live cart count to Menu, Menu Item, Customize, Order Again, Favorites, and My Cart headers.
+- Cart badge remains visible at 0 so cart status is consistently discoverable.
+- Cart badges are synchronized through the shared JolliState cart state.
+- Updated appBase() to recognize /apps-dev/ as well as /apps/ when resolving the prototype root.
+
+Testing evidence supplied:
+- Order Again clicks: 12/19
+- Favorites clicks: 1/19
+- Stated preference: Order Again 14 vs Favorites 5
