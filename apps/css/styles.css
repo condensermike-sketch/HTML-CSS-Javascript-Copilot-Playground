@@ -125,6 +125,9 @@ svg{display:block}
   background:var(--tile);color:#aaa;display:grid;place-items:center
 }
 .placeholder svg{width:26px;height:26px}
+.item-hero img,.menu-thumb img,.custom-thumb img,.upsell-img img{
+  width:100%;height:100%;object-fit:cover;display:block;border-radius:inherit
+}
 
 .primary{
   border:0;background:var(--red);color:#fff;border-radius:999px;height:50px;
@@ -256,7 +259,7 @@ svg{display:block}
 .menu-plus{align-self:center;justify-self:end;width:37px;height:37px;border-radius:50%;border:0;background:var(--red);color:#fff;font-size:24px;display:grid;place-items:center;text-decoration:none}
 
 /* Item */
-.item-hero{height:205px;margin:0 40px 12px;border-radius:15px}
+.item-hero{height:205px;width:100%;margin:0 0 12px}
 .item-title-row{display:grid;grid-template-columns:1fr auto;gap:14px;padding:0 17px}
 .item-title-row h1{font-size:20px;line-height:1.22;margin:0;font-weight:900}
 .item-price{font-size:20px;font-weight:900}
