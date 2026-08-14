@@ -2,12 +2,12 @@
 window.JOLLIBEE_MENU = {
   categories: [
     { id:"nuggets", label:"Chicken Nuggets", items:["chicken-nuggets-5pc"] },
-    { id:"chickenjoy", label:"Chickenjoy Fried Chicken", items:[] },
+    { id:"chickenjoy", label:"Chickenjoy Fried Chicken", items:["chickenjoy-2pc-2sides"] },
     { id:"sandwiches", label:"Chicken Sandwiches", items:["chicken-sandwich-deluxe"] },
     { id:"meal-deals", label:"Meal Deals", items:[] },
     { id:"perfect-pairs", label:"Perfect Pairs", items:[] },
     { id:"family", label:"Family Meals", items:["family-bucket-8pc"] },
-    { id:"tenders", label:"Chicken Tenders", items:[] },
+    { id:"tenders", label:"Chicken Tenders", items:["chicken-tenders-4pc-meal-deal"] },
     { id:"burgers", label:"Burgers", items:[] },
     { id:"spaghetti", label:"Jolly Spaghetti", items:["jolly-spaghetti-solo"] },
     { id:"palabok", label:"Palabok Fiesta", items:[] },
@@ -54,12 +54,34 @@ window.JOLLIBEE_MENU = {
         {value:"Guava Quencher", label:"Guava Quencher"}
       ]
     },
+    side2: {
+      title:"Side",
+      options:[
+        {value:"Jolly Crispy Fries Regular", label:"Jolly Crispy Fries Regular"},
+        {value:"Mashed Potato Regular", label:"Mashed Potato Regular"},
+        {value:"Steamed Rice", label:"Steamed Rice"},
+        {value:"2 pc Biscuit", label:"2 pc Biscuit"},
+        {value:"Adobo Rice", label:"Adobo Rice", priceDelta:1.50},
+        {value:"Side of Jolly Spaghetti", label:"Side of Jolly Spaghetti"},
+        {value:"Coleslaw", label:"Coleslaw"}
+      ]
+    },
     gravy: {
       title:"Gravy",
       options:[
         {value:"Small Chickenjoy Gravy", label:"Small Chickenjoy Gravy"},
         {value:"Regular Chickenjoy Gravy", label:"Regular Chickenjoy Gravy"},
         {value:"No Gravy", label:"No Gravy"}
+      ]
+    },
+    dip: {
+      title:"Dip",
+      options:[
+        {value:"Signature Dipping Sauce", label:"Signature Dipping Sauce"},
+        {value:"BBQ Dipping Sauce", label:"BBQ Dipping Sauce"},
+        {value:"Honey Mustard Dipping Sauce", label:"Honey Mustard Dipping Sauce"},
+        {value:"Sriracha Mayo Dipping Sauce", label:"Sriracha Mayo Dipping Sauce"},
+        {value:"Buttermilk Ranch Dipping Sauce", label:"Buttermilk Ranch Dipping Sauce"}
       ]
     },
     sauces: {
@@ -94,6 +116,16 @@ window.JOLLIBEE_MENU = {
       calories:0,
       customizations:["sauces"]
     },
+    "chickenjoy-2pc-2sides":{
+      id:"chickenjoy-2pc-2sides",
+      category:"chickenjoy",
+      name:"2pc Chickenjoy w/ Biscuit + 2 Sides",
+      shortName:"2pc Chickenjoy + 2 Sides",
+      description:"2pc of our next-level crispy, next-level juicy Chickenjoy fried chicken served with 2 regular sides.",
+      price:10.99,
+      calories:1050,
+      customizations:["chicken","side","side2"]
+    },
     "chicken-sandwich-deluxe":{
       id:"chicken-sandwich-deluxe",
       category:"sandwiches",
@@ -113,6 +145,16 @@ window.JOLLIBEE_MENU = {
       price:26.99,
       calories:2840,
       customizations:["chicken"]
+    },
+    "chicken-tenders-4pc-meal-deal":{
+      id:"chicken-tenders-4pc-meal-deal",
+      category:"tenders",
+      name:"4pc Chicken Tenders Meal Deal",
+      shortName:"4pc Tenders Meal Deal",
+      description:"4 crispy, hand-breaded Jollibee Chicken Tenders made with 100% juicy white meat, served with our Signature Tender Sauce. Comes with a regular side, fountain drink and pie.",
+      price:14.00,
+      calories:0,
+      customizations:["dip","side","drink"]
     },
     "jolly-spaghetti-solo":{
       id:"jolly-spaghetti-solo",

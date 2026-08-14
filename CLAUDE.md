@@ -183,6 +183,38 @@ then browse to `http://localhost:8080/`. Stop with `docker compose down`.
 Kept intentionally minimal per user request: no multi-stage build, no custom nginx
 config, no `.env`/volume mounts.
 
+## Deployment / tester-facing caching (GitHub Pages)
+
+The URL given to Maze testers is **GitHub Pages**, built from the default branch
+(`codespace-fluffy-space-orbit-q9p69rrwv5c4wxq`, root path `/`) — confirmed live at
+`https://condensermike-sketch.github.io/HTML-CSS-Javascript-Copilot-Playground/apps/`.
+This is a **separate deployment from the local Docker/`http.server` setups above** —
+those are for local preview only and have no bearing on what testers see.
+
+GitHub Pages serves every file (HTML *and* JS/CSS) with a fixed `Cache-Control:
+max-age=600` (10 minutes), at both the browser and the Fastly CDN edge. This can't be
+tuned — GitHub Pages has no custom-headers mechanism (no `_headers` file like Netlify,
+no nginx access) — but it also means staleness is capped at 10 minutes, unlike the local
+Docker/nginx setup, which sends no `Cache-Control` header at all and can fall back to
+much more aggressive/unbounded browser heuristic caching (this is why local testing in
+this session kept hitting a stale menu/JS even after bumping `?v=` — bumping the asset
+query string doesn't help if the *HTML document itself* is served stale, since the
+browser never re-fetches it to see the new value).
+
+Practical guidance for pushing a content update meant for testers:
+- **Wait ~10 minutes after merging/pushing** before starting new test sessions or
+  sending invites, so the CDN edge cache naturally expires and picks up the new deploy.
+  A first-time visitor to the URL is always fine regardless (nothing cached yet) — the
+  risk window only applies to someone loading the link within 10 minutes of a push.
+- **Or skip the wait entirely**: give Maze a URL with a version query string bumped on
+  each deploy (e.g. `.../apps/index.html?v=20260814`) — a new query string is a "new"
+  resource to every cache layer (browser + CDN), so it forces a fully fresh load with no
+  waiting.
+- Keep versioning `<script src>` tags for `menu-data.js`/`app.js` with a `?v=` query
+  string whenever their content changes (established convention, matches
+  `styles.css?v=2`) — this remains useful on top of the above for returning testers
+  whose browser might hold something past the stated 10-minute window.
+
 ## Git / collaboration setup
 
 - `origin` is not the user's own repo — the user has collaborator **WRITE** access to it,
