@@ -114,7 +114,8 @@ window.JOLLIBEE_MENU = {
       description:"Crispy, juicy, perfectly seasoned chicken breast nuggets with 100% white meat made for dipping or enjoying on their own.",
       price:4.49,
       calories:0,
-      customizations:["sauces"]
+      customizations:["sauces"],
+      image:"chicken-nuggets-5pc.jpg"
     },
     "chickenjoy-2pc-2sides":{
       id:"chickenjoy-2pc-2sides",
@@ -124,47 +125,52 @@ window.JOLLIBEE_MENU = {
       description:"2pc of our next-level crispy, next-level juicy Chickenjoy fried chicken served with 2 regular sides.",
       price:10.99,
       calories:1050,
-      customizations:["chicken","side","side2"]
+      customizations:["chicken","side","side2"],
+      image:"chickenjoy-2pc-2sides.jpg"
     },
     "chicken-sandwich-deluxe":{
       id:"chicken-sandwich-deluxe",
       category:"sandwiches",
-      name:"Chicken Sandwich Deluxe Meal",
-      shortName:"Chicken Sandwich Meal",
-      description:"Crispy chicken sandwich served with your choice of side and drink.",
-      price:10.99,
-      calories:990,
-      customizations:["side","drink"]
+      name:"Spicy Chicken Sandwich Combo",
+      shortName:"Spicy Chicken Sandwich Combo",
+      description:"A crispy juicy hand-breaded chicken breast fillet, spread with sriracha mayo and served with fresh jalapenos on a toasted brioche bun with a side of regular Jolly Crispy Fries and fountain drink.",
+      price:10.49,
+      calories:910,
+      customizations:["side","drink"],
+      image:"spicy-chicken-sandwich-combo.png"
     },
     "family-bucket-8pc":{
       id:"family-bucket-8pc",
       category:"family",
-      name:"8pc Chickenjoy Family Bucket",
-      shortName:"8pc Chickenjoy Bucket",
-      description:"Eight pieces of our signature Chickenjoy for sharing.",
-      price:26.99,
-      calories:2840,
-      customizations:["chicken"]
+      name:"Jolly Spaghetti Family Pack",
+      shortName:"Jolly Spaghetti Family Pack",
+      description:"Our one-of-a-kind spaghetti topped with our signature sweet-style sauce, loaded, ground beef, and hotdog and topped with melty cheese. Serves 3-5.",
+      price:19.99,
+      calories:1830,
+      customizations:[],
+      image:"jolly-spaghetti-family-pack.jpg"
     },
     "chicken-tenders-4pc-meal-deal":{
       id:"chicken-tenders-4pc-meal-deal",
       category:"tenders",
-      name:"4pc Chicken Tenders Meal Deal",
-      shortName:"4pc Tenders Meal Deal",
-      description:"4 crispy, hand-breaded Jollibee Chicken Tenders made with 100% juicy white meat, served with our Signature Tender Sauce. Comes with a regular side, fountain drink and pie.",
-      price:14.00,
+      name:"4pc Chicken Tenders",
+      shortName:"4pc Chicken Tenders",
+      description:"4 crispy, hand-breaded Jollibee Chicken Tenders made with 100% juicy white meat, served with our Signature Tender Sauce.",
+      price:9.29,
       calories:0,
-      customizations:["dip","side","drink"]
+      customizations:["dip"],
+      image:"chicken-tenders-4pc.jpg"
     },
     "jolly-spaghetti-solo":{
       id:"jolly-spaghetti-solo",
       category:"spaghetti",
-      name:"Jolly Spaghetti Solo",
+      name:"Jolly Spaghetti",
       shortName:"Jolly Spaghetti",
-      description:"Jollibee's signature sweet-style spaghetti topped with savory sauce.",
-      price:6.99,
-      calories:610,
-      customizations:[]
+      description:"Our one-of-a-kind spaghetti topped with our signature sweet-style sauce, loaded, ground beef, and hotdog and topped with melty cheese.",
+      price:5.99,
+      calories:0,
+      customizations:[],
+      image:"jolly-spaghetti-solo.jpg"
     },
     "burger-steak-2pc":{
       id:"burger-steak-2pc",
@@ -284,7 +290,7 @@ window.JOLLIBEE_MENU = {
       dateLabel:"Jul 28",
       fulfillment:"Drive-Thru · Beverly",
       items:[
-        { itemId:"family-bucket-8pc", quantity:1, customizations:{chicken:"All Original"} },
+        { itemId:"family-bucket-8pc", quantity:1, customizations:{} },
         { itemId:"chicken-nuggets-5pc", quantity:1, customizations:{sauces:{"BBQ Dipping Sauce":1,"Honey Mustard Dipping Sauce":1}} }
       ]
     }
