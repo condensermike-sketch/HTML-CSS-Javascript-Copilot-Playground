@@ -230,12 +230,12 @@ window.JOLLIBEE_MENU = {
     },
     "large-gravy":{
       id:"large-gravy", category:"sides", name:"Large Gravy", shortName:"Large Gravy",
-      description:"Our savory gravy in a large size.", price:2.19, calories:120, customizations:[],
+      description:"Our Savory Gravy in a large 8.0 oz size.", price:2.19, calories:70, customizations:[],
       image:"large-gravy.png"
     },
     "gravy":{
       id:"gravy", category:"sides", name:"Gravy", shortName:"Gravy",
-      description:"Our savory gravy.", price:0.00, calories:60, customizations:[],
+      description:"Our Savory Gravy.", price:0.00, calories:25, customizations:[],
       image:"gravy.jpg"
     },
 
@@ -277,11 +277,13 @@ window.JOLLIBEE_MENU = {
 
     "peach-mango-pie":{
       id:"peach-mango-pie", category:"desserts", name:"Peach Mango Pie", shortName:"Peach Mango Pie",
-      description:"Sweet and flaky Peach Mango Pie made with real Philippine Mangoes", price:2.99, calories:270, customizations:[]
+      description:"Sweet and flaky Peach Mango Pie made with real Philippine Mangoes", price:2.99, calories:270, customizations:[],
+      image:"peach-mango-pie.jpg"
     },
     "ube-pie":{
       id:"ube-pie", category:"desserts", name:"Ube Pie", shortName:"Ube Pie",
-      description:"Sweet and flaky Ube pie filled with real ube. Ube or purple yam has a smooth texture, and a mild sweet flavor.", price:2.99, calories:310, customizations:[]
+      description:"Sweet and flaky Ube pie filled with real ube. Ube or purple yam has a smooth texture, and a mild sweet flavor.", price:2.99, calories:310, customizations:[],
+      image:"ube-pie.png"
     }
   },
 
