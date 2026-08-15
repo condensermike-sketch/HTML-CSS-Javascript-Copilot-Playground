@@ -101,22 +101,20 @@ window.JOLLIBEE_MENU = {
   // Sub-choices reached from a parent option that has `nested:"<key>"`.
   // Order matters: the parent row previews the first three by name, so the
   // flavors participants are most likely to hunt for lead the list. Matches
-  // the live jollibeefoods.com "Sodas" product's option order. Flavors
-  // without their own downloaded photo reuse the generic sodas.jpg cup
-  // (already shown on the parent Fountain Drink row) rather than a
-  // different real drink's photo, which would misrepresent the flavor.
+  // the live jollibeefoods.com "Sodas" product's option order; images are
+  // that same product's real per-flavor photos.
   nestedGroups: {
     fountain: {
       title:"Fountain Drink",
       options:[
         {value:"Pepsi", image:"pepsi.png"},
-        {value:"Diet Pepsi", image:"sodas.jpg"},
-        {value:"Mountain Dew", image:"sodas.jpg"},
-        {value:"Mug Root Beer", image:"sodas.jpg"},
-        {value:"Raspberry Iced Tea", image:"sodas.jpg"},
-        {value:"Pink Lemonade", image:"sodas.jpg"},
+        {value:"Diet Pepsi", image:"diet-pepsi.png"},
+        {value:"Mountain Dew", image:"mountain-dew.png"},
+        {value:"Mug Root Beer", image:"mug-root-beer.png"},
+        {value:"Raspberry Iced Tea", image:"raspberry-iced-tea.png"},
+        {value:"Pink Lemonade", image:"pink-lemonade.png"},
         {value:"Starry Lemon-lime", image:"starry-lemon-lime.png"},
-        {value:"Brisk Lemon Iced Tea", image:"sodas.jpg"}
+        {value:"Brisk Lemon Iced Tea", image:"brisk-lemon-iced-tea.png"}
       ]
     }
   },
