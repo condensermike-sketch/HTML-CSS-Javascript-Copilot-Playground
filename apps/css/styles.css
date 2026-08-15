@@ -198,7 +198,8 @@ svg{display:block}
 .home-order-again-heading{margin:0 0 12px}
 .home-order-track{
   display:flex;gap:10px;overflow-x:auto;scroll-snap-type:x proximity;
-  scrollbar-width:none;-ms-overflow-style:none;margin:0 -17px;padding:0 17px 10px
+  scrollbar-width:none;-ms-overflow-style:none;margin:0 -17px;padding:0 17px 10px;
+  scroll-padding-left:17px
 }
 .home-order-track::-webkit-scrollbar{display:none}
 .home-order-card{
