@@ -195,39 +195,48 @@ window.JOLLIBEE_MENU = {
 
     "adobo-rice":{
       id:"adobo-rice", category:"sides", name:"Adobo Rice", shortName:"Adobo Rice",
-      description:"A side of Adobo Rice.", price:3.99, calories:250, customizations:[]
+      description:"A side of Adobo Rice.", price:3.99, calories:250, customizations:[],
+      image:"adobo-rice.png"
     },
     "side-jolly-spaghetti":{
       id:"side-jolly-spaghetti", category:"sides", name:"Side Jolly Spaghetti", shortName:"Side Jolly Spaghetti",
-      description:"A side portion of our one-of-a-kind Jolly Spaghetti.", price:3.99, calories:360, customizations:[]
+      description:"A side portion of our one-of-a-kind Jolly Spaghetti.", price:3.99, calories:360, customizations:[],
+      image:"side-jolly-spaghetti.png"
     },
     "jolly-crispy-fries-large":{
       id:"jolly-crispy-fries-large", category:"sides", name:"Jolly Crispy Fries Large", shortName:"Large Jolly Crispy Fries",
-      description:"A large serving of our Jolly Crispy Fries.", price:3.99, calories:520, customizations:[]
+      description:"A large serving of our Jolly Crispy Fries.", price:3.99, calories:520, customizations:[],
+      image:"jolly-crispy-fries.jpg"
     },
     "jolly-crispy-fries":{
       id:"jolly-crispy-fries", category:"sides", name:"Jolly Crispy Fries", shortName:"Jolly Crispy Fries",
-      description:"A regular serving of our Jolly Crispy Fries.", price:2.69, calories:340, customizations:[]
+      description:"A regular serving of our Jolly Crispy Fries.", price:2.69, calories:340, customizations:[],
+      image:"jolly-crispy-fries.jpg"
     },
     "mashed-potatoes-large":{
       id:"mashed-potatoes-large", category:"sides", name:"Mashed Potatoes Large", shortName:"Large Mashed Potatoes",
-      description:"A large serving of our mashed potatoes and gravy.", price:3.99, calories:340, customizations:[]
+      description:"A large serving of our mashed potatoes and gravy.", price:3.99, calories:340, customizations:[],
+      image:"mashed-potatoes.jpg"
     },
     "mashed-potatoes":{
       id:"mashed-potatoes", category:"sides", name:"Mashed Potatoes", shortName:"Mashed Potatoes",
-      description:"A regular serving of our mashed potatoes and gravy.", price:2.69, calories:170, customizations:[]
+      description:"A regular serving of our mashed potatoes and gravy.", price:2.69, calories:170, customizations:[],
+      image:"mashed-potatoes.jpg"
     },
     "steamed-rice":{
       id:"steamed-rice", category:"sides", name:"Steamed Rice", shortName:"Steamed Rice",
-      description:"A side of steamed rice.", price:2.69, calories:190, customizations:[]
+      description:"A side of steamed rice.", price:2.69, calories:190, customizations:[],
+      image:"steamed-rice.jpg"
     },
     "large-gravy":{
       id:"large-gravy", category:"sides", name:"Large Gravy", shortName:"Large Gravy",
-      description:"Our savory gravy in a large size.", price:2.19, calories:120, customizations:[]
+      description:"Our savory gravy in a large size.", price:2.19, calories:120, customizations:[],
+      image:"large-gravy.png"
     },
     "gravy":{
       id:"gravy", category:"sides", name:"Gravy", shortName:"Gravy",
-      description:"Our savory gravy.", price:0.00, calories:60, customizations:[]
+      description:"Our savory gravy.", price:0.00, calories:60, customizations:[],
+      image:"gravy.jpg"
     },
 
     "pineapple-quencher":{
