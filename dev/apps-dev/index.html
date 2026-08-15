@@ -46,11 +46,11 @@
 
 </div></div></header>
 <main class="app-scroll home-scroll"><div class="home-content">
-<section class="profile-card"><div class="avatar"><img src="/HTML-CSS-Javascript-Copilot-Playground/apps/images/jollibee-logo.png" alt="" style="width:100%;height:100%;object-fit:contain;display:block"></div><div><div class="profile-title">Hello, Username</div><div class="profile-points"><strong>240</strong> Points Earned</div></div><svg width="20" height="20" viewBox="0 0 24 24" style="color:#999"><path class="icon-stroke" d="m9 6 6 6-6 6"/></svg></section>
+<section class="profile-card"><div class="avatar"><img src="./images/jollibee-logo.png" alt="" style="width:100%;height:100%;object-fit:contain;display:block"></div><div><div class="profile-title">Hello, Username</div><div class="profile-points"><strong>240</strong> Points Earned</div></div><svg width="20" height="20" viewBox="0 0 24 24" style="color:#999"><path class="icon-stroke" d="m9 6 6 6-6 6"/></svg></section>
 <section class="home-promo" id="homePromo"><div class="promo-track" id="promoTrack">
-<div class="promo-slide"><img src="/HTML-CSS-Javascript-Copilot-Playground/apps/images/banner-chickenjoy.png" alt="Chickenjoy - Next-Level Juicy, Next-Level Crispy"></div>
-<div class="promo-slide"><img src="/HTML-CSS-Javascript-Copilot-Playground/apps/images/banner-chicken-sandwiches.png" alt="Jollibee Chicken Sandwiches - Spicy and Original"></div>
-<div class="promo-slide"><img src="/HTML-CSS-Javascript-Copilot-Playground/apps/images/banner-chicken-nuggets.png" alt="New Jollibee Chicken Nuggets"></div>
+<div class="promo-slide"><img src="./images/banner-chickenjoy.png" alt="Chickenjoy - Next-Level Juicy, Next-Level Crispy"></div>
+<div class="promo-slide"><img src="./images/banner-chicken-sandwiches.png" alt="Jollibee Chicken Sandwiches - Spicy and Original"></div>
+<div class="promo-slide"><img src="./images/banner-chicken-nuggets.png" alt="New Jollibee Chicken Nuggets"></div>
 </div><div class="carousel-controls"><button id="promoPrev" aria-label="Previous slide"><svg width="17" height="17" viewBox="0 0 24 24"><path class="icon-stroke" d="m14 7-5 5 5 5"/></svg></button><button class="pause-circle" id="promoPause" aria-label="Pause carousel">Ⅱ</button><button id="promoNext" aria-label="Next slide"><svg width="17" height="17" viewBox="0 0 24 24"><path class="icon-stroke" d="m10 7 5 5-5 5"/></svg></button></div></section>
 <section class="home-shortcuts">
 <a class="shortcut home-order-again-primary" href="./order-again/"><svg class="big" viewBox="0 0 24 24"><path class="icon-stroke" d="M4 5v5h5"/><path class="icon-stroke" d="M5.7 16a8 8 0 1 0 .3-8"/></svg><strong>Order Again</strong><svg width="17" height="17" viewBox="0 0 24 24"><path class="icon-stroke" d="m9 6 6 6-6 6"/></svg></a>
@@ -78,7 +78,7 @@
 <script>
 const menu=window.JOLLIBEE_MENU, S=window.JolliState;
 const categoryImages={nuggets:"category-nuggets.jpg",chickenjoy:"category-chickenjoy.jpg",sandwiches:"category-sandwiches.png",family:"category-family-meals.jpg",tenders:"category-tenders.png",spaghetti:"category-spaghetti.jpg","burger-steak":"category-burger-steak.jpg",sides:"category-sides.png",drinks:"category-drinks.jpg",desserts:"category-desserts.jpg"};
-document.getElementById("homeCategories").innerHTML=menu.categories.filter(c=>c.items.length).map(c=>{const img=categoryImages[c.id];const thumb=img?`<div class="category-image"><img src="/HTML-CSS-Javascript-Copilot-Playground/apps/images/${img}" alt="${c.label}" style="width:100%;height:100%;object-fit:contain;display:block"></div>`:`<div class="category-image placeholder"><svg viewBox="0 0 24 24"><rect class="icon-stroke" x="4" y="4" width="16" height="16" rx="2"/><circle class="icon-stroke" cx="9" cy="9" r="2"/><path class="icon-stroke" d="m5 17 4-4 3 3 2-2 5 5"/></svg></div>`;return `<a class="category-card" href="./menu/#${c.id}">${thumb}<div class="category-label">${c.label}</div></a>`}).join("");
+document.getElementById("homeCategories").innerHTML=menu.categories.filter(c=>c.items.length).map(c=>{const img=categoryImages[c.id];const thumb=img?`<div class="category-image"><img src="./images/${img}" alt="${c.label}" style="width:100%;height:100%;object-fit:contain;display:block"></div>`:`<div class="category-image placeholder"><svg viewBox="0 0 24 24"><rect class="icon-stroke" x="4" y="4" width="16" height="16" rx="2"/><circle class="icon-stroke" cx="9" cy="9" r="2"/><path class="icon-stroke" d="m5 17 4-4 3 3 2-2 5 5"/></svg></div>`;return `<a class="category-card" href="./menu/#${c.id}">${thumb}<div class="category-label">${c.label}</div></a>`}).join("");
 function updateCartIcon(){
   const n=S.cartCount(), fab=document.getElementById("homeCartFab");
   fab.classList.toggle("show",n>0);
