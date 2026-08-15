@@ -241,11 +241,13 @@ window.JOLLIBEE_MENU = {
 
     "pineapple-quencher":{
       id:"pineapple-quencher", category:"drinks", name:"Pineapple Quencher", shortName:"Pineapple Quencher",
-      description:"A sweet and refreshing taste of the Philippines with our signature Pineapple Quencher.", price:3.99, calories:180, customizations:[]
+      description:"A sweet and refreshing taste of the Philippines with our signature Pineapple Quencher.", price:3.99, calories:180, customizations:[],
+      image:"pineapple-quencher.jpg"
     },
     "pineapple-quencher-half-gallon":{
       id:"pineapple-quencher-half-gallon", category:"drinks", name:"Half Gallon Pineapple Quencher", shortName:"Half Gallon Pineapple Quencher",
-      description:"Half gallon of our sweet and refreshing signature Pineapple Quencher.", price:18.99, calories:0, customizations:[]
+      description:"Half gallon of our sweet and refreshing signature Pineapple Quencher.", price:18.99, calories:0, customizations:[],
+      image:"pineapple-quencher.jpg"
     },
     "bottled-water":{
       id:"bottled-water", category:"drinks", name:"Bottled Water", shortName:"Bottled Water",
@@ -253,11 +255,13 @@ window.JOLLIBEE_MENU = {
     },
     "mango-coconut-quencher":{
       id:"mango-coconut-quencher", category:"drinks", name:"Mango Coconut Quencher", shortName:"Mango Coconut Quencher",
-      description:"Our tropical inspired blend of strawberry, passionfruit and coconut served with mango jelly", price:4.99, calories:160, customizations:[]
+      description:"Our tropical inspired blend of strawberry, passionfruit and coconut served with mango jelly", price:4.99, calories:160, customizations:[],
+      image:"mango-coconut-quencher.png"
     },
     "dragonfruit-sunset-quencher":{
       id:"dragonfruit-sunset-quencher", category:"drinks", name:"Dragonfruit Sunset Quencher", shortName:"Dragonfruit Sunset Quencher",
-      description:"Our mango and passionfruit quencher served with real dragon fruit bits", price:4.99, calories:150, customizations:[]
+      description:"Our mango and passionfruit quencher served with real dragon fruit bits", price:4.99, calories:150, customizations:[],
+      image:"dragonfruit-sunset-quencher.png"
     },
     "mango-freeze":{
       id:"mango-freeze", category:"drinks", name:"Mango Freeze", shortName:"Mango Freeze",
@@ -265,7 +269,8 @@ window.JOLLIBEE_MENU = {
     },
     "guava-quencher":{
       id:"guava-quencher", category:"drinks", name:"Guava Quencher", shortName:"Guava Quencher",
-      description:"Bursting with tropical guava and hints of strawberry and passion fruit. A sweet, refreshing cool-down. Garnishment not included.", price:3.99, calories:120, customizations:[]
+      description:"Bursting with tropical guava and hints of strawberry and passion fruit. A sweet, refreshing cool-down. Garnishment not included.", price:3.99, calories:120, customizations:[],
+      image:"guava-quencher.jpg"
     },
 
     "peach-mango-pie":{
