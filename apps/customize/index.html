@@ -120,7 +120,7 @@ function renderSingleSelectGroup(){
   // Preview the sub-options by name on the parent row. Participants looking
   // for a specific flavor need to see it before they'll open the group.
   function previewText(o){
-    const opts=nestedOptionsOf(o),head=opts.slice(0,3).map(x=>x.value).join(", "),rest=opts.length-3;
+    const opts=nestedOptionsOf(o),head=opts.slice(0,4).map(x=>x.value).join(", "),rest=opts.length-4;
     return rest>0?`${head} & ${rest} more`:head;
   }
 
