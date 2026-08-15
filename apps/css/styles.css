@@ -304,10 +304,29 @@ svg{display:block}
 .customize-intro{padding:18px 17px 10px;font-size:16px}
 .customize-intro span{display:block;color:#888;font-size:14px;margin-top:2px}
 .choice-row{min-height:91px;display:grid;grid-template-columns:34px 55px 1fr;gap:10px;align-items:center;padding:10px 17px;border-bottom:1px solid var(--line)}
-.choice-row input{width:22px;height:22px;accent-color:var(--red)}
+/* appearance:none so this renders identically to .fake-radio below instead
+   of leaving the ring to each browser/OS's own native control theme. */
+.choice-row input[type="radio"]{-webkit-appearance:none;appearance:none;width:22px;height:22px;margin:0;box-sizing:border-box;border:1.5px solid var(--muted);border-radius:50%;background:#fff}
+.choice-row input[type="radio"]:checked{border-color:var(--red);background:var(--red);box-shadow:inset 0 0 0 4px #fff}
 .choice-img{width:55px;height:55px;border-radius:8px}
 .choice-row strong{font-size:18px;line-height:1.15}
 .choice-row small{display:block;font-size:14px;color:#888;margin-top:3px}
+
+/* A choice that opens a sub-list (e.g. Fountain Drink) rather than being a
+   terminal pick. It is a button, not a radio label, so the chevron + preview
+   copy read as "this leads somewhere" instead of "this is the whole choice".
+   The circle is decorative — the real radios live inside the sheet — but it
+   still fills in once a sub-option has been chosen, and matches
+   .choice-row input[type="radio"] exactly so every radio in the list reads
+   as the same control. */
+.nested-row{width:100%;text-align:left;font:inherit;color:inherit;background:none;border:0;border-bottom:1px solid var(--line);grid-template-columns:34px 55px 1fr auto;cursor:pointer}
+.nested-row .fake-radio{width:22px;height:22px;margin:0;box-sizing:border-box;border:1.5px solid var(--muted);border-radius:50%;background:#fff;display:block}
+.nested-row.on .fake-radio{border-color:var(--red);background:var(--red);box-shadow:inset 0 0 0 4px #fff}
+/* Bleeds through .choice-row's own padding (10px vertical, 17px right) so
+   the red tab reads as a full-height button flush to the row's edge, not
+   just another inline icon. Square corners, no radius. */
+.nested-open{align-self:stretch;display:flex;align-items:center;justify-content:center;padding:0 10px;margin:-10px -17px -10px 0;background:var(--red);border-radius:0}
+.nested-chevron{width:22px;height:22px;color:#fff}
 
 /* Quantity-type customization groups (e.g. Sauces): each row starts unpriced
    and reveals its price + stepper only once at least one has been added. */
@@ -323,11 +342,15 @@ svg{display:block}
 .apply-btn{width:100%}
 .nested-sheet-wrap{position:absolute;inset:0;background:rgba(0,0,0,.4);z-index:130;display:none;align-items:flex-end}
 .nested-sheet-wrap.show{display:flex}
-.nested-sheet{width:100%;background:#fff;border-radius:24px 24px 0 0;max-height:76%;overflow:auto;padding:16px 17px calc(18px + env(safe-area-inset-bottom))}
-.sheet-handle{width:44px;height:5px;background:#d3d3d3;border-radius:999px;margin:0 auto 14px}
-.nested-sheet h2{font-size:20px;margin:0 0 10px}
+/* Column layout so #nestedOptions is the only part that scrolls and the
+   Apply footer stays pinned in view, no matter how many flavors are listed. */
+.nested-sheet{width:100%;background:#fff;border-radius:24px 24px 0 0;max-height:76%;display:flex;flex-direction:column;overflow:hidden;padding:16px 17px 0}
+.sheet-handle{flex:0 0 auto;width:44px;height:5px;background:#d3d3d3;border-radius:999px;margin:0 auto 14px}
+.nested-sheet h2{flex:0 0 auto;font-size:20px;margin:0 0 10px}
+#nestedOptions{flex:1 1 auto;min-height:0;overflow-y:auto}
 .nested-option{display:flex;align-items:center;gap:12px;padding:14px 0;border-bottom:1px solid var(--line);font-size:17px}
 .nested-option input{width:21px;height:21px;accent-color:var(--red)}
+.nested-sheet-footer{flex:0 0 auto;padding:16px 0 calc(18px + env(safe-area-inset-bottom));border-top:1px solid var(--line)}
 
 /* Upsell */
 .upsell-wrap{position:absolute;inset:0;background:rgba(0,0,0,.42);z-index:140;display:none;align-items:flex-end}

@@ -43,7 +43,7 @@ window.JOLLIBEE_MENU = {
       options:[
         {value:"Pineapple Quencher", label:"Pineapple Quencher", priceDelta:0.50, image:"pineapple-quencher.jpg"},
         {value:"Bottled Water", label:"Bottled Water", image:"bottled-water.jpeg"},
-        {value:"Soda", label:"Soda", nested:"soda", image:"sodas.jpg"},
+        {value:"Fountain Drink", label:"Fountain Drink", nested:"fountain", image:"sodas.jpg"},
         {value:"Coconut Dream Freeze", label:"Coconut Dream Freeze", priceDelta:1.80, image:"coconut-dream-freeze.png"},
         {value:"Strawberry Bliss Freeze", label:"Strawberry Bliss Freeze", priceDelta:1.80, image:"strawberry-bliss-freeze.png"},
         {value:"Lychee Iced Tea", label:"Lychee Iced Tea", priceDelta:0.50, image:"lychee-iced-tea.png"},
@@ -98,10 +98,24 @@ window.JOLLIBEE_MENU = {
     }
   },
 
+  // Sub-choices reached from a parent option that has `nested:"<key>"`.
+  // Order matters: the parent row previews the first three by name, so the
+  // flavors participants are most likely to hunt for lead the list. Matches
+  // the live jollibeefoods.com "Sodas" product's option order; images are
+  // that same product's real per-flavor photos.
   nestedGroups: {
-    soda: {
-      title:"Choose a Soda",
-      options:["Raspberry Ice Tea","Diet Pepsi","Mountain Dew","Pink Lemonade","Brisk Lemon Iced Tea","Mug Root Beer"]
+    fountain: {
+      title:"Fountain Drink",
+      options:[
+        {value:"Pepsi", image:"pepsi.png"},
+        {value:"Diet Pepsi", image:"diet-pepsi.png"},
+        {value:"Mountain Dew", image:"mountain-dew.png"},
+        {value:"Mug Root Beer", image:"mug-root-beer.png"},
+        {value:"Raspberry Iced Tea", image:"raspberry-iced-tea.png"},
+        {value:"Pink Lemonade", image:"pink-lemonade.png"},
+        {value:"Starry Lemon-lime", image:"starry-lemon-lime.png"},
+        {value:"Brisk Lemon Iced Tea", image:"brisk-lemon-iced-tea.png"}
+      ]
     }
   },
 
