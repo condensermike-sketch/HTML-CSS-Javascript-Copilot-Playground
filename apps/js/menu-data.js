@@ -21,9 +21,9 @@ window.JOLLIBEE_MENU = {
     chicken: {
       title:"Chicken",
       options:[
-        {value:"All Original", label:"All Original"},
-        {value:"All Spicy", label:"All Spicy"},
-        {value:"Half Original / Half Spicy", label:"Half Original / Half Spicy"}
+        {value:"All Original", label:"All Original", image:"chicken-all-original.png"},
+        {value:"All Spicy", label:"All Spicy", image:"chicken-all-spicy.png"},
+        {value:"Half Original / Half Spicy", label:"Half Original / Half Spicy", image:"chicken-half-half.png"}
       ]
     },
     side: {
