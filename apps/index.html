@@ -67,9 +67,32 @@
 const menu=window.JOLLIBEE_MENU, S=window.JolliState;
 document.getElementById("homeCategories").innerHTML=menu.categories.filter(c=>c.items.length).map(c=>`<a class="category-card" href="./menu/#${c.id}"><div class="category-image placeholder"><svg viewBox="0 0 24 24"><rect class="icon-stroke" x="4" y="4" width="16" height="16" rx="2"/><circle class="icon-stroke" cx="9" cy="9" r="2"/><path class="icon-stroke" d="m5 17 4-4 3 3 2-2 5 5"/></svg></div><div class="category-label">${c.label}</div></a>`).join("");
 const overlay=document.getElementById("searchOverlay"),input=document.getElementById("searchInput"),results=document.getElementById("searchResults");
-function drawSearch(q=""){q=q.trim().toLowerCase();results.innerHTML=Object.values(menu.items).filter(i=>!q||i.name.toLowerCase().includes(q)).map(i=>`<a class="search-row" href="./item/?id=${i.id}"><div class="search-thumb placeholder"><svg viewBox="0 0 24 24"><rect class="icon-stroke" x="4" y="4" width="16" height="16" rx="2"/><circle class="icon-stroke" cx="9" cy="9" r="2"/><path class="icon-stroke" d="m5 17 4-4 3 3 2-2 5 5"/></svg></div><div class="search-name">${i.name}</div><div class="search-price">$${i.price.toFixed(2)}</div></a>`).join("")}
+// Search is scoped to items the guest has some history with (ordered
+// before or favorited) rather than the entire catalog, so results stay
+// short and every result has a real photo (unbrowsed items may not).
+function knownItemIds(){
+  const ids=new Set();
+  [...S.sessionOrders(),...menu.seededOrders].forEach(o=>(o.items||[]).forEach(e=>{
+    const id=e.itemId||e.addonId;
+    if(id&&menu.items[id])ids.add(id);
+  }));
+  S.favorites().forEach(f=>{
+    const id=f.itemId||f.addonId;
+    if(id&&menu.items[id])ids.add(id);
+  });
+  return ids;
+}
+function drawSearch(q=""){
+  q=q.trim().toLowerCase();
+  const known=knownItemIds();
+  const list=Object.values(menu.items).filter(i=>known.has(i.id)&&(!q||i.name.toLowerCase().includes(q)));
+  results.innerHTML=list.length?list.map(i=>{
+    const thumb=i.image?`<div class="search-thumb"><img src="./images/${i.image}" alt="${i.name}"></div>`:`<div class="search-thumb placeholder"><svg viewBox="0 0 24 24"><rect class="icon-stroke" x="4" y="4" width="16" height="16" rx="2"/><circle class="icon-stroke" cx="9" cy="9" r="2"/><path class="icon-stroke" d="m5 17 4-4 3 3 2-2 5 5"/></svg></div>`;
+    return `<a class="search-row" href="./item/?id=${i.id}">${thumb}<div class="search-name">${i.name}</div><div class="search-price">$${i.price.toFixed(2)}</div></a>`;
+  }).join(""):`<div class="menu-coming">${q?"No matching items":"Order or favorite an item to see it here"}</div>`;
+}
 drawSearch();
-document.getElementById("searchBtn").onclick=()=>{overlay.classList.add("show");setTimeout(()=>input.focus(),50)};
+document.getElementById("searchBtn").onclick=()=>{drawSearch(input.value);overlay.classList.add("show");setTimeout(()=>input.focus(),50)};
 document.getElementById("searchCancel").onclick=()=>{overlay.classList.remove("show");input.value="";drawSearch()};
 input.oninput=()=>drawSearch(input.value);
 (function(){

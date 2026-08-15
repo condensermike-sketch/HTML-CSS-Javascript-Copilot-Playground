@@ -126,7 +126,7 @@ svg{display:block}
 }
 .placeholder svg{width:26px;height:26px}
 .item-hero img,.menu-thumb img,.upsell-img img,.choice-img img,
-.fav-thumb img,.cart-item-img img,.cart-upsell-img img{
+.fav-thumb img,.cart-item-img img,.cart-upsell-img img,.search-thumb img{
   width:100%;height:100%;object-fit:cover;display:block;border-radius:inherit
 }
 .custom-thumb img{
