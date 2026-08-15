@@ -8,13 +8,18 @@
 
   function appBase(){
     const href = location.href;
+    const markers = ["/apps-dev/", "/apps/"];
     if(location.protocol === "file:"){
-      const idx = href.indexOf("/apps/");
-      return idx >= 0 ? href.slice(0, idx + 6) : new URL("../", href).href;
+      for(const marker of markers){
+        const idx = href.indexOf(marker);
+        if(idx >= 0) return href.slice(0, idx + marker.length);
+      }
+      return new URL("../", href).href;
     }
-    const marker = "/apps/";
-    const idx = location.pathname.indexOf(marker);
-    if(idx >= 0) return location.origin + location.pathname.slice(0, idx + marker.length);
+    for(const marker of markers){
+      const idx = location.pathname.indexOf(marker);
+      if(idx >= 0) return location.origin + location.pathname.slice(0, idx + marker.length);
+    }
     return location.origin + "/";
   }
 
@@ -54,7 +59,9 @@
   // Ordinary link navigation between prototype pages is "navigate", so state survives.
   if(CONFIG.testMode && CONFIG.clearOnReload && navType()==="reload"){
     clearParticipantState();
-    if(!location.pathname.endsWith("/apps/") && !location.pathname.endsWith("/apps/index.html")){
+    const atAppHome = ["/apps-dev/", "/apps-dev/index.html", "/apps/", "/apps/index.html"]
+      .some(path=>location.pathname.endsWith(path));
+    if(!atAppHome){
       location.replace(hrefFor(""));
       return;
     }
@@ -130,13 +137,12 @@
     }
 
     const count=cartCount();
-    if(count<1 || /\/cart\/?(?:index\.html)?$/.test(location.pathname)) return;
 
     const link=document.createElement("a");
     link.className="icon-btn header-cart-link";
     link.href=hrefFor("cart/");
-    link.setAttribute("aria-label",`Cart, ${count} item${count===1?"":"s"}`);
-    link.innerHTML=`<svg width="25" height="25" viewBox="0 0 24 24" aria-hidden="true"><path class="icon-stroke" d="M3 4h2l2.2 10.2a2 2 0 0 0 2 1.6h7.9a2 2 0 0 0 2-1.6L21 7H6"/><circle class="icon-stroke" cx="10" cy="20" r="1"/><circle class="icon-stroke" cx="18" cy="20" r="1"/></svg><span class="cart-badge">${count}</span>`;
+    link.setAttribute("aria-label",count>0?`Cart, ${count} item${count===1?"":"s"}`:"Cart");
+    link.innerHTML=`<svg width="25" height="25" viewBox="0 0 24 24" aria-hidden="true"><path class="icon-stroke" d="M3 4h2l2.2 10.2a2 2 0 0 0 2 1.6h7.9a2 2 0 0 0 2-1.6L21 7H6"/><circle class="icon-stroke" cx="10" cy="20" r="1"/><circle class="icon-stroke" cx="18" cy="20" r="1"/></svg>${count>0?`<span class="cart-badge">${count}</span>`:""}`;
 
     const homeActions=document.querySelector(".top-red .header-actions");
     if(homeActions){
