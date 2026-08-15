@@ -179,7 +179,8 @@ svg{display:block}
   min-height:66px;border:1px solid #d0d0d0;border-radius:15px;
   display:grid;grid-template-columns:48px 1fr 28px;gap:12px;align-items:center;padding:10px 13px
 }
-.avatar{width:44px;height:44px;border-radius:50%;background:#dedede;color:#aaa;display:grid;place-items:center}
+.avatar{width:44px;height:44px;border-radius:50%;background:#dedede;color:#aaa;display:grid;place-items:center;overflow:hidden}
+.avatar img{width:100%;height:100%;object-fit:contain;display:block}
 .profile-title{font-size:16px;font-weight:900}
 .profile-points{font-size:13px;margin-top:3px}.profile-points strong{font-weight:900}
 .home-promo{position:relative;margin:12px -17px 0}
@@ -809,6 +810,7 @@ svg{display:block}
   display:grid;place-items:center;overflow:hidden
 }
 .account-avatar svg{width:44px;height:44px}
+.account-avatar img{width:100%;height:100%;object-fit:contain;display:block}
 .account-hero h1{
   margin:0 0 4px;
   font-size:20px;
