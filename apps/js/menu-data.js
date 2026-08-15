@@ -77,23 +77,23 @@ window.JOLLIBEE_MENU = {
     dip: {
       title:"Dip",
       options:[
-        {value:"Signature Dipping Sauce", label:"Signature Dipping Sauce"},
-        {value:"BBQ Dipping Sauce", label:"BBQ Dipping Sauce"},
-        {value:"Honey Mustard Dipping Sauce", label:"Honey Mustard Dipping Sauce"},
-        {value:"Sriracha Mayo Dipping Sauce", label:"Sriracha Mayo Dipping Sauce"},
-        {value:"Buttermilk Ranch Dipping Sauce", label:"Buttermilk Ranch Dipping Sauce"}
+        {value:"Signature Dipping Sauce", label:"Signature Dipping Sauce", image:"dip-signature.png"},
+        {value:"BBQ Dipping Sauce", label:"BBQ Dipping Sauce", image:"dip-bbq.png"},
+        {value:"Honey Mustard Dipping Sauce", label:"Honey Mustard Dipping Sauce", image:"dip-honey-mustard.png"},
+        {value:"Sriracha Mayo Dipping Sauce", label:"Sriracha Mayo Dipping Sauce", image:"dip-sriracha-mayo.png"},
+        {value:"Buttermilk Ranch Dipping Sauce", label:"Buttermilk Ranch Dipping Sauce", image:"dip-buttermilk-ranch.png"}
       ]
     },
     sauces: {
       title:"Sauces",
       quantity:true,
       options:[
-        {value:"Signature Dipping Sauce", label:"Signature Dipping Sauce", priceDelta:0.50},
-        {value:"Small Chickenjoy Gravy", label:"Small Chickenjoy Gravy", priceDelta:1.29},
-        {value:"BBQ Dipping Sauce", label:"BBQ Dipping Sauce", priceDelta:0.50},
-        {value:"Honey Mustard Dipping Sauce", label:"Honey Mustard Dipping Sauce", priceDelta:0.50},
-        {value:"Sriracha Mayo Dipping Sauce", label:"Sriracha Mayo Dipping Sauce", priceDelta:0.50},
-        {value:"Buttermilk Ranch Dipping Sauce", label:"Buttermilk Ranch Dipping Sauce", priceDelta:0.50}
+        {value:"Signature Dipping Sauce", label:"Signature Dipping Sauce", priceDelta:0.50, image:"dip-signature.png"},
+        {value:"Small Chickenjoy Gravy", label:"Small Chickenjoy Gravy", priceDelta:1.29, image:"dip-small-gravy.png"},
+        {value:"BBQ Dipping Sauce", label:"BBQ Dipping Sauce", priceDelta:0.50, image:"dip-bbq.png"},
+        {value:"Honey Mustard Dipping Sauce", label:"Honey Mustard Dipping Sauce", priceDelta:0.50, image:"dip-honey-mustard.png"},
+        {value:"Sriracha Mayo Dipping Sauce", label:"Sriracha Mayo Dipping Sauce", priceDelta:0.50, image:"dip-sriracha-mayo.png"},
+        {value:"Buttermilk Ranch Dipping Sauce", label:"Buttermilk Ranch Dipping Sauce", priceDelta:0.50, image:"dip-buttermilk-ranch.png"}
       ]
     }
   },

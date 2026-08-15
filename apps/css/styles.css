@@ -125,7 +125,7 @@ svg{display:block}
   background:var(--tile);color:#aaa;display:grid;place-items:center
 }
 .placeholder svg{width:26px;height:26px}
-.item-hero img,.menu-thumb img,.custom-thumb img,.upsell-img img{
+.item-hero img,.menu-thumb img,.custom-thumb img,.upsell-img img,.choice-img img{
   width:100%;height:100%;object-fit:cover;display:block;border-radius:inherit
 }
 
