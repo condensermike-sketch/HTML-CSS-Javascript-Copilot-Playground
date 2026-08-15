@@ -32,7 +32,7 @@ window.JOLLIBEE_MENU = {
         {value:"Jolly Crispy Fries Regular", label:"Jolly Crispy Fries Regular", image:"jolly-crispy-fries.jpg"},
         {value:"Mashed Potato Regular", label:"Mashed Potato Regular", image:"mashed-potatoes.jpg"},
         {value:"Steamed Rice", label:"Steamed Rice", image:"steamed-rice.jpg"},
-        {value:"2 pc Biscuit", label:"2 pc Biscuit"},
+        {value:"2 pc Biscuit", label:"2 pc Biscuit", image:"2-pc-biscuit.png"},
         {value:"Adobo Rice", label:"Adobo Rice", priceDelta:1.50, image:"adobo-rice.png"},
         {value:"Side of Jolly Spaghetti", label:"Side of Jolly Spaghetti", image:"side-jolly-spaghetti.png"},
         {value:"Coleslaw", label:"Coleslaw", image:"coleslaw.png"}
@@ -60,7 +60,7 @@ window.JOLLIBEE_MENU = {
         {value:"Jolly Crispy Fries Regular", label:"Jolly Crispy Fries Regular", image:"jolly-crispy-fries.jpg"},
         {value:"Mashed Potato Regular", label:"Mashed Potato Regular", image:"mashed-potatoes.jpg"},
         {value:"Steamed Rice", label:"Steamed Rice", image:"steamed-rice.jpg"},
-        {value:"2 pc Biscuit", label:"2 pc Biscuit"},
+        {value:"2 pc Biscuit", label:"2 pc Biscuit", image:"2-pc-biscuit.png"},
         {value:"Adobo Rice", label:"Adobo Rice", priceDelta:1.50, image:"adobo-rice.png"},
         {value:"Side of Jolly Spaghetti", label:"Side of Jolly Spaghetti", image:"side-jolly-spaghetti.png"},
         {value:"Coleslaw", label:"Coleslaw", image:"coleslaw.png"}
