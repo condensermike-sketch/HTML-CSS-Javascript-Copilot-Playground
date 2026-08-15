@@ -178,8 +178,15 @@ svg{display:block}
 .avatar{width:44px;height:44px;border-radius:50%;background:#dedede;color:#aaa;display:grid;place-items:center}
 .profile-title{font-size:16px;font-weight:900}
 .profile-points{font-size:13px;margin-top:3px}.profile-points strong{font-weight:900}
-.home-promo{height:165px;border-radius:15px;margin-top:12px;position:relative;overflow:hidden}
-.carousel-controls{position:absolute;left:50%;bottom:15px;transform:translateX(-50%);display:flex;align-items:center;gap:22px;color:#fff}
+.home-promo{position:relative;margin:12px -17px 0}
+.promo-track{
+  display:flex;gap:10px;padding:0 22px;overflow-x:auto;scroll-snap-type:x mandatory;
+  scrollbar-width:none;-ms-overflow-style:none
+}
+.promo-track::-webkit-scrollbar{display:none}
+.promo-slide{flex:0 0 calc(100% - 44px);aspect-ratio:1/1;border-radius:15px;overflow:hidden;scroll-snap-align:center}
+.promo-slide img{width:100%;height:100%;object-fit:cover;display:block}
+.carousel-controls{position:absolute;left:50%;bottom:15px;transform:translateX(-50%);display:flex;align-items:center;gap:22px;color:#fff;z-index:1}
 .carousel-controls button{border:0;background:transparent;color:#fff;padding:0}
 .pause-circle{width:31px;height:31px!important;border:1px solid rgba(255,255,255,.85)!important;border-radius:50%!important}
 .home-shortcuts{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:17px}
