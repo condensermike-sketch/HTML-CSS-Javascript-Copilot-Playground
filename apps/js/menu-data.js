@@ -100,11 +100,12 @@ window.JOLLIBEE_MENU = {
 
   // Sub-choices reached from a parent option that has `nested:"<key>"`.
   // Order matters: the parent row previews the first three by name, so the
-  // flavors participants are most likely to hunt for lead the list.
+  // flavors participants are most likely to hunt for lead the list. Matches
+  // the live jollibeefoods.com "Sodas" product's option order.
   nestedGroups: {
     fountain: {
       title:"Fountain Drink",
-      options:["Diet Pepsi","Mountain Dew","Pink Lemonade","Mug Root Beer","Brisk Lemon Iced Tea","Raspberry Ice Tea"]
+      options:["Pepsi","Diet Pepsi","Mountain Dew","Mug Root Beer","Raspberry Iced Tea","Pink Lemonade","Starry Lemon-lime","Brisk Lemon Iced Tea"]
     }
   },
 
