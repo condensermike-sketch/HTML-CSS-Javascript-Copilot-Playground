@@ -224,7 +224,8 @@ svg{display:block}
 .home-heading{font-size:22px;font-weight:900;margin:19px 0 12px}
 .category-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}
 .category-card{border:1px solid #d1d1d1;border-radius:14px;overflow:hidden;background:#fff;text-decoration:none}
-.category-image{height:91px}
+.category-image{height:91px;padding:8px}
+.category-image img{width:100%;height:100%;object-fit:contain;display:block}
 .category-label{min-height:49px;padding:10px 9px 8px;font-size:14px;line-height:1.16;font-weight:900}
 
 /* Search overlay */
