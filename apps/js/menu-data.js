@@ -21,49 +21,49 @@ window.JOLLIBEE_MENU = {
     chicken: {
       title:"Chicken",
       options:[
-        {value:"All Original", label:"All Original"},
-        {value:"All Spicy", label:"All Spicy"},
-        {value:"Half Original / Half Spicy", label:"Half Original / Half Spicy"}
+        {value:"All Original", label:"All Original", image:"chicken-all-original.png"},
+        {value:"All Spicy", label:"All Spicy", image:"chicken-all-spicy.png"},
+        {value:"Half Original / Half Spicy", label:"Half Original / Half Spicy", image:"chicken-half-half.png"}
       ]
     },
     side: {
       title:"Side",
       options:[
-        {value:"Jolly Crispy Fries Regular", label:"Jolly Crispy Fries Regular"},
-        {value:"Mashed Potato Regular", label:"Mashed Potato Regular"},
-        {value:"Steamed Rice", label:"Steamed Rice"},
-        {value:"2 pc Biscuit", label:"2 pc Biscuit"},
-        {value:"Adobo Rice", label:"Adobo Rice", priceDelta:1.50},
-        {value:"Side of Jolly Spaghetti", label:"Side of Jolly Spaghetti"},
-        {value:"Coleslaw", label:"Coleslaw"}
+        {value:"Jolly Crispy Fries Regular", label:"Jolly Crispy Fries Regular", image:"jolly-crispy-fries.jpg"},
+        {value:"Mashed Potato Regular", label:"Mashed Potato Regular", image:"mashed-potatoes.jpg"},
+        {value:"Steamed Rice", label:"Steamed Rice", image:"steamed-rice.jpg"},
+        {value:"2 pc Biscuit", label:"2 pc Biscuit", image:"2-pc-biscuit.png"},
+        {value:"Adobo Rice", label:"Adobo Rice", priceDelta:1.50, image:"adobo-rice.png"},
+        {value:"Side of Jolly Spaghetti", label:"Side of Jolly Spaghetti", image:"side-jolly-spaghetti.png"},
+        {value:"Coleslaw", label:"Coleslaw", image:"coleslaw.png"}
       ]
     },
     drink: {
       title:"Drink",
       options:[
-        {value:"Pineapple Quencher", label:"Pineapple Quencher", priceDelta:0.50},
-        {value:"Bottled Water", label:"Bottled Water"},
-        {value:"Soda", label:"Soda", nested:"soda"},
-        {value:"Coconut Dream Freeze", label:"Coconut Dream Freeze", priceDelta:1.80},
-        {value:"Strawberry Bliss Freeze", label:"Strawberry Bliss Freeze", priceDelta:1.80},
-        {value:"Lychee Iced Tea", label:"Lychee Iced Tea", priceDelta:0.50},
-        {value:"Passion Fruit Iced Tea", label:"Passion Fruit Iced Tea", priceDelta:0.50},
-        {value:"Mango Coconut Quencher", label:"Mango Coconut Quencher"},
-        {value:"Dragonfruit Sunset Quencher", label:"Dragonfruit Sunset Quencher"},
-        {value:"Mango Freeze", label:"Mango Freeze"},
-        {value:"Guava Quencher", label:"Guava Quencher"}
+        {value:"Pineapple Quencher", label:"Pineapple Quencher", priceDelta:0.50, image:"pineapple-quencher.jpg"},
+        {value:"Bottled Water", label:"Bottled Water", image:"bottled-water.jpeg"},
+        {value:"Soda", label:"Soda", nested:"soda", image:"sodas.jpg"},
+        {value:"Coconut Dream Freeze", label:"Coconut Dream Freeze", priceDelta:1.80, image:"coconut-dream-freeze.png"},
+        {value:"Strawberry Bliss Freeze", label:"Strawberry Bliss Freeze", priceDelta:1.80, image:"strawberry-bliss-freeze.png"},
+        {value:"Lychee Iced Tea", label:"Lychee Iced Tea", priceDelta:0.50, image:"lychee-iced-tea.png"},
+        {value:"Passion Fruit Iced Tea", label:"Passion Fruit Iced Tea", priceDelta:0.50, image:"passion-fruit-iced-tea.png"},
+        {value:"Mango Coconut Quencher", label:"Mango Coconut Quencher", image:"mango-coconut-quencher.png"},
+        {value:"Dragonfruit Sunset Quencher", label:"Dragonfruit Sunset Quencher", image:"dragonfruit-sunset-quencher.png"},
+        {value:"Mango Freeze", label:"Mango Freeze", image:"mango-freeze.jpeg"},
+        {value:"Guava Quencher", label:"Guava Quencher", image:"guava-quencher.jpg"}
       ]
     },
     side2: {
       title:"Side",
       options:[
-        {value:"Jolly Crispy Fries Regular", label:"Jolly Crispy Fries Regular"},
-        {value:"Mashed Potato Regular", label:"Mashed Potato Regular"},
-        {value:"Steamed Rice", label:"Steamed Rice"},
-        {value:"2 pc Biscuit", label:"2 pc Biscuit"},
-        {value:"Adobo Rice", label:"Adobo Rice", priceDelta:1.50},
-        {value:"Side of Jolly Spaghetti", label:"Side of Jolly Spaghetti"},
-        {value:"Coleslaw", label:"Coleslaw"}
+        {value:"Jolly Crispy Fries Regular", label:"Jolly Crispy Fries Regular", image:"jolly-crispy-fries.jpg"},
+        {value:"Mashed Potato Regular", label:"Mashed Potato Regular", image:"mashed-potatoes.jpg"},
+        {value:"Steamed Rice", label:"Steamed Rice", image:"steamed-rice.jpg"},
+        {value:"2 pc Biscuit", label:"2 pc Biscuit", image:"2-pc-biscuit.png"},
+        {value:"Adobo Rice", label:"Adobo Rice", priceDelta:1.50, image:"adobo-rice.png"},
+        {value:"Side of Jolly Spaghetti", label:"Side of Jolly Spaghetti", image:"side-jolly-spaghetti.png"},
+        {value:"Coleslaw", label:"Coleslaw", image:"coleslaw.png"}
       ]
     },
     gravy: {
@@ -77,23 +77,23 @@ window.JOLLIBEE_MENU = {
     dip: {
       title:"Dip",
       options:[
-        {value:"Signature Dipping Sauce", label:"Signature Dipping Sauce"},
-        {value:"BBQ Dipping Sauce", label:"BBQ Dipping Sauce"},
-        {value:"Honey Mustard Dipping Sauce", label:"Honey Mustard Dipping Sauce"},
-        {value:"Sriracha Mayo Dipping Sauce", label:"Sriracha Mayo Dipping Sauce"},
-        {value:"Buttermilk Ranch Dipping Sauce", label:"Buttermilk Ranch Dipping Sauce"}
+        {value:"Signature Dipping Sauce", label:"Signature Dipping Sauce", image:"dip-signature.png"},
+        {value:"BBQ Dipping Sauce", label:"BBQ Dipping Sauce", image:"dip-bbq.png"},
+        {value:"Honey Mustard Dipping Sauce", label:"Honey Mustard Dipping Sauce", image:"dip-honey-mustard.png"},
+        {value:"Sriracha Mayo Dipping Sauce", label:"Sriracha Mayo Dipping Sauce", image:"dip-sriracha-mayo.png"},
+        {value:"Buttermilk Ranch Dipping Sauce", label:"Buttermilk Ranch Dipping Sauce", image:"dip-buttermilk-ranch.png"}
       ]
     },
     sauces: {
       title:"Sauces",
       quantity:true,
       options:[
-        {value:"Signature Dipping Sauce", label:"Signature Dipping Sauce", priceDelta:0.50},
-        {value:"Small Chickenjoy Gravy", label:"Small Chickenjoy Gravy", priceDelta:1.29},
-        {value:"BBQ Dipping Sauce", label:"BBQ Dipping Sauce", priceDelta:0.50},
-        {value:"Honey Mustard Dipping Sauce", label:"Honey Mustard Dipping Sauce", priceDelta:0.50},
-        {value:"Sriracha Mayo Dipping Sauce", label:"Sriracha Mayo Dipping Sauce", priceDelta:0.50},
-        {value:"Buttermilk Ranch Dipping Sauce", label:"Buttermilk Ranch Dipping Sauce", priceDelta:0.50}
+        {value:"Signature Dipping Sauce", label:"Signature Dipping Sauce", priceDelta:0.50, image:"dip-signature.png"},
+        {value:"Small Chickenjoy Gravy", label:"Small Chickenjoy Gravy", priceDelta:1.29, image:"dip-small-gravy.png"},
+        {value:"BBQ Dipping Sauce", label:"BBQ Dipping Sauce", priceDelta:0.50, image:"dip-bbq.png"},
+        {value:"Honey Mustard Dipping Sauce", label:"Honey Mustard Dipping Sauce", priceDelta:0.50, image:"dip-honey-mustard.png"},
+        {value:"Sriracha Mayo Dipping Sauce", label:"Sriracha Mayo Dipping Sauce", priceDelta:0.50, image:"dip-sriracha-mayo.png"},
+        {value:"Buttermilk Ranch Dipping Sauce", label:"Buttermilk Ranch Dipping Sauce", priceDelta:0.50, image:"dip-buttermilk-ranch.png"}
       ]
     }
   },
@@ -180,7 +180,8 @@ window.JOLLIBEE_MENU = {
       description:"2 beef burger patties smothered with mushroom gravy. Served with white rice.",
       price:10.99,
       calories:570,
-      customizations:["side"]
+      customizations:["side"],
+      image:"burger-steak-2pc.jpg"
     },
     "burger-steak-3pc":{
       id:"burger-steak-3pc",
@@ -190,82 +191,101 @@ window.JOLLIBEE_MENU = {
       description:"3 beef burger patties smothered with mushroom gravy. Served with white rice and a fountain drink.",
       price:15.99,
       calories:750,
-      customizations:["side","drink"]
+      customizations:["side","drink"],
+      image:"burger-steak-2pc.jpg"
     },
 
     "adobo-rice":{
       id:"adobo-rice", category:"sides", name:"Adobo Rice", shortName:"Adobo Rice",
-      description:"A side of Adobo Rice.", price:3.99, calories:250, customizations:[]
+      description:"A side of Adobo Rice.", price:3.99, calories:250, customizations:[],
+      image:"adobo-rice.png"
     },
     "side-jolly-spaghetti":{
       id:"side-jolly-spaghetti", category:"sides", name:"Side Jolly Spaghetti", shortName:"Side Jolly Spaghetti",
-      description:"A side portion of our one-of-a-kind Jolly Spaghetti.", price:3.99, calories:360, customizations:[]
+      description:"A side portion of our one-of-a-kind Jolly Spaghetti.", price:3.99, calories:360, customizations:[],
+      image:"side-jolly-spaghetti.png"
     },
     "jolly-crispy-fries-large":{
       id:"jolly-crispy-fries-large", category:"sides", name:"Jolly Crispy Fries Large", shortName:"Large Jolly Crispy Fries",
-      description:"A large serving of our Jolly Crispy Fries.", price:3.99, calories:520, customizations:[]
+      description:"A large serving of our Jolly Crispy Fries.", price:3.99, calories:520, customizations:[],
+      image:"jolly-crispy-fries.jpg"
     },
     "jolly-crispy-fries":{
       id:"jolly-crispy-fries", category:"sides", name:"Jolly Crispy Fries", shortName:"Jolly Crispy Fries",
-      description:"A regular serving of our Jolly Crispy Fries.", price:2.69, calories:340, customizations:[]
+      description:"A regular serving of our Jolly Crispy Fries.", price:2.69, calories:340, customizations:[],
+      image:"jolly-crispy-fries.jpg"
     },
     "mashed-potatoes-large":{
       id:"mashed-potatoes-large", category:"sides", name:"Mashed Potatoes Large", shortName:"Large Mashed Potatoes",
-      description:"A large serving of our mashed potatoes and gravy.", price:3.99, calories:340, customizations:[]
+      description:"A large serving of our mashed potatoes and gravy.", price:3.99, calories:340, customizations:[],
+      image:"mashed-potatoes.jpg"
     },
     "mashed-potatoes":{
       id:"mashed-potatoes", category:"sides", name:"Mashed Potatoes", shortName:"Mashed Potatoes",
-      description:"A regular serving of our mashed potatoes and gravy.", price:2.69, calories:170, customizations:[]
+      description:"A regular serving of our mashed potatoes and gravy.", price:2.69, calories:170, customizations:[],
+      image:"mashed-potatoes.jpg"
     },
     "steamed-rice":{
       id:"steamed-rice", category:"sides", name:"Steamed Rice", shortName:"Steamed Rice",
-      description:"A side of steamed rice.", price:2.69, calories:190, customizations:[]
+      description:"A side of steamed rice.", price:2.69, calories:190, customizations:[],
+      image:"steamed-rice.jpg"
     },
     "large-gravy":{
       id:"large-gravy", category:"sides", name:"Large Gravy", shortName:"Large Gravy",
-      description:"Our savory gravy in a large size.", price:2.19, calories:120, customizations:[]
+      description:"Our savory gravy in a large size.", price:2.49, calories:70, customizations:[],
+      image:"large-gravy.png"
     },
     "gravy":{
       id:"gravy", category:"sides", name:"Gravy", shortName:"Gravy",
-      description:"Our savory gravy.", price:0.00, calories:60, customizations:[]
+      description:"Our Savory Gravy", price:1.29, calories:25, customizations:[],
+      image:"gravy.jpg"
     },
 
     "pineapple-quencher":{
       id:"pineapple-quencher", category:"drinks", name:"Pineapple Quencher", shortName:"Pineapple Quencher",
-      description:"A sweet and refreshing taste of the Philippines with our signature Pineapple Quencher.", price:3.99, calories:180, customizations:[]
+      description:"A sweet and refreshing taste of the Philippines with our signature Pineapple Quencher.", price:3.99, calories:180, customizations:[],
+      image:"pineapple-quencher.jpg"
     },
     "pineapple-quencher-half-gallon":{
       id:"pineapple-quencher-half-gallon", category:"drinks", name:"Half Gallon Pineapple Quencher", shortName:"Half Gallon Pineapple Quencher",
-      description:"Half gallon of our sweet and refreshing signature Pineapple Quencher.", price:18.99, calories:0, customizations:[]
+      description:"Half gallon of our sweet and refreshing signature Pineapple Quencher.", price:18.99, calories:0, customizations:[],
+      image:"pineapple-quencher-half-gallon.jpeg"
     },
     "bottled-water":{
       id:"bottled-water", category:"drinks", name:"Bottled Water", shortName:"Bottled Water",
-      description:"", price:3.49, calories:0, customizations:[]
+      description:"", price:3.49, calories:0, customizations:[],
+      image:"bottled-water.jpeg"
     },
     "mango-coconut-quencher":{
       id:"mango-coconut-quencher", category:"drinks", name:"Mango Coconut Quencher", shortName:"Mango Coconut Quencher",
-      description:"Our tropical inspired blend of strawberry, passionfruit and coconut served with mango jelly", price:4.99, calories:160, customizations:[]
+      description:"Our tropical inspired blend of strawberry, passionfruit and coconut served with mango jelly", price:4.99, calories:160, customizations:[],
+      image:"mango-coconut-quencher.png"
     },
     "dragonfruit-sunset-quencher":{
       id:"dragonfruit-sunset-quencher", category:"drinks", name:"Dragonfruit Sunset Quencher", shortName:"Dragonfruit Sunset Quencher",
-      description:"Our mango and passionfruit quencher served with real dragon fruit bits", price:4.99, calories:150, customizations:[]
+      description:"Our mango and passionfruit quencher served with real dragon fruit bits", price:4.99, calories:150, customizations:[],
+      image:"dragonfruit-sunset-quencher.png"
     },
     "mango-freeze":{
       id:"mango-freeze", category:"drinks", name:"Mango Freeze", shortName:"Mango Freeze",
-      description:"Refreshing mango blended into a smooth freeze — a pure, fruity delight that's refreshingly sweet with every sip.", price:5.29, calories:0, customizations:[]
+      description:"Refreshing mango blended into a smooth freeze — a pure, fruity delight that's refreshingly sweet with every sip.", price:5.29, calories:0, customizations:[],
+      image:"mango-freeze.jpeg"
     },
     "guava-quencher":{
       id:"guava-quencher", category:"drinks", name:"Guava Quencher", shortName:"Guava Quencher",
-      description:"Bursting with tropical guava and hints of strawberry and passion fruit. A sweet, refreshing cool-down. Garnishment not included.", price:3.99, calories:120, customizations:[]
+      description:"Bursting with tropical guava and hints of strawberry and passion fruit. A sweet, refreshing cool-down. Garnishment not included.", price:3.99, calories:120, customizations:[],
+      image:"guava-quencher.jpg"
     },
 
     "peach-mango-pie":{
       id:"peach-mango-pie", category:"desserts", name:"Peach Mango Pie", shortName:"Peach Mango Pie",
-      description:"Sweet and flaky Peach Mango Pie made with real Philippine Mangoes", price:2.99, calories:270, customizations:[]
+      description:"Sweet and flaky Peach Mango Pie made with real Philippine Mangoes", price:2.99, calories:270, customizations:[],
+      image:"peach-mango-pie.jpg"
     },
     "ube-pie":{
       id:"ube-pie", category:"desserts", name:"Ube Pie", shortName:"Ube Pie",
-      description:"Sweet and flaky Ube pie filled with real ube. Ube or purple yam has a smooth texture, and a mild sweet flavor.", price:2.99, calories:310, customizations:[]
+      description:"Sweet and flaky Ube pie filled with real ube. Ube or purple yam has a smooth texture, and a mild sweet flavor.", price:2.99, calories:310, customizations:[],
+      image:"ube-pie.png"
     }
   },
 

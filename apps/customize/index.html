@@ -52,7 +52,7 @@ function renderQuantityGroup(){
   document.getElementById("intro").innerHTML=`Add at least 1<span>(Required)</span>`;
   const counts={...(draft.customizations[type]||{})};
   const list=document.getElementById("choices");
-  list.innerHTML=group.options.map(o=>`<div class="qty-row" data-value="${o.value}"><div class="choice-img placeholder"><svg viewBox="0 0 24 24"><rect class="icon-stroke" x="4" y="4" width="16" height="16" rx="2"/><circle class="icon-stroke" cx="9" cy="9" r="2"/><path class="icon-stroke" d="m5 17 4-4 3 3 2-2 5 5"/></svg></div><div><strong>${o.label}</strong><small data-meta></small></div><div><button class="menu-plus" data-add aria-label="Add ${o.label}">+</button><div class="stepper"><button data-dec aria-label="Remove one ${o.label}">−</button><span data-count>0</span><button data-inc aria-label="Add one ${o.label}">+</button></div></div></div>`).join("");
+  list.innerHTML=group.options.map(o=>`<div class="qty-row" data-value="${o.value}">${o.image?`<div class="choice-img"><img src="../images/${o.image}" alt="${o.label}"></div>`:`<div class="choice-img placeholder"><svg viewBox="0 0 24 24"><rect class="icon-stroke" x="4" y="4" width="16" height="16" rx="2"/><circle class="icon-stroke" cx="9" cy="9" r="2"/><path class="icon-stroke" d="m5 17 4-4 3 3 2-2 5 5"/></svg></div>`}<div><strong>${o.label}</strong><small data-meta></small></div><div><button class="menu-plus" data-add aria-label="Add ${o.label}">+</button><div class="stepper"><button data-dec aria-label="Remove one ${o.label}">−</button><span data-count>0</span><button data-inc aria-label="Add one ${o.label}">+</button></div></div></div>`).join("");
 
   function priceState(){
     const cups=[];
@@ -110,7 +110,7 @@ function renderQuantityGroup(){
 }
 
 function renderSingleSelectGroup(){
-  document.getElementById("choices").innerHTML=group.options.map(o=>`<label class="choice-row"><input type="radio" name="opt" value="${o.value}" ${draft.customizations[type]===o.value||draft.customizations[type]?.startsWith(o.value+" · ")?"checked":""}><div class="choice-img placeholder"><svg viewBox="0 0 24 24"><rect class="icon-stroke" x="4" y="4" width="16" height="16" rx="2"/><circle class="icon-stroke" cx="9" cy="9" r="2"/><path class="icon-stroke" d="m5 17 4-4 3 3 2-2 5 5"/></svg></div><div><strong>${o.label}</strong>${o.priceDelta?`<small>+$${o.priceDelta.toFixed(2)}</small>`:""}${o.nested?`<small>Tap Apply to choose type</small>`:""}</div></label>`).join("");
+  document.getElementById("choices").innerHTML=group.options.map(o=>`<label class="choice-row"><input type="radio" name="opt" value="${o.value}" ${draft.customizations[type]===o.value||draft.customizations[type]?.startsWith(o.value+" · ")?"checked":""}>${o.image?`<div class="choice-img"><img src="../images/${o.image}" alt="${o.label}"></div>`:`<div class="choice-img placeholder"><svg viewBox="0 0 24 24"><rect class="icon-stroke" x="4" y="4" width="16" height="16" rx="2"/><circle class="icon-stroke" cx="9" cy="9" r="2"/><path class="icon-stroke" d="m5 17 4-4 3 3 2-2 5 5"/></svg></div>`}<div><strong>${o.label}</strong>${o.priceDelta?`<small>+$${o.priceDelta.toFixed(2)}</small>`:""}${o.nested?`<small>Tap Apply to choose type</small>`:""}</div></label>`).join("");
 
   function selected(){return document.querySelector('input[name="opt"]:checked')}
 
