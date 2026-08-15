@@ -8,9 +8,9 @@
 .promo-track::-webkit-scrollbar{display:none}
 .promo-slide{flex:0 0 calc(100% - 44px);aspect-ratio:1/1;border-radius:15px;overflow:hidden;scroll-snap-align:center;position:relative}
 .promo-slide img{width:100%;height:100%;object-fit:cover;display:block}
-.home-promo .carousel-controls{position:absolute;left:38px;bottom:14px;display:flex;align-items:center;gap:8px;color:#fff;z-index:2}
-.home-promo .carousel-controls button{border:0;background:transparent;color:#fff;padding:2px;display:grid;place-items:center;cursor:pointer;text-shadow:0 1px 3px rgba(0,0,0,.55)}
-.home-promo .carousel-controls button svg{width:15px;height:15px}
+.home-promo .carousel-controls{position:absolute;left:0;top:0;display:flex;align-items:center;gap:8px;color:#fff;z-index:2;pointer-events:auto}
+.home-promo .carousel-controls button{border:0;background:transparent;color:#fff;padding:2px;display:grid;place-items:center;cursor:pointer;text-shadow:0 1px 3px rgba(0,0,0,.65)}
+.home-promo .carousel-controls button svg{width:15px;height:15px;filter:drop-shadow(0 1px 2px rgba(0,0,0,.65))}
 .home-promo .pause-circle{width:auto;height:auto!important;border:0!important;border-radius:0!important;font-size:13px;line-height:1}
 </style>
 <script src="./js/menu-data.js"></script>
@@ -54,7 +54,7 @@
 <div class="promo-slide"><img src="./images/banner-chickenjoy.png" alt="Chickenjoy - Next-Level Juicy, Next-Level Crispy"></div>
 <div class="promo-slide"><img src="./images/banner-chicken-sandwiches.png" alt="Jollibee Chicken Sandwiches - Spicy and Original"></div>
 <div class="promo-slide"><img src="./images/banner-chicken-nuggets.png" alt="New Jollibee Chicken Nuggets"></div>
-</div><div class="carousel-controls"><button id="promoPrev" aria-label="Previous slide"><svg width="17" height="17" viewBox="0 0 24 24"><path class="icon-stroke" d="m14 7-5 5 5 5"/></svg></button><button class="pause-circle" id="promoPause" aria-label="Pause carousel">Ⅱ</button><button id="promoNext" aria-label="Next slide"><svg width="17" height="17" viewBox="0 0 24 24"><path class="icon-stroke" d="m10 7 5 5-5 5"/></svg></button></div></section>
+</div><div class="carousel-controls" id="promoControls"><button id="promoPrev" aria-label="Previous slide"><svg width="17" height="17" viewBox="0 0 24 24"><path class="icon-stroke" d="m14 7-5 5 5 5"/></svg></button><button class="pause-circle" id="promoPause" aria-label="Pause carousel">Ⅱ</button><button id="promoNext" aria-label="Next slide"><svg width="17" height="17" viewBox="0 0 24 24"><path class="icon-stroke" d="m10 7 5 5-5 5"/></svg></button></div></section>
 <section class="home-shortcuts">
 <a class="shortcut home-order-again-primary" href="./order-again/"><svg class="big" viewBox="0 0 24 24"><path class="icon-stroke" d="M4 5v5h5"/><path class="icon-stroke" d="M5.7 16a8 8 0 1 0 .3-8"/></svg><strong>Order Again</strong><svg width="17" height="17" viewBox="0 0 24 24"><path class="icon-stroke" d="m9 6 6 6-6 6"/></svg></a>
 <a class="shortcut home-favorites-secondary" href="./favorites/"><svg class="big" viewBox="0 0 24 24"><path class="icon-stroke" d="M20.8 4.8a5.3 5.3 0 0 0-7.5 0L12 6.1l-1.3-1.3a5.3 5.3 0 0 0-7.5 7.5L12 21l8.8-8.7a5.3 5.3 0 0 0 0-7.5Z"/></svg><strong>Favorites</strong><svg width="17" height="17" viewBox="0 0 24 24"><path class="icon-stroke" d="m9 6 6 6-6 6"/></svg></a>
@@ -95,25 +95,41 @@ document.getElementById("searchBtn").onclick=()=>{overlay.classList.add("show");
 document.getElementById("searchCancel").onclick=()=>{overlay.classList.remove("show");input.value="";drawSearch()};
 input.oninput=()=>drawSearch(input.value);
 (function(){
-const track=document.getElementById("promoTrack"),slides=track.children.length;
+const promo=document.getElementById("homePromo"),track=document.getElementById("promoTrack"),controls=document.getElementById("promoControls"),slides=track.children.length;
 const firstClone=track.children[0].cloneNode(true);
 firstClone.setAttribute("aria-hidden","true");
 track.appendChild(firstClone);
 const slidesEls=[...track.children];
-let idx=0,playing=true,timer,resetPending=false;
+let idx=0,playing=true,timer,resetPending=false,positionFrame=0;
 function center(i){const el=slidesEls[i];return el.offsetLeft-(track.clientWidth-el.offsetWidth)/2}
+function activeSlide(){
+  const promoRect=promo.getBoundingClientRect(),target=promoRect.left+promoRect.width/2;
+  return slidesEls.reduce((best,el)=>Math.abs((el.getBoundingClientRect().left+el.getBoundingClientRect().width/2)-target)<Math.abs((best.getBoundingClientRect().left+best.getBoundingClientRect().width/2)-target)?el:best,slidesEls[0]);
+}
+function positionControls(){
+  cancelAnimationFrame(positionFrame);
+  positionFrame=requestAnimationFrame(()=>{
+    const slide=activeSlide(),slideRect=slide.getBoundingClientRect(),promoRect=promo.getBoundingClientRect();
+    controls.style.left=(slideRect.left-promoRect.left+14)+"px";
+    controls.style.top=(slideRect.bottom-promoRect.top-controls.offsetHeight-14)+"px";
+  });
+}
 function goTo(i,behavior='smooth'){idx=i;track.scrollTo({left:center(i),behavior});if(idx===slides)resetPending=true}
 function advance(){goTo(idx+1)}
 function prev(){idx=(idx-1+slides)%slides;track.scrollTo({left:center(idx),behavior:'smooth'})}
+track.addEventListener('scroll',positionControls,{passive:true});
 track.addEventListener('scrollend',()=>{
   if(resetPending){resetPending=false;idx=0;track.scrollTo({left:center(0),behavior:'auto'})}
+  positionControls();
 });
+window.addEventListener('resize',positionControls);
 function start(){clearInterval(timer);timer=setInterval(advance,4000)}
 function stop(){clearInterval(timer)}
 document.getElementById("promoPrev").onclick=()=>{prev()};
 document.getElementById("promoNext").onclick=()=>{advance()};
 const pauseBtn=document.getElementById("promoPause");
 pauseBtn.onclick=()=>{playing=!playing;pauseBtn.textContent=playing?"Ⅱ":"▶";playing?start():stop()};
+positionControls();
 start();
 })();
 </script></body></html>
