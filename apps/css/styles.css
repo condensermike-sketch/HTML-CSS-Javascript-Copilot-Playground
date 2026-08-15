@@ -333,11 +333,15 @@ svg{display:block}
 .apply-btn{width:100%}
 .nested-sheet-wrap{position:absolute;inset:0;background:rgba(0,0,0,.4);z-index:130;display:none;align-items:flex-end}
 .nested-sheet-wrap.show{display:flex}
-.nested-sheet{width:100%;background:#fff;border-radius:24px 24px 0 0;max-height:76%;overflow:auto;padding:16px 17px calc(18px + env(safe-area-inset-bottom))}
-.sheet-handle{width:44px;height:5px;background:#d3d3d3;border-radius:999px;margin:0 auto 14px}
-.nested-sheet h2{font-size:20px;margin:0 0 10px}
+/* Column layout so #nestedOptions is the only part that scrolls and the
+   Apply footer stays pinned in view, no matter how many flavors are listed. */
+.nested-sheet{width:100%;background:#fff;border-radius:24px 24px 0 0;max-height:76%;display:flex;flex-direction:column;overflow:hidden;padding:16px 17px 0}
+.sheet-handle{flex:0 0 auto;width:44px;height:5px;background:#d3d3d3;border-radius:999px;margin:0 auto 14px}
+.nested-sheet h2{flex:0 0 auto;font-size:20px;margin:0 0 10px}
+#nestedOptions{flex:1 1 auto;min-height:0;overflow-y:auto}
 .nested-option{display:flex;align-items:center;gap:12px;padding:14px 0;border-bottom:1px solid var(--line);font-size:17px}
 .nested-option input{width:21px;height:21px;accent-color:var(--red)}
+.nested-sheet-footer{flex:0 0 auto;padding:16px 0 calc(18px + env(safe-area-inset-bottom));border-top:1px solid var(--line)}
 
 /* Upsell */
 .upsell-wrap{position:absolute;inset:0;background:rgba(0,0,0,.42);z-index:140;display:none;align-items:flex-end}
