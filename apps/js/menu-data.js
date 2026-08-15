@@ -41,17 +41,17 @@ window.JOLLIBEE_MENU = {
     drink: {
       title:"Drink",
       options:[
-        {value:"Pineapple Quencher", label:"Pineapple Quencher", priceDelta:0.50},
-        {value:"Bottled Water", label:"Bottled Water"},
-        {value:"Soda", label:"Soda", nested:"soda"},
-        {value:"Coconut Dream Freeze", label:"Coconut Dream Freeze", priceDelta:1.80},
-        {value:"Strawberry Bliss Freeze", label:"Strawberry Bliss Freeze", priceDelta:1.80},
-        {value:"Lychee Iced Tea", label:"Lychee Iced Tea", priceDelta:0.50},
-        {value:"Passion Fruit Iced Tea", label:"Passion Fruit Iced Tea", priceDelta:0.50},
-        {value:"Mango Coconut Quencher", label:"Mango Coconut Quencher"},
-        {value:"Dragonfruit Sunset Quencher", label:"Dragonfruit Sunset Quencher"},
-        {value:"Mango Freeze", label:"Mango Freeze"},
-        {value:"Guava Quencher", label:"Guava Quencher"}
+        {value:"Pineapple Quencher", label:"Pineapple Quencher", priceDelta:0.50, image:"pineapple-quencher.jpg"},
+        {value:"Bottled Water", label:"Bottled Water", image:"bottled-water.jpeg"},
+        {value:"Soda", label:"Soda", nested:"soda", image:"sodas.jpg"},
+        {value:"Coconut Dream Freeze", label:"Coconut Dream Freeze", priceDelta:1.80, image:"coconut-dream-freeze.png"},
+        {value:"Strawberry Bliss Freeze", label:"Strawberry Bliss Freeze", priceDelta:1.80, image:"strawberry-bliss-freeze.png"},
+        {value:"Lychee Iced Tea", label:"Lychee Iced Tea", priceDelta:0.50, image:"lychee-iced-tea.png"},
+        {value:"Passion Fruit Iced Tea", label:"Passion Fruit Iced Tea", priceDelta:0.50, image:"passion-fruit-iced-tea.png"},
+        {value:"Mango Coconut Quencher", label:"Mango Coconut Quencher", image:"mango-coconut-quencher.png"},
+        {value:"Dragonfruit Sunset Quencher", label:"Dragonfruit Sunset Quencher", image:"dragonfruit-sunset-quencher.png"},
+        {value:"Mango Freeze", label:"Mango Freeze", image:"mango-freeze.jpeg"},
+        {value:"Guava Quencher", label:"Guava Quencher", image:"guava-quencher.jpg"}
       ]
     },
     side2: {
