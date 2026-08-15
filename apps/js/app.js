@@ -286,7 +286,7 @@
       if(!opt){
         opt=(group.options||[]).find(o=>{
           if(!o.nested || !menu.nestedGroups || !menu.nestedGroups[o.nested]) return false;
-          return (menu.nestedGroups[o.nested].options||[]).includes(selected);
+          return (menu.nestedGroups[o.nested].options||[]).some(x=>x.value===selected);
         });
       }
 

@@ -2,7 +2,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,200..1000;1,200..1000&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="../css/styles.css?v=6">
-<script src="../js/menu-data.js?v=20260815-fountain-8flavors"></script>
+<script src="../js/menu-data.js?v=20260815-fountain-images"></script>
 <script src="../js/app.js?v=20260814-save-intent"></script><script>
 (function (m, a, z, e) {
   var s, t, u, v;
@@ -115,16 +115,16 @@ function renderSingleSelectGroup(){
   // value is one of its sub-options.
   let chosen=draft.customizations[type]||null;
   const nestedOptionsOf=o=>(o.nested&&menu.nestedGroups[o.nested]&&menu.nestedGroups[o.nested].options)||[];
-  const isChosen=o=>o.nested?nestedOptionsOf(o).includes(chosen):chosen===o.value;
+  const isChosen=o=>o.nested?nestedOptionsOf(o).some(x=>x.value===chosen):chosen===o.value;
 
   // Preview the sub-options by name on the parent row. Participants looking
   // for a specific flavor need to see it before they'll open the group.
   function previewText(o){
-    const opts=nestedOptionsOf(o),head=opts.slice(0,3).join(", "),rest=opts.length-3;
+    const opts=nestedOptionsOf(o),head=opts.slice(0,3).map(x=>x.value).join(", "),rest=opts.length-3;
     return rest>0?`${head} & ${rest} more`:head;
   }
 
-  const thumb=o=>o.image?`<div class="choice-img"><img src="../images/${o.image}" alt="${o.label}"></div>`:`<div class="choice-img placeholder"><svg viewBox="0 0 24 24"><rect class="icon-stroke" x="4" y="4" width="16" height="16" rx="2"/><circle class="icon-stroke" cx="9" cy="9" r="2"/><path class="icon-stroke" d="m5 17 4-4 3 3 2-2 5 5"/></svg></div>`;
+  const thumb=o=>o.image?`<div class="choice-img"><img src="../images/${o.image}" alt="${o.label||o.value}"></div>`:`<div class="choice-img placeholder"><svg viewBox="0 0 24 24"><rect class="icon-stroke" x="4" y="4" width="16" height="16" rx="2"/><circle class="icon-stroke" cx="9" cy="9" r="2"/><path class="icon-stroke" d="m5 17 4-4 3 3 2-2 5 5"/></svg></div>`;
 
   document.getElementById("choices").innerHTML=group.options.map(o=>o.nested
     ? `<button type="button" class="choice-row nested-row${isChosen(o)?" on":""}" data-nested="${o.value}" aria-haspopup="dialog"><span class="fake-radio" aria-hidden="true"></span>${thumb(o)}<span class="nested-copy"><strong>${o.label}</strong><small>${isChosen(o)?chosen:previewText(o)}</small></span><svg class="nested-chevron" viewBox="0 0 24 24" aria-hidden="true"><path class="icon-stroke" d="m9 6 6 6-6 6"/></svg></button>`
@@ -137,7 +137,7 @@ function renderSingleSelectGroup(){
     const ng=menu.nestedGroups[opt.nested];
     if(!ng)return;
     document.getElementById("nestedTitle").textContent=ng.title;
-    document.getElementById("nestedOptions").innerHTML=ng.options.map(x=>`<label class="nested-option"><input type="radio" name="nested" value="${x}" ${chosen===x?"checked":""}><span>${x}</span></label>`).join("");
+    document.getElementById("nestedOptions").innerHTML=ng.options.map(x=>`<label class="nested-option"><input type="radio" name="nested" value="${x.value}" ${chosen===x.value?"checked":""}>${thumb(x)}<span>${x.value}</span></label>`).join("");
     document.getElementById("nestedWrap").classList.add("show");
     document.getElementById("nestedApply").disabled=!document.querySelector('input[name="nested"]:checked');
     document.querySelectorAll('input[name="nested"]').forEach(n=>n.onchange=()=>document.getElementById("nestedApply").disabled=false);

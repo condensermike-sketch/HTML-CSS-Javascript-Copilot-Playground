@@ -101,11 +101,23 @@ window.JOLLIBEE_MENU = {
   // Sub-choices reached from a parent option that has `nested:"<key>"`.
   // Order matters: the parent row previews the first three by name, so the
   // flavors participants are most likely to hunt for lead the list. Matches
-  // the live jollibeefoods.com "Sodas" product's option order.
+  // the live jollibeefoods.com "Sodas" product's option order. Flavors
+  // without their own downloaded photo reuse the generic sodas.jpg cup
+  // (already shown on the parent Fountain Drink row) rather than a
+  // different real drink's photo, which would misrepresent the flavor.
   nestedGroups: {
     fountain: {
       title:"Fountain Drink",
-      options:["Pepsi","Diet Pepsi","Mountain Dew","Mug Root Beer","Raspberry Iced Tea","Pink Lemonade","Starry Lemon-lime","Brisk Lemon Iced Tea"]
+      options:[
+        {value:"Pepsi", image:"pepsi.png"},
+        {value:"Diet Pepsi", image:"sodas.jpg"},
+        {value:"Mountain Dew", image:"sodas.jpg"},
+        {value:"Mug Root Beer", image:"sodas.jpg"},
+        {value:"Raspberry Iced Tea", image:"sodas.jpg"},
+        {value:"Pink Lemonade", image:"sodas.jpg"},
+        {value:"Starry Lemon-lime", image:"starry-lemon-lime.png"},
+        {value:"Brisk Lemon Iced Tea", image:"sodas.jpg"}
+      ]
     }
   },
 
