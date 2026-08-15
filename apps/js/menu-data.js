@@ -230,12 +230,12 @@ window.JOLLIBEE_MENU = {
     },
     "large-gravy":{
       id:"large-gravy", category:"sides", name:"Large Gravy", shortName:"Large Gravy",
-      description:"Our Savory Gravy in a large 8.0 oz size.", price:2.19, calories:70, customizations:[],
+      description:"Our savory gravy in a large size.", price:2.49, calories:70, customizations:[],
       image:"large-gravy.png"
     },
     "gravy":{
       id:"gravy", category:"sides", name:"Gravy", shortName:"Gravy",
-      description:"Our Savory Gravy.", price:0.00, calories:25, customizations:[],
+      description:"Our Savory Gravy", price:1.29, calories:25, customizations:[],
       image:"gravy.jpg"
     },
 
