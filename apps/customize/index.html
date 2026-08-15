@@ -1,7 +1,7 @@
 <!doctype html><html><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><meta name="theme-color" content="#ffffff"><title>Customize</title><link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,200..1000;1,200..1000&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="../css/styles.css?v=7">
+<link rel="stylesheet" href="../css/styles.css?v=9">
 <script src="../js/menu-data.js?v=20260815-fountain-real-images"></script>
 <script src="../js/app.js?v=20260814-save-intent"></script><script>
 (function (m, a, z, e) {
@@ -127,7 +127,7 @@ function renderSingleSelectGroup(){
   const thumb=o=>o.image?`<div class="choice-img"><img src="../images/${o.image}" alt="${o.label||o.value}"></div>`:`<div class="choice-img placeholder"><svg viewBox="0 0 24 24"><rect class="icon-stroke" x="4" y="4" width="16" height="16" rx="2"/><circle class="icon-stroke" cx="9" cy="9" r="2"/><path class="icon-stroke" d="m5 17 4-4 3 3 2-2 5 5"/></svg></div>`;
 
   document.getElementById("choices").innerHTML=group.options.map(o=>o.nested
-    ? `<button type="button" class="choice-row nested-row${isChosen(o)?" on":""}" data-nested="${o.value}" aria-haspopup="dialog"><span class="fake-radio" aria-hidden="true"></span>${thumb(o)}<span class="nested-copy"><strong>${o.label}</strong><small>${isChosen(o)?chosen:previewText(o)}</small></span><svg class="nested-chevron" viewBox="0 0 24 24" aria-hidden="true"><path class="icon-stroke" d="m9 6 6 6-6 6"/></svg></button>`
+    ? `<button type="button" class="choice-row nested-row${isChosen(o)?" on":""}" data-nested="${o.value}" aria-haspopup="dialog"><span class="fake-radio" aria-hidden="true"></span>${thumb(o)}<span class="nested-copy"><strong>${o.label}</strong><small>${isChosen(o)?chosen:previewText(o)}</small></span><span class="nested-open" aria-hidden="true"><svg class="nested-chevron" viewBox="0 0 24 24"><path class="icon-stroke" d="m9 6 6 6-6 6"/></svg></span></button>`
     : `<label class="choice-row"><input type="radio" name="opt" value="${o.value}" ${isChosen(o)?"checked":""}>${thumb(o)}<div><strong>${o.label}</strong>${o.priceDelta?`<small>+$${o.priceDelta.toFixed(2)}</small>`:""}</div></label>`
   ).join("");
 
