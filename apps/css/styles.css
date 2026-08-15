@@ -567,13 +567,13 @@ svg{display:block}
 }
 
 
-/* Menu does not use the global bottom navigation.
-   A cart CTA appears only when the cart has contents. */
+/* Menu shows the global bottom navigation; the cart CTA floats just
+   above it and only appears once the cart has contents. */
 .menu-cart-cta{
   position:absolute;
   left:20px;
   right:20px;
-  bottom:14px;
+  bottom:calc(78px + 14px + env(safe-area-inset-bottom));
   z-index:55;
   height:70px;
   border:0;
