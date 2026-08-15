@@ -180,7 +180,8 @@ window.JOLLIBEE_MENU = {
       description:"2 beef burger patties smothered with mushroom gravy. Served with white rice.",
       price:10.99,
       calories:570,
-      customizations:["side"]
+      customizations:["side"],
+      image:"burger-steak-2pc.jpg"
     },
     "burger-steak-3pc":{
       id:"burger-steak-3pc",
@@ -190,7 +191,8 @@ window.JOLLIBEE_MENU = {
       description:"3 beef burger patties smothered with mushroom gravy. Served with white rice and a fountain drink.",
       price:15.99,
       calories:750,
-      customizations:["side","drink"]
+      customizations:["side","drink"],
+      image:"burger-steak-2pc.jpg"
     },
 
     "adobo-rice":{
