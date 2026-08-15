@@ -43,7 +43,7 @@ window.JOLLIBEE_MENU = {
       options:[
         {value:"Pineapple Quencher", label:"Pineapple Quencher", priceDelta:0.50, image:"pineapple-quencher.jpg"},
         {value:"Bottled Water", label:"Bottled Water", image:"bottled-water.jpeg"},
-        {value:"Soda", label:"Soda", nested:"soda", image:"sodas.jpg"},
+        {value:"Fountain Drink", label:"Fountain Drink", nested:"fountain", image:"sodas.jpg"},
         {value:"Coconut Dream Freeze", label:"Coconut Dream Freeze", priceDelta:1.80, image:"coconut-dream-freeze.png"},
         {value:"Strawberry Bliss Freeze", label:"Strawberry Bliss Freeze", priceDelta:1.80, image:"strawberry-bliss-freeze.png"},
         {value:"Lychee Iced Tea", label:"Lychee Iced Tea", priceDelta:0.50, image:"lychee-iced-tea.png"},
@@ -98,10 +98,13 @@ window.JOLLIBEE_MENU = {
     }
   },
 
+  // Sub-choices reached from a parent option that has `nested:"<key>"`.
+  // Order matters: the parent row previews the first three by name, so the
+  // flavors participants are most likely to hunt for lead the list.
   nestedGroups: {
-    soda: {
-      title:"Choose a Soda",
-      options:["Raspberry Ice Tea","Diet Pepsi","Mountain Dew","Pink Lemonade","Brisk Lemon Iced Tea","Mug Root Beer"]
+    fountain: {
+      title:"Fountain Drink",
+      options:["Diet Pepsi","Mountain Dew","Pink Lemonade","Mug Root Beer","Brisk Lemon Iced Tea","Raspberry Ice Tea"]
     }
   },
 

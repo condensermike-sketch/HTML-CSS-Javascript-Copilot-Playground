@@ -309,6 +309,16 @@ svg{display:block}
 .choice-row strong{font-size:18px;line-height:1.15}
 .choice-row small{display:block;font-size:14px;color:#888;margin-top:3px}
 
+/* A choice that opens a sub-list (e.g. Fountain Drink) rather than being a
+   terminal pick. It is a button, not a radio label, so the chevron + preview
+   copy read as "this leads somewhere" instead of "this is the whole choice".
+   The circle is decorative — the real radios live inside the sheet — but it
+   still fills in once a sub-option has been chosen. */
+.nested-row{width:100%;text-align:left;font:inherit;color:inherit;background:none;border:0;border-bottom:1px solid var(--line);grid-template-columns:34px 55px 1fr 18px;cursor:pointer}
+.nested-row .fake-radio{width:22px;height:22px;box-sizing:border-box;border:1.5px solid #767676;border-radius:50%;display:block}
+.nested-row.on .fake-radio{border-color:var(--red);background:var(--red);box-shadow:inset 0 0 0 4px #fff}
+.nested-chevron{width:18px;height:18px;color:#9a9a9a}
+
 /* Quantity-type customization groups (e.g. Sauces): each row starts unpriced
    and reveals its price + stepper only once at least one has been added. */
 .qty-row{min-height:91px;display:grid;grid-template-columns:55px 1fr auto;gap:10px;align-items:center;padding:10px 17px;border-bottom:1px solid var(--line)}

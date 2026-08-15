@@ -33,7 +33,7 @@ apps/
   js/menu-data.js      Static menu data -> window.JOLLIBEE_MENU
   menu/index.html       Menu browse + category scroll-spy
   item/index.html       Item detail / customize entry / add to cart
-  customize/index.html  Single customization group picker (+ nested sheet for Soda)
+  customize/index.html  Single customization group picker (+ nested sheet for Fountain Drink)
   cart/index.html       Cart, order summary, place order
   favorites/index.html  Favorited items (grid/list toggle)
   order-again/index.html  Past orders (seeded + session-completed), reorder
@@ -96,7 +96,7 @@ full-bleed mobile screen. It inherits the same flex-column behavior from the bas
   - To make this behave like a normal persistent app: set `testMode:false` in `app.js` —
     storage switches to `localStorage` and the reload-wipe logic is disabled.
 - `window.JOLLIBEE_MENU` (`menu-data.js`) is static data: `categories`, `groups` (Chicken/
-  Side/Drink/Gravy option lists), `nestedGroups` (Soda's sub-choices), `items` (the
+  Side/Drink/Gravy option lists), `nestedGroups` (Fountain Drink's sub-choices), `items` (the
   orderable products), `upsells`, `seededOrders`.
 
 ## Running / previewing locally
