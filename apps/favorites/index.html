@@ -67,11 +67,14 @@ el.addEventListener("click",(e)=>{
 function placeholder(){
   return `<svg viewBox="0 0 24 24"><rect class="icon-stroke" x="4" y="4" width="16" height="16" rx="2"/><circle class="icon-stroke" cx="9" cy="9" r="2"/><path class="icon-stroke" d="m5 17 4-4 3 3 2-2 5 5"/></svg>`;
 }
+function thumb(image,alt){
+  return image?`<div class="fav-thumb"><img src="../images/${image}" alt="${alt}"></div>`:`<div class="fav-thumb placeholder">${placeholder()}</div>`;
+}
 
 function regularFavoriteCard(item,meta,removeAttr,removeId){
   return `<article class="fav-card">
     <a href="../item/?id=${item.id}" style="text-decoration:none">
-      <div class="placeholder">${placeholder()}</div>
+      ${thumb(item.image,item.name)}
       <div class="fav-body">
         <div class="fav-name">${item.name}</div>
         <div class="fav-meta">${meta||""}</div>
@@ -106,7 +109,7 @@ function favoriteCard(x){
     if(!u)return "";
     return `<article class="fav-card">
       <div class="fav-static">
-        <div class="placeholder">${placeholder()}</div>
+        ${thumb(menu.items[u.id]?.image,u.name)}
         <div class="fav-body">
           <div class="fav-name">${u.name}</div>
           <div class="fav-meta">Saved from a previous order</div>

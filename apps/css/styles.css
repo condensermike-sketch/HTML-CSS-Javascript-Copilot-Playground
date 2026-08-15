@@ -125,7 +125,8 @@ svg{display:block}
   background:var(--tile);color:#aaa;display:grid;place-items:center
 }
 .placeholder svg{width:26px;height:26px}
-.item-hero img,.menu-thumb img,.custom-thumb img,.upsell-img img,.choice-img img{
+.item-hero img,.menu-thumb img,.custom-thumb img,.upsell-img img,.choice-img img,
+.fav-thumb img,.cart-item-img img,.cart-upsell-img img{
   width:100%;height:100%;object-fit:cover;display:block;border-radius:inherit
 }
 
@@ -487,7 +488,7 @@ svg{display:block}
 .fav-grid{display:grid;grid-template-columns:1fr 1fr;gap:18px}
 .fav-card{position:relative;background:#fff;min-width:0}
 .fav-card > a{display:block;text-decoration:none}
-.fav-card .placeholder{height:174px;border-radius:15px;overflow:hidden}
+.fav-card .fav-thumb{height:174px;border-radius:15px;overflow:hidden}
 .fav-body{padding:10px 0 0}
 .fav-name{font-size:18px;font-weight:900;line-height:1.3;color:#111}
 .fav-meta{font-size:16px;color:#8d8d8d;margin-top:6px;line-height:1.45}
@@ -512,7 +513,7 @@ svg{display:block}
   min-height:160px
 }
 .fav-grid.list .fav-card > a{display:contents}
-.fav-grid.list .fav-card .placeholder{
+.fav-grid.list .fav-card .fav-thumb{
   width:100px;height:100px;border-radius:11px;grid-column:1;grid-row:1
 }
 .fav-grid.list .fav-body{padding:0;grid-column:2;grid-row:1}
@@ -1028,7 +1029,7 @@ a:active{
 /* Favorites static add-on layout fallback */
 .fav-static{display:block}
 .fav-grid.list .fav-static{display:contents}
-.fav-grid.list .fav-static .placeholder{
+.fav-grid.list .fav-static .fav-thumb{
   width:100px;
   height:100px;
   border-radius:11px;

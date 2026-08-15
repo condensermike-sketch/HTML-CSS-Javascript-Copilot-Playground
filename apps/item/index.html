@@ -84,7 +84,11 @@ document.getElementById("favoriteBtn").onclick=()=>{const added=S.favoriteItem(i
 document.getElementById("saveFuture").checked=S.saveIntent(id);
 document.getElementById("saveFuture").onchange=()=>S.setSaveIntent(id,document.getElementById("saveFuture").checked);
 document.getElementById("addBtn").onclick=()=>{if(document.getElementById("saveFuture").checked)S.saveCustomizations(id,draft.customizations);S.setSaveIntent(id,false);const entry={itemId:id,quantity:draft.quantity,customizations:{...draft.customizations},addons:[]};if(editIndex!==null){S.updateCartItem(editIndex,entry);S.clearItemDraft(id);location.href="../cart/";return}S.addCartItem(entry);S.clearItemDraft(id);document.getElementById("upsell").classList.add("show")};
-document.getElementById("upsellRows").innerHTML=menu.upsells.map(u=>`<div class="upsell-row"><div class="upsell-img placeholder"><svg viewBox="0 0 24 24"><rect class="icon-stroke" x="4" y="4" width="16" height="16" rx="2"/><circle class="icon-stroke" cx="9" cy="9" r="2"/><path class="icon-stroke" d="m5 17 4-4 3 3 2-2 5 5"/></svg></div><div><div class="upsell-name">${u.name}</div><div class="upsell-meta">+${S.fmt(u.price)} · +${u.calories} Cal</div></div><button class="yellow" data-up="${u.id}">Add To Cart</button></div>`).join("");
+document.getElementById("upsellRows").innerHTML=menu.upsells.map(u=>{
+  const image=menu.items[u.id]?.image;
+  const img=image?`<div class="upsell-img"><img src="../images/${image}" alt="${u.name}"></div>`:`<div class="upsell-img placeholder"><svg viewBox="0 0 24 24"><rect class="icon-stroke" x="4" y="4" width="16" height="16" rx="2"/><circle class="icon-stroke" cx="9" cy="9" r="2"/><path class="icon-stroke" d="m5 17 4-4 3 3 2-2 5 5"/></svg></div>`;
+  return `<div class="upsell-row">${img}<div><div class="upsell-name">${u.name}</div><div class="upsell-meta">+${S.fmt(u.price)} · +${u.calories} Cal</div></div><button class="yellow" data-up="${u.id}">Add To Cart</button></div>`;
+}).join("");
 document.querySelectorAll("[data-up]").forEach(b=>b.onclick=()=>{S.addCartItem({addonId:b.dataset.up,quantity:1});b.textContent="Added";b.disabled=true});
 function closeUpsell(){document.getElementById("upsell").classList.remove("show")}
 document.getElementById("upsellX").onclick=closeUpsell;document.getElementById("upsellClose").onclick=closeUpsell;document.getElementById("checkout").onclick=()=>location.href="../cart/";
