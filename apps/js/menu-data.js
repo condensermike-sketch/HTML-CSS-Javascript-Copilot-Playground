@@ -29,13 +29,13 @@ window.JOLLIBEE_MENU = {
     side: {
       title:"Side",
       options:[
-        {value:"Jolly Crispy Fries Regular", label:"Jolly Crispy Fries Regular"},
-        {value:"Mashed Potato Regular", label:"Mashed Potato Regular"},
-        {value:"Steamed Rice", label:"Steamed Rice"},
+        {value:"Jolly Crispy Fries Regular", label:"Jolly Crispy Fries Regular", image:"jolly-crispy-fries.jpg"},
+        {value:"Mashed Potato Regular", label:"Mashed Potato Regular", image:"mashed-potatoes.jpg"},
+        {value:"Steamed Rice", label:"Steamed Rice", image:"steamed-rice.jpg"},
         {value:"2 pc Biscuit", label:"2 pc Biscuit"},
-        {value:"Adobo Rice", label:"Adobo Rice", priceDelta:1.50},
-        {value:"Side of Jolly Spaghetti", label:"Side of Jolly Spaghetti"},
-        {value:"Coleslaw", label:"Coleslaw"}
+        {value:"Adobo Rice", label:"Adobo Rice", priceDelta:1.50, image:"adobo-rice.png"},
+        {value:"Side of Jolly Spaghetti", label:"Side of Jolly Spaghetti", image:"side-jolly-spaghetti.png"},
+        {value:"Coleslaw", label:"Coleslaw", image:"coleslaw.png"}
       ]
     },
     drink: {
@@ -57,13 +57,13 @@ window.JOLLIBEE_MENU = {
     side2: {
       title:"Side",
       options:[
-        {value:"Jolly Crispy Fries Regular", label:"Jolly Crispy Fries Regular"},
-        {value:"Mashed Potato Regular", label:"Mashed Potato Regular"},
-        {value:"Steamed Rice", label:"Steamed Rice"},
+        {value:"Jolly Crispy Fries Regular", label:"Jolly Crispy Fries Regular", image:"jolly-crispy-fries.jpg"},
+        {value:"Mashed Potato Regular", label:"Mashed Potato Regular", image:"mashed-potatoes.jpg"},
+        {value:"Steamed Rice", label:"Steamed Rice", image:"steamed-rice.jpg"},
         {value:"2 pc Biscuit", label:"2 pc Biscuit"},
-        {value:"Adobo Rice", label:"Adobo Rice", priceDelta:1.50},
-        {value:"Side of Jolly Spaghetti", label:"Side of Jolly Spaghetti"},
-        {value:"Coleslaw", label:"Coleslaw"}
+        {value:"Adobo Rice", label:"Adobo Rice", priceDelta:1.50, image:"adobo-rice.png"},
+        {value:"Side of Jolly Spaghetti", label:"Side of Jolly Spaghetti", image:"side-jolly-spaghetti.png"},
+        {value:"Coleslaw", label:"Coleslaw", image:"coleslaw.png"}
       ]
     },
     gravy: {
