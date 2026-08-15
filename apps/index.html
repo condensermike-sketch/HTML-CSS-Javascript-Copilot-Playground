@@ -84,7 +84,8 @@ function orderTotal(o){
 }
 function drawHomeOrderAgain(){
   const recent=orders.slice(0,2);
-  document.getElementById("homeOrderAgain").innerHTML=recent.map((o,idx)=>{
+  const track=document.getElementById("homeOrderAgain");
+  track.innerHTML=recent.map((o,idx)=>{
     const lines=orderItemLines(o);
     const hidden=lines.length-HOME_ORDER_ITEM_LIMIT;
     const itemsHtml=lines.slice(0,HOME_ORDER_ITEM_LIMIT).map(l=>`<div class="home-order-line">${l}</div>`).join("")
@@ -95,6 +96,7 @@ function drawHomeOrderAgain(){
     <div class="home-order-card-foot"><span class="home-order-card-total">${S.fmt(orderTotal(o))}</span><button class="home-order-reorder" data-home-reorder="${idx}">Reorder</button></div>
   </article>`;
   }).join("");
+  track.scrollLeft=0;
   document.querySelectorAll("[data-home-reorder]").forEach(b=>b.onclick=()=>{
     const o=recent[Number(b.dataset.homeReorder)];
     S.setCart((o.items||[]).map(x=>JSON.parse(JSON.stringify(x))));
