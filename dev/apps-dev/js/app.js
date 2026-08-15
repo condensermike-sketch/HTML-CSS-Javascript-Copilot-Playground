@@ -8,19 +8,16 @@
 
   function appBase(){
     const href = location.href;
-    const markers = ["/apps-dev/", "/apps/"];
+    const devMarker = "/dev/apps-dev/";
     if(location.protocol === "file:"){
-      for(const marker of markers){
-        const idx = href.indexOf(marker);
-        if(idx >= 0) return href.slice(0, idx + marker.length);
-      }
-      return new URL("../", href).href;
+      const idx = href.indexOf("/apps-dev/");
+      return idx >= 0 ? href.slice(0, idx + 10) : new URL("../", href).href;
     }
-    for(const marker of markers){
-      const idx = location.pathname.indexOf(marker);
-      if(idx >= 0) return location.origin + location.pathname.slice(0, idx + marker.length);
+    const devIdx = location.pathname.indexOf(devMarker);
+    if(devIdx >= 0){
+      return location.origin + location.pathname.slice(0, devIdx + devMarker.length);
     }
-    return location.origin + "/";
+    return location.origin + "/HTML-CSS-Javascript-Copilot-Playground/dev/apps-dev/";
   }
 
   function hrefFor(path){
@@ -59,7 +56,7 @@
   // Ordinary link navigation between prototype pages is "navigate", so state survives.
   if(CONFIG.testMode && CONFIG.clearOnReload && navType()==="reload"){
     clearParticipantState();
-    const atAppHome = ["/apps-dev/", "/apps-dev/index.html", "/apps/", "/apps/index.html"]
+    const atAppHome = ["/dev/apps-dev/", "/dev/apps-dev/index.html"]
       .some(path=>location.pathname.endsWith(path));
     if(!atAppHome){
       location.replace(hrefFor(""));
