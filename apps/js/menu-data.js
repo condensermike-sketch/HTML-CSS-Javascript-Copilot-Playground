@@ -247,11 +247,12 @@ window.JOLLIBEE_MENU = {
     "pineapple-quencher-half-gallon":{
       id:"pineapple-quencher-half-gallon", category:"drinks", name:"Half Gallon Pineapple Quencher", shortName:"Half Gallon Pineapple Quencher",
       description:"Half gallon of our sweet and refreshing signature Pineapple Quencher.", price:18.99, calories:0, customizations:[],
-      image:"pineapple-quencher.jpg"
+      image:"pineapple-quencher-half-gallon.jpeg"
     },
     "bottled-water":{
       id:"bottled-water", category:"drinks", name:"Bottled Water", shortName:"Bottled Water",
-      description:"", price:3.49, calories:0, customizations:[]
+      description:"", price:3.49, calories:0, customizations:[],
+      image:"bottled-water.jpeg"
     },
     "mango-coconut-quencher":{
       id:"mango-coconut-quencher", category:"drinks", name:"Mango Coconut Quencher", shortName:"Mango Coconut Quencher",
@@ -265,7 +266,8 @@ window.JOLLIBEE_MENU = {
     },
     "mango-freeze":{
       id:"mango-freeze", category:"drinks", name:"Mango Freeze", shortName:"Mango Freeze",
-      description:"Refreshing mango blended into a smooth freeze — a pure, fruity delight that's refreshingly sweet with every sip.", price:5.29, calories:0, customizations:[]
+      description:"Refreshing mango blended into a smooth freeze — a pure, fruity delight that's refreshingly sweet with every sip.", price:5.29, calories:0, customizations:[],
+      image:"mango-freeze.jpeg"
     },
     "guava-quencher":{
       id:"guava-quencher", category:"drinks", name:"Guava Quencher", shortName:"Guava Quencher",
