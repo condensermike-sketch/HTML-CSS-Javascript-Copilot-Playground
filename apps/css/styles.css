@@ -176,13 +176,14 @@ svg{display:block}
 /* Home */
 .home-content{padding:15px 17px 28px}
 .profile-card{
-  min-height:66px;border:1px solid #d0d0d0;border-radius:15px;
+  min-height:66px;border:1.5px solid var(--red);border-radius:15px;
   display:grid;grid-template-columns:48px 1fr 28px;gap:12px;align-items:center;padding:10px 13px
 }
 .avatar{width:44px;height:44px;border-radius:50%;background:#dedede;color:#aaa;display:grid;place-items:center;overflow:hidden}
 .avatar img{width:100%;height:100%;object-fit:contain;display:block}
 .profile-title{font-size:17px;font-weight:900;line-height:1.25}
-.profile-points{font-size:14px;margin-top:3px;color:var(--muted)}.profile-points strong{font-weight:900}
+.profile-points{font-size:14px;margin-top:3px;color:var(--ink-soft)}.profile-points strong{font-weight:900;color:var(--red)}
+.profile-card > svg .icon-stroke{stroke-width:2.75}
 .home-promo{position:relative;margin:12px -17px 0}
 .promo-track{
   display:flex;gap:10px;padding:0 22px;overflow-x:auto;scroll-snap-type:x mandatory;
@@ -191,11 +192,58 @@ svg{display:block}
 .promo-track::-webkit-scrollbar{display:none}
 .promo-slide{flex:0 0 calc(100% - 44px);aspect-ratio:1/1;border-radius:15px;overflow:hidden;scroll-snap-align:center}
 .promo-slide img{width:100%;height:100%;object-fit:cover;display:block}
-.carousel-controls{position:absolute;left:50%;bottom:15px;transform:translateX(-50%);display:flex;align-items:center;gap:22px;color:#fff;z-index:1}
-.carousel-controls button{border:0;background:transparent;color:#fff;padding:0;width:44px;height:44px;display:grid;place-items:center}
-.pause-circle{width:44px!important;height:44px!important;border:1px solid rgba(255,255,255,.85)!important;border-radius:50%!important}
+/* Controls overlay the banner so they cost no vertical space. The artwork bakes an
+   "Order Here" CTA into the bottom-centre of every slide, so the arrows ride the
+   mid-height edges and the dots/pause tuck into the bottom-LEFT, clear of it.
+   `display:contents` drops this wrapper from layout so each control positions itself
+   against .home-promo directly. */
+.carousel-controls{display:contents}
+/* 44px tap target (HIG minimum) with a 36px visual circle drawn inside it — the button
+   box itself stays transparent so the target can exceed what you see */
+.carousel-controls button{
+  position:absolute;width:44px;height:44px;padding:0;border:0;background:transparent;
+  color:var(--red);display:grid;place-items:center;z-index:2
+}
+/* translucent, not solid — the blur is what keeps the red glyph legible, since it flattens
+   whatever photo detail sits under the circle instead of relying on opacity alone */
+.carousel-controls button::before{
+  content:"";position:absolute;width:36px;height:36px;border-radius:50%;
+  background:rgba(255,255,255,.62);border:1px solid rgba(255,255,255,.7);
+  -webkit-backdrop-filter:blur(10px) saturate(.5) brightness(1.35);
+  backdrop-filter:blur(10px) saturate(.5) brightness(1.35);
+  box-shadow:0 2px 6px rgba(0,0,0,.16)
+}
+.carousel-controls button svg{position:relative} /* above the ::before circle */
+.carousel-controls button:active::before{background:rgba(255,255,255,.85)}
+.carousel-controls .icon-stroke{stroke-width:2.5}
+/* the centred slide always starts 44px in — (trackWidth - slideWidth) / 2 reduces to 44
+   at every viewport — so a flat 52px inset keeps the arrows 8px inside the artwork */
+#promoPrev{left:52px;top:50%;transform:translateY(-50%)}
+#promoNext{right:52px;top:50%;transform:translateY(-50%)}
+.promo-dots{
+  position:absolute;left:56px;bottom:16px;z-index:2;
+  display:flex;align-items:center;gap:6px;padding:6px 9px;border-radius:999px;
+  background:rgba(255,255,255,.62);border:1px solid rgba(255,255,255,.7);
+  -webkit-backdrop-filter:blur(10px) saturate(.5) brightness(1.35);
+  backdrop-filter:blur(10px) saturate(.5) brightness(1.35);
+  box-shadow:0 2px 6px rgba(0,0,0,.16)
+}
+/* darkened from the old flat grey: a light grey dot disappears against a translucent pill */
+.promo-dot{width:7px;height:7px;border-radius:999px;background:rgba(22,22,22,.32);transition:width .2s ease,background .2s ease}
+.promo-dot.on{width:19px;background:var(--red)}
+/* stacked ABOVE the dots rather than beside them: the nuggets banner's "Order Here" pill
+   runs the full width of the bottom band, so a side-by-side pause clipped its first word */
+.pause-circle{left:52px;bottom:44px}
+.pause-circle svg{width:15px;height:15px}
 .home-order-again{margin-top:17px}
-.home-order-again-heading{margin:0 0 12px}
+.home-order-again-head{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:12px}
+/* specificity beats the generic .home-heading margins further down */
+.home-order-again-head .home-order-again-heading{margin:0}
+.home-view-all{
+  /* negative margin keeps the 44px tap target from growing the heading row */
+  display:inline-flex;align-items:center;min-height:44px;margin:-8px 0;
+  color:var(--red);text-decoration:none;font-size:16px;font-weight:900;white-space:nowrap
+}
 .home-order-track{
   display:flex;gap:10px;overflow-x:auto;scroll-snap-type:x proximity;
   scrollbar-width:none;-ms-overflow-style:none;margin:0 -17px;padding:0 17px 10px;
@@ -207,23 +255,19 @@ svg{display:block}
   flex:0 0 calc(100% - 90px);min-width:0;scroll-snap-align:start;
   border:1.5px solid var(--red);border-radius:13px;padding:11px 13px
 }
-.home-order-card-chevron{position:absolute;top:13px;right:11px;color:var(--ink-soft)}
+.home-order-card-chevron{position:absolute;top:13px;right:11px;color:var(--red)}
+.home-order-card-chevron .icon-stroke{stroke-width:2.75}
 .home-order-card-items{font-size:16px;color:var(--ink);padding-right:20px}
-.home-order-line{overflow:hidden;text-overflow:ellipsis;white-space:nowrap;line-height:1.55;font-weight:700}
+.home-order-line{overflow:hidden;text-overflow:ellipsis;white-space:nowrap;line-height:1.3;font-weight:700}
 .home-order-line-more{color:var(--muted);font-weight:400}
-.home-order-card-meta{display:flex;align-items:center;gap:5px;font-size:13px;color:var(--muted);margin-top:5px;overflow:hidden;padding-right:20px}
-.home-order-meta-icon{flex:0 0 auto;color:var(--muted)}
+.home-order-card-meta{display:flex;align-items:center;gap:5px;font-size:13px;color:var(--muted);margin-top:7px;overflow:hidden;padding-right:20px}
+.home-order-meta-icon{flex:0 0 auto;color:var(--red)}
 .home-order-card-meta span{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
 .home-order-card-foot{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-top:9px}
 .home-order-card-total{font-size:16px;font-weight:900;color:var(--red)}
 .home-order-reorder{
   border:0;background:var(--red);color:#fff;border-radius:999px;
   height:32px;padding:0 16px;font-size:14px;font-weight:900
-}
-.home-see-all-orders{
-  display:flex;align-items:center;justify-content:center;gap:6px;
-  height:48px;border:1px solid #d1d1d1;border-radius:999px;background:#fff;
-  color:var(--ink);text-decoration:none;font-size:16px;font-weight:900;margin-top:8px
 }
 .home-heading{font-size:22px;font-weight:900;margin:19px 0 12px}
 .category-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}
