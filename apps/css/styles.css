@@ -203,15 +203,19 @@ svg{display:block}
 }
 .home-order-track::-webkit-scrollbar{display:none}
 .home-order-card{
+  position:relative;
   flex:0 0 calc(100% - 90px);min-width:0;scroll-snap-align:start;
-  border:1px solid #d8d8d8;border-radius:13px;padding:11px 13px
+  border:1.5px solid var(--red);border-radius:13px;padding:11px 32px 11px 13px
 }
+.home-order-card-chevron{position:absolute;top:13px;right:11px;color:#555}
 .home-order-card-items{font-size:14px;color:#333}
 .home-order-line{overflow:hidden;text-overflow:ellipsis;white-space:nowrap;line-height:1.55;font-weight:700}
 .home-order-line-more{color:#999;font-weight:400}
-.home-order-card-meta{font-size:11px;color:#999;margin-top:5px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.home-order-card-meta{display:flex;align-items:center;gap:5px;font-size:11px;color:#999;margin-top:5px;overflow:hidden}
+.home-order-meta-icon{flex:0 0 auto;color:#999}
+.home-order-card-meta span{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
 .home-order-card-foot{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-top:9px}
-.home-order-card-total{font-size:14px;font-weight:900}
+.home-order-card-total{font-size:14px;font-weight:900;color:var(--red)}
 .home-order-reorder{
   border:0;background:var(--red);color:#fff;border-radius:999px;
   height:32px;padding:0 16px;font-size:13px;font-weight:900
