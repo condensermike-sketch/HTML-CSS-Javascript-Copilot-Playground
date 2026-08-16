@@ -75,6 +75,9 @@ function orderItemLines(o){
     return `${e.quantity||1}× ${u?u.name:"Add-on"}`;
   });
 }
+function homeOrderFulfillmentLabel(o){
+  return (o.fulfillment||"Previous Order").replace(/^Counter Pickup\b/,"Pick Up");
+}
 function orderTotal(o){
   return (o.items||[]).reduce((n,e)=>{
     if(e.itemId)return n+S.configuredItemUnitPrice(e.itemId,e.customizations||{})*(e.quantity||1);
@@ -90,21 +93,28 @@ function drawHomeOrderAgain(){
     const hidden=lines.length-HOME_ORDER_ITEM_LIMIT;
     const itemsHtml=lines.slice(0,HOME_ORDER_ITEM_LIMIT).map(l=>`<div class="home-order-line">${l}</div>`).join("")
       +(hidden>0?`<div class="home-order-line home-order-line-more">+${hidden} more items</div>`:"");
-    return `<article class="home-order-card">
+    return `<article class="home-order-card" role="link" tabindex="0" aria-label="View order details">
     <svg class="home-order-card-chevron" width="18" height="18" viewBox="0 0 24 24"><path class="icon-stroke" d="m9 6 6 6-6 6"/></svg>
     <div class="home-order-card-items">${itemsHtml}</div>
     <div class="home-order-card-meta">
       <svg class="home-order-meta-icon" width="14" height="14" viewBox="0 0 24 24"><path class="icon-stroke" d="M6 8h12l-1 12H7L6 8Z"/><path class="icon-stroke" d="M9 8V6a3 3 0 0 1 6 0v2"/></svg>
-      <span>${o.fulfillment||"Previous Order"}${o.dateLabel?` · ${o.dateLabel}`:""}</span>
+      <span>${homeOrderFulfillmentLabel(o)}${o.dateLabel?` · ${o.dateLabel}`:""}</span>
     </div>
     <div class="home-order-card-foot"><span class="home-order-card-total">${S.fmt(orderTotal(o))}</span><button class="home-order-reorder" data-home-reorder="${idx}">Reorder</button></div>
   </article>`;
   }).join("");
   track.scrollLeft=0;
-  document.querySelectorAll("[data-home-reorder]").forEach(b=>b.onclick=()=>{
+  document.querySelectorAll("[data-home-reorder]").forEach(b=>b.onclick=(e)=>{
+    e.stopPropagation();
     const o=recent[Number(b.dataset.homeReorder)];
     S.setCart((o.items||[]).map(x=>JSON.parse(JSON.stringify(x))));
     location.href="./cart/";
+  });
+  document.querySelectorAll(".home-order-card").forEach(card=>{
+    card.onclick=()=>{location.href="./order-again/"};
+    card.onkeydown=(e)=>{
+      if(e.key==="Enter"||e.key===" "){e.preventDefault();location.href="./order-again/"}
+    };
   });
 }
 drawHomeOrderAgain();
