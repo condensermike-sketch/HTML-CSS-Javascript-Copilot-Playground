@@ -244,6 +244,12 @@ svg{display:block}
   display:inline-flex;align-items:center;min-height:44px;margin:-8px 0;
   color:var(--red);text-decoration:none;font-size:16px;font-weight:900;white-space:nowrap
 }
+/* the global "a:visited{color:inherit}" reset further down outranks a plain class on
+   specificity, so a visited/hovered/active link here would otherwise fall back to black
+   — this is a mobile app shell with no "read" state to signal, so red stays fixed */
+.home-view-all:visited,
+.home-view-all:hover,
+.home-view-all:active{color:var(--red)}
 .home-order-track{
   display:flex;gap:10px;overflow-x:auto;scroll-snap-type:x proximity;
   scrollbar-width:none;-ms-overflow-style:none;margin:0 -17px;padding:0 17px 10px;
