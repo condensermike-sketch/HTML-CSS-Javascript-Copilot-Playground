@@ -38,16 +38,18 @@
 
 </div></div></header>
 <main class="app-scroll home-scroll"><div class="home-content">
-<section class="profile-card"><div class="avatar"><img src="./images/jollibee-logo.png" alt=""></div><div><div class="profile-title">Hello, Username</div><div class="profile-points"><strong>240</strong> Points Earned</div></div><svg width="20" height="20" viewBox="0 0 24 24" style="color:var(--muted)"><path class="icon-stroke" d="m9 6 6 6-6 6"/></svg></section>
+<section class="profile-card"><div class="avatar"><img src="./images/jollibee-logo.png" alt=""></div><div><div class="profile-title">Hello, Username</div><div class="profile-points"><strong>240</strong> Points Earned</div></div><svg width="20" height="20" viewBox="0 0 24 24" style="color:var(--red)"><path class="icon-stroke" d="m9 6 6 6-6 6"/></svg></section>
 <section class="home-promo" id="homePromo"><div class="promo-track" id="promoTrack">
 <div class="promo-slide"><img src="./images/banner-chickenjoy.png" alt="Chickenjoy - Next-Level Juicy, Next-Level Crispy"></div>
 <div class="promo-slide"><img src="./images/banner-chicken-sandwiches.png" alt="Jollibee Chicken Sandwiches - Spicy and Original"></div>
 <div class="promo-slide"><img src="./images/banner-chicken-nuggets.png" alt="New Jollibee Chicken Nuggets"></div>
 </div><div class="carousel-controls"><button id="promoPrev" aria-label="Previous slide"><svg width="17" height="17" viewBox="0 0 24 24"><path class="icon-stroke" d="m14 7-5 5 5 5"/></svg></button><button class="pause-circle" id="promoPause" aria-label="Pause carousel">Ⅱ</button><button id="promoNext" aria-label="Next slide"><svg width="17" height="17" viewBox="0 0 24 24"><path class="icon-stroke" d="m10 7 5 5-5 5"/></svg></button></div></section>
 <section class="home-order-again">
-<h2 class="home-heading home-order-again-heading">Order Again</h2>
+<div class="home-order-again-head">
+  <h2 class="home-heading home-order-again-heading">Order Again</h2>
+  <a class="home-view-all" href="./order-again/">View All</a>
+</div>
 <div class="home-order-track" id="homeOrderAgain"></div>
-<a class="home-see-all-orders" href="./order-again/">See All Orders<svg width="17" height="17" viewBox="0 0 24 24"><path class="icon-stroke" d="m9 6 6 6-6 6"/></svg></a>
 </section>
 <h1 class="home-heading">Order Now</h1>
 <section class="category-grid" id="homeCategories"></section>
@@ -78,6 +80,15 @@ function orderItemLines(o){
 function homeOrderFulfillmentLabel(o){
   return (o.fulfillment||"Previous Order").replace(/^Counter Pickup\b/,"Pick Up");
 }
+// icon follows the order's fulfillment: takeout bag for counter pickup, van for drive-thru.
+// the bag's handle is drawn INSIDE the bag opening on purpose — a handle arcing above a
+// rounded body reads as a padlock shackle at this size, which is what the cart toggle's
+// tote icon does.
+function homeOrderFulfillmentIcon(o){
+  return /drive/i.test(o.fulfillment||"")
+    ? '<path class="icon-stroke" d="M3 7h11v9H3zM14 10h4l3 3v3h-7z"/><circle class="icon-stroke" cx="7" cy="18" r="2"/><circle class="icon-stroke" cx="18" cy="18" r="2"/>'
+    : '<path class="icon-stroke" d="M5.5 8h13l-1 12H6.5l-1-12Z"/><path class="icon-stroke" d="M9.5 11.5V7.5a2.5 2.5 0 0 1 5 0v4"/>';
+}
 function orderTotal(o){
   return (o.items||[]).reduce((n,e)=>{
     if(e.itemId)return n+S.configuredItemUnitPrice(e.itemId,e.customizations||{})*(e.quantity||1);
@@ -97,7 +108,7 @@ function drawHomeOrderAgain(){
     <svg class="home-order-card-chevron" width="18" height="18" viewBox="0 0 24 24"><path class="icon-stroke" d="m9 6 6 6-6 6"/></svg>
     <div class="home-order-card-items">${itemsHtml}</div>
     <div class="home-order-card-meta">
-      <svg class="home-order-meta-icon" width="14" height="14" viewBox="0 0 24 24"><path class="icon-stroke" d="M6 8h12l-1 12H7L6 8Z"/><path class="icon-stroke" d="M9 8V6a3 3 0 0 1 6 0v2"/></svg>
+      <svg class="home-order-meta-icon" width="16" height="16" viewBox="0 0 24 24" aria-hidden="true">${homeOrderFulfillmentIcon(o)}</svg>
       <span>${homeOrderFulfillmentLabel(o)}${o.dateLabel?` · ${o.dateLabel}`:""}</span>
     </div>
     <div class="home-order-card-foot"><span class="home-order-card-total">${S.fmt(orderTotal(o))}</span><button class="home-order-reorder" data-home-reorder="${idx}">Reorder</button></div>
