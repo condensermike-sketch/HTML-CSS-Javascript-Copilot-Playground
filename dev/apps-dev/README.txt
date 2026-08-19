@@ -72,7 +72,7 @@ Item:
 Customize:
 - Reusable /customize/?item=<id>&type=<group>
 - Supports Chicken, Side, Drink, Gravy
-- Drink supports a nested Soda choice sheet
+- Drink supports a nested Fountain Drink choice sheet
 
 Cart:
 - Shows ONLY items explicitly added or loaded via Reorder

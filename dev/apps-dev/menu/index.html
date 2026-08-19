@@ -1,9 +1,9 @@
 <!doctype html><html><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><meta name="theme-color" content="#e9163d"><title>Menu</title><link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,200..1000;1,200..1000&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="../css/styles.css?v=2">
-<script src="../js/menu-data.js"></script>
-<script src="../js/app.js"></script><script>
+<link rel="stylesheet" href="../css/styles.css?v=16">
+<script src="../js/menu-data.js?v=20260815-fountain-real-images"></script>
+<script src="../js/app.js?v=20260814-save-intent"></script><script>
 (function (m, a, z, e) {
   var s, t, u, v;
   try {
@@ -29,18 +29,24 @@
   if (v) s.setAttribute('nonce', v);
   a.getElementsByTagName('head')[0].appendChild(s);
   m.mazeUniversalSnippetApiKey = e;
-})(window, document, 'https://snippet.maze.co/maze-universal-loader.js', '07cbf368-f585-4dcc-8a0b-966c9d7e76ab');
+})(window, document, 'https://snippet.maze.co/maze-universal-loader.js', 'd01067b0-7842-4e07-9a73-4cc05699b59d');
 </script>
 </head><body><div class="app-shell">
 <header class="top-red"><div class="top-red-row" style="grid-template-columns:40px 1fr">
-<a href="../" style="color:white;text-decoration:none;display:grid;place-items:center;width:34px;height:38px">
+<a class="back-btn" href="../" style="color:#fff">
 <svg width="27" height="27" viewBox="0 0 24 24"><path class="icon-stroke" d="m15 18-6-6 6-6"/></svg></a>
 <div class="pickup"><small>Pick up from</small><strong>Beverly <svg width="14" height="14" viewBox="0 0 24 24"><path class="icon-stroke" d="m7 9 5 5 5-5"/></svg></strong></div>
 </div></header>
 <nav class="menu-tabs"><div class="menu-tabs-inner" id="tabs"></div></nav>
 <main class="menu-list" id="menuList"></main>
 
-
+<nav class="bottom-nav">
+  <a class="nav-btn " href="../"><svg viewBox="0 0 24 24"><path class="icon-stroke" d="m4 10 8-6 8 6v10H4Z"/><path class="icon-stroke" d="M9 20v-6h6v6"/></svg><span>Home</span></a>
+  <a class="nav-btn active" href="../menu/"><svg viewBox="0 0 24 24"><path class="icon-stroke" d="M4 7h16M4 12h16M4 17h16"/></svg><span>Menu</span></a>
+  <a class="nav-btn rewards-label " href="../rewards/"><span class="reward-float"><svg viewBox="0 0 24 24"><path class="icon-stroke" d="M8 4h8v8a4 4 0 0 1-8 0Z"/><path class="icon-stroke" d="M9 18h6M12 16v2"/><path class="icon-stroke" d="M8 7H5v2a3 3 0 0 0 3 3M16 7h3v2a3 3 0 0 1-3 3"/></svg></span><span>Rewards</span></a>
+  <a class="nav-btn " href="../favorites/"><svg viewBox="0 0 24 24"><path class="icon-stroke" d="M20.8 4.8a5.3 5.3 0 0 0-7.5 0L12 6.1l-1.3-1.3a5.3 5.3 0 0 0-7.5 7.5L12 21l8.8-8.7a5.3 5.3 0 0 0 0-7.5Z"/></svg><span>Favorites</span></a>
+  <a class="nav-btn " href="../account/"><svg viewBox="0 0 24 24"><circle class="icon-stroke" cx="12" cy="8" r="3.5"/><path class="icon-stroke" d="M5 20a7 7 0 0 1 14 0"/></svg><span>Account</span></a>
+</nav>
 
 <a class="menu-cart-cta" id="menuCartCta" href="../cart/">
 <span class="menu-cart-count" id="menuCartCount"></span>
@@ -70,7 +76,7 @@ function updateMenuCart(){
 
 const tabs=document.getElementById("tabs"),list=document.getElementById("menuList");
 tabs.innerHTML=menu.categories.map((c,i)=>`<button class="menu-tab ${i===0?"active":""}" data-id="${c.id}">${c.label}</button>`).join("");
-list.innerHTML=menu.categories.map(c=>`<section class="menu-section" id="${c.id}"><h2>${c.label}</h2>${c.items.length?c.items.map(id=>{const i=menu.items[id];return `<article class="menu-product"><div class="menu-thumb placeholder"><svg viewBox="0 0 24 24"><rect class="icon-stroke" x="4" y="4" width="16" height="16" rx="2"/><circle class="icon-stroke" cx="9" cy="9" r="2"/><path class="icon-stroke" d="m5 17 4-4 3 3 2-2 5 5"/></svg></div><div><div class="menu-product-name">${i.name}</div><div class="menu-product-desc">${i.description}</div><div class="menu-price">$${i.price.toFixed(2)}</div></div><a class="menu-plus" href="../item/?id=${i.id}" aria-label="Open ${i.name}">+</a></article>`}).join(""):`<div class="menu-coming">Coming soon</div>`}</section>`).join("");
+list.innerHTML=menu.categories.map(c=>`<section class="menu-section" id="${c.id}"><h2>${c.label}</h2>${c.items.length?c.items.map(id=>{const i=menu.items[id];const thumb=i.image?`<div class="menu-thumb"><img src="../images/${i.image}" alt="${i.name}"></div>`:`<div class="menu-thumb placeholder"><svg viewBox="0 0 24 24"><rect class="icon-stroke" x="4" y="4" width="16" height="16" rx="2"/><circle class="icon-stroke" cx="9" cy="9" r="2"/><path class="icon-stroke" d="m5 17 4-4 3 3 2-2 5 5"/></svg></div>`;return `<article class="menu-product">${thumb}<div><div class="menu-product-name">${i.name}</div><div class="menu-product-desc">${i.description}</div><div class="menu-price">$${i.price.toFixed(2)}</div></div><a class="menu-plus" href="../item/?id=${i.id}" aria-label="Open ${i.name}">+</a></article>`}).join(""):`<div class="menu-coming">Coming soon</div>`}</section>`).join("");
 let timer=null,program=false;
 function setActive(id,center=true){document.querySelectorAll(".menu-tab").forEach(t=>{const a=t.dataset.id===id;t.classList.toggle("active",a);if(a&&center)t.scrollIntoView({behavior:"smooth",inline:"start",block:"nearest"})})}
 document.querySelectorAll(".menu-tab").forEach(t=>t.onclick=()=>{program=true;setActive(t.dataset.id);list.scrollTo({top:document.getElementById(t.dataset.id).offsetTop-2,behavior:"smooth"});clearTimeout(timer);timer=setTimeout(()=>program=false,650)})

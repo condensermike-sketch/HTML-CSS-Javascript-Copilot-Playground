@@ -8,16 +8,19 @@
 
   function appBase(){
     const href = location.href;
-    const devMarker = "/dev/apps-dev/";
+    const markers = ["/apps-dev/", "/apps/"];
     if(location.protocol === "file:"){
-      const idx = href.indexOf("/apps-dev/");
-      return idx >= 0 ? href.slice(0, idx + 10) : new URL("../", href).href;
+      for(const marker of markers){
+        const idx = href.indexOf(marker);
+        if(idx >= 0) return href.slice(0, idx + marker.length);
+      }
+      return new URL("../", href).href;
     }
-    const devIdx = location.pathname.indexOf(devMarker);
-    if(devIdx >= 0){
-      return location.origin + location.pathname.slice(0, devIdx + devMarker.length);
+    for(const marker of markers){
+      const idx = location.pathname.indexOf(marker);
+      if(idx >= 0) return location.origin + location.pathname.slice(0, idx + marker.length);
     }
-    return location.origin + "/HTML-CSS-Javascript-Copilot-Playground/dev/apps-dev/";
+    return location.origin + "/";
   }
 
   function hrefFor(path){
@@ -56,7 +59,7 @@
   // Ordinary link navigation between prototype pages is "navigate", so state survives.
   if(CONFIG.testMode && CONFIG.clearOnReload && navType()==="reload"){
     clearParticipantState();
-    const atAppHome = ["/dev/apps-dev/", "/dev/apps-dev/index.html"]
+    const atAppHome = ["/apps-dev/", "/apps-dev/index.html", "/apps/", "/apps/index.html"]
       .some(path=>location.pathname.endsWith(path));
     if(!atAppHome){
       location.replace(hrefFor(""));
@@ -79,6 +82,21 @@
     set("drafts",drafts);
   }
 
+  // Whether the shopper checked "Save customization for future orders" before
+  // finishing all required picks. Choosing each customization round-trips
+  // through the Customize page (a full reload of item/index.html), so this
+  // has to persist the same way the draft itself does, or the checkbox state
+  // is lost by the time Add To Cart is clicked.
+  function saveIntent(itemId){
+    const intents=get("saveIntents",{});
+    return !!intents[itemId];
+  }
+  function setSaveIntent(itemId,value){
+    const intents=get("saveIntents",{});
+    if(value) intents[itemId]=true; else delete intents[itemId];
+    set("saveIntents",intents);
+  }
+
   function savedCustomizations(itemId){
     const all=get("savedCustomizations",{});
     return all[itemId] || null;
@@ -89,32 +107,61 @@
     set("savedCustomizations",all);
   }
 
-  function favorites(){ return get("favorites",[]); }
+  // Preset favorites (menu.seededFavorites) always show up, the same way
+  // seededOrders always show up in Order Again. A seed can still be
+  // unfavorited during a session — that's tracked as a "removedSeeds"
+  // tombstone rather than mutating the static menu data.
+  function seedFavoriteKey(entry){ return entry.itemId ? "item:"+entry.itemId : "addon:"+entry.addonId; }
+  function seededFavoritesData(){
+    const menu=window.JOLLIBEE_MENU;
+    return (menu && menu.seededFavorites) || [];
+  }
+  function removedSeedKeys(){ return get("removedSeeds",[]); }
+  function tombstoneSeed(key){
+    const r=removedSeedKeys();
+    if(!r.includes(key)) set("removedSeeds",[...r,key]);
+  }
+  function rawFavorites(){ return get("favorites",[]); }
+  function setRawFavorites(favs){ set("favorites",favs); }
+
+  function favorites(){
+    const removed=removedSeedKeys();
+    const raw=rawFavorites();
+    const rawKeys=raw.map(seedFavoriteKey);
+    const activeSeeds=seededFavoritesData().filter(s=>!removed.includes(seedFavoriteKey(s)) && !rawKeys.includes(seedFavoriteKey(s)));
+    return [...raw, ...activeSeeds];
+  }
   function isFavorite(itemId){ return favorites().some(f=>f.itemId===itemId); }
   function favoriteItem(itemId,customizations){
-    let favs=favorites();
-    const idx=favs.findIndex(f=>f.itemId===itemId);
-    if(idx>=0) favs.splice(idx,1);
-    else favs.unshift({itemId,customizations:{...customizations}});
-    set("favorites",favs);
-    return idx<0;
+    const wasFavorite=isFavorite(itemId);
+    if(wasFavorite){
+      setRawFavorites(rawFavorites().filter(f=>f.itemId!==itemId));
+      tombstoneSeed("item:"+itemId);
+    }else{
+      setRawFavorites([{itemId,customizations:{...customizations}}, ...rawFavorites()]);
+    }
+    return !wasFavorite;
   }
   function removeFavorite(itemId){
-    set("favorites",favorites().filter(f=>f.itemId!==itemId));
+    setRawFavorites(rawFavorites().filter(f=>f.itemId!==itemId));
+    tombstoneSeed("item:"+itemId);
   }
 
   // Add-on favorites use addonId so existing menu-item favorite behavior is unchanged.
   function isAddonFavorite(addonId){ return favorites().some(f=>f.addonId===addonId); }
   function favoriteAddon(addonId){
-    let favs=favorites();
-    const idx=favs.findIndex(f=>f.addonId===addonId);
-    if(idx>=0) favs.splice(idx,1);
-    else favs.unshift({addonId});
-    set("favorites",favs);
-    return idx<0;
+    const wasFavorite=isAddonFavorite(addonId);
+    if(wasFavorite){
+      setRawFavorites(rawFavorites().filter(f=>f.addonId!==addonId));
+      tombstoneSeed("addon:"+addonId);
+    }else{
+      setRawFavorites([{addonId}, ...rawFavorites()]);
+    }
+    return !wasFavorite;
   }
   function removeAddonFavorite(addonId){
-    set("favorites",favorites().filter(f=>f.addonId!==addonId));
+    setRawFavorites(rawFavorites().filter(f=>f.addonId!==addonId));
+    tombstoneSeed("addon:"+addonId);
   }
 
   function cart(){ return get("cart",[]); }
@@ -234,11 +281,11 @@
       // Direct top-level option, e.g. Adobo Rice or Pineapple Quencher.
       let opt=(group.options||[]).find(o=>o.value===selected);
 
-      // Nested option, e.g. Mountain Dew selected under Soda.
+      // Nested option, e.g. Mountain Dew selected under Fountain Drink.
       if(!opt){
         opt=(group.options||[]).find(o=>{
           if(!o.nested || !menu.nestedGroups || !menu.nestedGroups[o.nested]) return false;
-          return (menu.nestedGroups[o.nested].options||[]).includes(selected);
+          return (menu.nestedGroups[o.nested].options||[]).some(x=>x.value===selected);
         });
       }
 
@@ -276,7 +323,7 @@
   window.JolliState = {
     appBase, hrefFor, get, set, remove, clearParticipantState,
     currentItemDraft, saveItemDraft, clearItemDraft,
-    savedCustomizations, saveCustomizations,
+    savedCustomizations, saveCustomizations, saveIntent, setSaveIntent,
     favorites, isFavorite, favoriteItem, removeFavorite, isAddonFavorite, favoriteAddon, removeAddonFavorite,
     cart, setCart, cartCount, addCartItem, updateCartItem, removeCartItem, clearCart, renderHeaderCartIndicator,
     sessionOrders, addCompletedOrder, showToast, fmt, customizationDelta, configuredItemUnitPrice,

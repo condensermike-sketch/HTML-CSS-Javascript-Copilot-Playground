@@ -2,9 +2,9 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,200..1000;1,200..1000&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="../css/styles.css?v=2">
-<script src="../js/menu-data.js"></script>
-<script src="../js/app.js"></script><script>
+<link rel="stylesheet" href="../css/styles.css?v=16">
+<script src="../js/menu-data.js?v=20260815-fountain-real-images"></script>
+<script src="../js/app.js?v=20260814-save-intent"></script><script>
 (function (m, a, z, e) {
   var s, t, u, v;
   try {
@@ -30,7 +30,7 @@
   if (v) s.setAttribute('nonce', v);
   a.getElementsByTagName('head')[0].appendChild(s);
   m.mazeUniversalSnippetApiKey = e;
-})(window, document, 'https://snippet.maze.co/maze-universal-loader.js', '07cbf368-f585-4dcc-8a0b-966c9d7e76ab');
+})(window, document, 'https://snippet.maze.co/maze-universal-loader.js', 'd01067b0-7842-4e07-9a73-4cc05699b59d');
 </script>
 </head>
 <body><div class="app-shell">
@@ -116,8 +116,16 @@ function entryName(e){
   if(e.itemId)return menu.items[e.itemId]?.name||"Menu Item";
   return menu.upsells.find(x=>x.id===e.addonId)?.name||"Add-on";
 }
+function entryImage(e){
+  // Upsell ids (peach-mango-pie, steamed-rice, mango-freeze) match real
+  // menu item ids, so their photos come from the same items table.
+  return e.itemId?menu.items[e.itemId]?.image:menu.items[e.addonId]?.image;
+}
 function placeholder(){
   return `<svg viewBox="0 0 24 24"><rect class="icon-stroke" x="4" y="4" width="16" height="16" rx="2"/><circle class="icon-stroke" cx="9" cy="9" r="2"/><path class="icon-stroke" d="m5 17 4-4 3 3 2-2 5 5"/></svg>`;
+}
+function thumb(image,alt,cls){
+  return image?`<div class="${cls}"><img src="../images/${image}" alt="${alt}"></div>`:`<div class="${cls} placeholder">${placeholder()}</div>`;
 }
 
 function draw(){
@@ -134,7 +142,7 @@ function draw(){
     const meta=e.itemId?S.customizationParts(e.itemId,e.customizations||{}).join(" · "):"";
     const edit=e.itemId?`<a class="cart-edit" href="../item/?id=${e.itemId}&edit=${i}&seed=1">Edit</a>`:"";
     return `<article class="cart-item" data-index="${i}">
-      <div class="cart-item-img placeholder">${placeholder()}</div>
+      ${thumb(entryImage(e),entryName(e),"cart-item-img")}
       <div>
         <div class="cart-item-name">${entryName(e)}</div>
         ${meta?`<div class="cart-meta">${meta}</div>`:""}
@@ -171,10 +179,14 @@ function draw(){
   });
 }
 
-document.getElementById("upsellStrip").innerHTML=menu.upsells.map(u=>`<div class="cart-upsell-card">
-  <div class="cart-upsell-img placeholder">${placeholder()}<button class="cart-upsell-add" data-add="${u.id}">+</button></div>
+document.getElementById("upsellStrip").innerHTML=menu.upsells.map(u=>{
+  const image=menu.items[u.id]?.image;
+  const img=image?`<img src="../images/${image}" alt="${u.name}">`:placeholder();
+  return `<div class="cart-upsell-card">
+  <div class="cart-upsell-img${image?"":" placeholder"}">${img}<button class="cart-upsell-add" data-add="${u.id}">+</button></div>
   <div class="cart-upsell-name">${u.name}</div><div class="cart-upsell-price">${S.fmt(u.price)}</div>
-</div>`).join("");
+</div>`;
+}).join("");
 
 document.querySelectorAll("[data-add]").forEach(b=>b.onclick=()=>{
   S.addCartItem({addonId:b.dataset.add,quantity:1});

@@ -1,9 +1,9 @@
 <!doctype html><html><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><meta name="theme-color" content="#ffffff"><title>Favorites</title><link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,200..1000;1,200..1000&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="../css/styles.css?v=2">
-<script src="../js/menu-data.js"></script>
-<script src="../js/app.js?v=20260808-addon-favorites-2"></script><script>
+<link rel="stylesheet" href="../css/styles.css?v=16">
+<script src="../js/menu-data.js?v=20260815-fountain-real-images"></script>
+<script src="../js/app.js?v=20260814-save-intent"></script><script>
 (function (m, a, z, e) {
   var s, t, u, v;
   try {
@@ -29,7 +29,7 @@
   if (v) s.setAttribute('nonce', v);
   a.getElementsByTagName('head')[0].appendChild(s);
   m.mazeUniversalSnippetApiKey = e;
-})(window, document, 'https://snippet.maze.co/maze-universal-loader.js', '07cbf368-f585-4dcc-8a0b-966c9d7e76ab');
+})(window, document, 'https://snippet.maze.co/maze-universal-loader.js', 'd01067b0-7842-4e07-9a73-4cc05699b59d');
 </script>
 </head><body><div class="app-shell">
 <div class="white-topbar"><a class="back-btn" href="../"><svg viewBox="0 0 24 24"><path class="icon-stroke" d="m15 18-6-6 6-6"/></svg></a><div class="topbar-title">Favorites</div><div></div></div>
@@ -50,14 +50,31 @@
 <script>
 const menu=window.JOLLIBEE_MENU,S=window.JolliState,el=document.getElementById("favorites");let mode="grid";
 
+// Seed the item-page draft with this favorite's saved customizations before
+// navigating, the same way editing a cart entry seeds its draft, so the
+// customize rows show the favorited selections instead of starting blank.
+el.addEventListener("click",(e)=>{
+  const a=e.target.closest("a[href*='../item/?id=']");
+  if(!a)return;
+  const url=new URL(a.getAttribute("href"),location.href);
+  const itemId=url.searchParams.get("id");
+  const fav=S.favorites().find(f=>f.itemId===itemId);
+  if(fav && fav.customizations && Object.keys(fav.customizations).length){
+    S.saveItemDraft(itemId,{quantity:1,customizations:{...fav.customizations}});
+  }
+});
+
 function placeholder(){
   return `<svg viewBox="0 0 24 24"><rect class="icon-stroke" x="4" y="4" width="16" height="16" rx="2"/><circle class="icon-stroke" cx="9" cy="9" r="2"/><path class="icon-stroke" d="m5 17 4-4 3 3 2-2 5 5"/></svg>`;
+}
+function thumb(image,alt){
+  return image?`<div class="fav-thumb"><img src="../images/${image}" alt="${alt}"></div>`:`<div class="fav-thumb placeholder">${placeholder()}</div>`;
 }
 
 function regularFavoriteCard(item,meta,removeAttr,removeId){
   return `<article class="fav-card">
     <a href="../item/?id=${item.id}" style="text-decoration:none">
-      <div class="placeholder">${placeholder()}</div>
+      ${thumb(item.image,item.name)}
       <div class="fav-body">
         <div class="fav-name">${item.name}</div>
         <div class="fav-meta">${meta||""}</div>
@@ -92,7 +109,7 @@ function favoriteCard(x){
     if(!u)return "";
     return `<article class="fav-card">
       <div class="fav-static">
-        <div class="placeholder">${placeholder()}</div>
+        ${thumb(menu.items[u.id]?.image,u.name)}
         <div class="fav-body">
           <div class="fav-name">${u.name}</div>
           <div class="fav-meta">Saved from a previous order</div>
