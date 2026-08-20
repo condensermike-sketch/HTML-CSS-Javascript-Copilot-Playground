@@ -136,7 +136,7 @@ window.JOLLIBEE_MENU = {
       price:5.29,
       calories:0,
       customizations:[],
-      image:"mangonada-paradise-freeze.jpg"
+      image:"mangonada-paradise-freeze.svg"
     },
     "mango-freeze":{
       id:"mango-freeze", category:"limited-time", name:"Mango Freeze", shortName:"Mango Freeze",
