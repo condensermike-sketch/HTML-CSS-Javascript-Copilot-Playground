@@ -27,6 +27,15 @@
     return new URL(path.replace(/^\//,""), appBase()).href;
   }
 
+  function ensureMangonadaImageFit(){
+    if(document.getElementById("mangonada-image-fit")) return;
+    const style=document.createElement("style");
+    style.id="mangonada-image-fit";
+    style.textContent='img[src$="mangonada-paradise-freeze.svg"]{object-fit:contain!important;background:#fff}';
+    document.head.appendChild(style);
+  }
+  ensureMangonadaImageFit();
+
   const PREFIX = "jolliMaze.";
   function store(){ return CONFIG.testMode ? sessionStorage : localStorage; }
 
