@@ -80,10 +80,6 @@ function orderItemLines(o){
 function homeOrderFulfillmentLabel(o){
   return (o.fulfillment||"Previous Order").replace(/^Counter Pickup\b/,"Pick Up");
 }
-// icon follows the order's fulfillment: takeout bag for counter pickup, van for drive-thru.
-// the bag's handle is drawn INSIDE the bag opening on purpose — a handle arcing above a
-// rounded body reads as a padlock shackle at this size, which is what the cart toggle's
-// tote icon does.
 function homeOrderFulfillmentIcon(o){
   return /drive/i.test(o.fulfillment||"")
     ? '<path class="icon-stroke" d="M3 7h11v9H3zM14 10h4l3 3v3h-7z"/><circle class="icon-stroke" cx="7" cy="18" r="2"/><circle class="icon-stroke" cx="18" cy="18" r="2"/>'
@@ -129,12 +125,9 @@ function drawHomeOrderAgain(){
   });
 }
 drawHomeOrderAgain();
-const categoryImages={nuggets:"category-nuggets.jpg",chickenjoy:"category-chickenjoy.jpg",sandwiches:"category-sandwiches.png",family:"category-family-meals.jpg",tenders:"category-tenders.png",spaghetti:"category-spaghetti.jpg","burger-steak":"category-burger-steak.jpg",sides:"category-sides.png",drinks:"category-drinks.jpg",desserts:"category-desserts.jpg"};
-document.getElementById("homeCategories").innerHTML=menu.categories.filter(c=>c.items.length).map(c=>{const img=categoryImages[c.id];const thumb=img?`<div class="category-image"><img src="./images/${img}" alt="${c.label}"></div>`:`<div class="category-image placeholder"><svg viewBox="0 0 24 24"><rect class="icon-stroke" x="4" y="4" width="16" height="16" rx="2"/><circle class="icon-stroke" cx="9" cy="9" r="2"/><path class="icon-stroke" d="m5 17 4-4 3 3 2-2 5 5"/></svg></div>`;return `<a class="category-card" href="./menu/#${c.id}">${thumb}<div class="category-label">${c.label}</div></a>`}).join("");
+const categoryImages={nuggets:"category-nuggets.jpg","limited-time":"mangonada-paradise-freeze.svg",chickenjoy:"category-chickenjoy.jpg",sandwiches:"category-sandwiches.png",family:"category-family-meals.jpg",tenders:"category-tenders.png",spaghetti:"category-spaghetti.jpg","burger-steak":"category-burger-steak.jpg",sides:"category-sides.png",drinks:"category-drinks.jpg",desserts:"category-desserts.jpg"};
+document.getElementById("homeCategories").innerHTML=menu.categories.map(c=>{const img=categoryImages[c.id];const thumb=img?`<div class="category-image"><img src="./images/${img}" alt="${c.label}"></div>`:`<div class="category-image placeholder"><svg viewBox="0 0 24 24"><rect class="icon-stroke" x="4" y="4" width="16" height="16" rx="2"/><circle class="icon-stroke" cx="9" cy="9" r="2"/><path class="icon-stroke" d="m5 17 4-4 3 3 2-2 5 5"/></svg></div>`;return `<a class="category-card" href="./menu/#${c.id}">${thumb}<div class="category-label">${c.label}</div></a>`}).join("");
 const overlay=document.getElementById("searchOverlay"),input=document.getElementById("searchInput"),results=document.getElementById("searchResults");
-// Search is scoped to items the guest has some history with (ordered
-// before or favorited) rather than the entire catalog, so results stay
-// short and every result has a real photo (unbrowsed items may not).
 function knownItemIds(){
   const ids=new Set();
   [...S.sessionOrders(),...menu.seededOrders].forEach(o=>(o.items||[]).forEach(e=>{
@@ -166,10 +159,9 @@ const firstClone=track.children[0].cloneNode(true);
 firstClone.setAttribute("aria-hidden","true");
 track.appendChild(firstClone);
 const slidesEls=[...track.children];
-const START=1; // open on the second banner, then loop 2 -> 3 -> 1 -> ...
+const START=1;
 let idx=START,playing=true,timer,resetPending=false,resetTimer;
 function center(i){const el=slidesEls[Math.max(0,Math.min(i,slidesEls.length-1))];return el.offsetLeft-(track.clientWidth-el.offsetWidth)/2}
-// which real slide is sitting under the middle of the viewport right now
 function nearest(){
   const mid=track.scrollLeft+track.clientWidth/2;
   let best=0,bestDist=Infinity;
@@ -179,11 +171,9 @@ function nearest(){
   });
   return best;
 }
-// idx can sit on `slides` (the trailing clone of slide 0), so wrap it onto a real dot
 const dots=document.getElementById("promoDots");
 dots.innerHTML=Array.from({length:slides},()=>'<span class="promo-dot"></span>').join("");
 function syncDots(){[...dots.children].forEach((d,i)=>d.classList.toggle("on",i===idx%slides))}
-// after sliding onto the trailing clone, snap back to the real first slide unseen
 function finishReset(){
   if(!resetPending)return;
   resetPending=false;clearTimeout(resetTimer);
@@ -191,11 +181,9 @@ function finishReset(){
   syncDots();
 }
 function advance(){
-  if(idx>=slides)finishReset(); // normalize if the clone reset never landed
+  if(idx>=slides)finishReset();
   idx++;
   track.scrollTo({left:center(idx),behavior:"smooth"});
-  // scrollend drives the reset, but it never fires if the scroll is a no-op
-  // (centering slide 0 clamps to scrollLeft 0), so back it with a timeout
   if(idx===slides){resetPending=true;clearTimeout(resetTimer);resetTimer=setTimeout(finishReset,900)}
   syncDots();
 }
@@ -207,12 +195,11 @@ function prev(){
 }
 track.addEventListener("scrollend",()=>{
   if(resetPending){finishReset();return}
-  idx=nearest(); // keep the counter honest after a manual swipe
+  idx=nearest();
   syncDots();
 });
 function start(){clearInterval(timer);timer=setInterval(advance,4000)}
 function stop(){clearInterval(timer)}
-// a tapped arrow restarts the dwell so autoplay doesn't yank the slide away
 function nudge(fn){fn();if(playing)start()}
 document.getElementById("promoPrev").onclick=()=>{nudge(prev)};
 document.getElementById("promoNext").onclick=()=>{nudge(advance)};
@@ -225,7 +212,6 @@ pauseBtn.onclick=()=>{
   pauseBtn.setAttribute("aria-label",playing?"Pause carousel":"Play carousel");
   playing?start():stop();
 };
-// jump (no animation) to the starting slide once layout has settled
 function jumpToStart(){track.scrollTo({left:center(idx),behavior:"auto"})}
 jumpToStart();
 requestAnimationFrame(jumpToStart);
