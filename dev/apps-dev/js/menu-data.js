@@ -2,6 +2,7 @@
 window.JOLLIBEE_MENU = {
   categories: [
     { id:"nuggets", label:"Chicken Nuggets", items:["chicken-nuggets-5pc"] },
+    { id:"limited-time", label:"Limited Time Offers", items:["mangonada-paradise-freeze","mango-freeze"] },
     { id:"chickenjoy", label:"Chickenjoy Fried Chicken", items:["chickenjoy-2pc-2sides"] },
     { id:"sandwiches", label:"Chicken Sandwiches", items:["chicken-sandwich-deluxe"] },
     { id:"meal-deals", label:"Meal Deals", items:[] },
@@ -13,7 +14,7 @@ window.JOLLIBEE_MENU = {
     { id:"palabok", label:"Palabok Fiesta", items:[] },
     { id:"burger-steak", label:"Burger Steak", items:["burger-steak-2pc","burger-steak-3pc"] },
     { id:"sides", label:"Sides", items:["adobo-rice","side-jolly-spaghetti","jolly-crispy-fries-large","jolly-crispy-fries","mashed-potatoes-large","mashed-potatoes","steamed-rice","large-gravy","gravy"] },
-    { id:"drinks", label:"Drinks", items:["pineapple-quencher","pineapple-quencher-half-gallon","bottled-water","mango-coconut-quencher","dragonfruit-sunset-quencher","mango-freeze","guava-quencher"] },
+    { id:"drinks", label:"Drinks", items:["pineapple-quencher","pineapple-quencher-half-gallon","bottled-water","mango-coconut-quencher","dragonfruit-sunset-quencher","guava-quencher"] },
     { id:"desserts", label:"Desserts", items:["peach-mango-pie","ube-pie"] }
   ],
 
@@ -98,11 +99,6 @@ window.JOLLIBEE_MENU = {
     }
   },
 
-  // Sub-choices reached from a parent option that has `nested:"<key>"`.
-  // Order matters: the parent row previews the first three by name, so the
-  // flavors participants are most likely to hunt for lead the list. Matches
-  // the live jollibeefoods.com "Sodas" product's option order; images are
-  // that same product's real per-flavor photos.
   nestedGroups: {
     fountain: {
       title:"Fountain Drink",
@@ -130,6 +126,22 @@ window.JOLLIBEE_MENU = {
       calories:0,
       customizations:["sauces"],
       image:"chicken-nuggets-5pc.jpg"
+    },
+    "mangonada-paradise-freeze":{
+      id:"mangonada-paradise-freeze",
+      category:"limited-time",
+      name:"Mangonada Paradise Freeze",
+      shortName:"Mangonada Paradise Freeze",
+      description:"Refreshing mango blended with tangy chamoy and a zesty chili-lime twist — a vibrant, sweet, and spicy freeze that awakens your taste buds with every sip.",
+      price:5.29,
+      calories:0,
+      customizations:[],
+      image:"mangonada-paradise-freeze.jpg"
+    },
+    "mango-freeze":{
+      id:"mango-freeze", category:"limited-time", name:"Mango Freeze", shortName:"Mango Freeze",
+      description:"Refreshing mango blended into a smooth freeze — a pure, fruity delight that's refreshingly sweet with every sip.", price:5.29, calories:0, customizations:[],
+      image:"mango-freeze.jpeg"
     },
     "chickenjoy-2pc-2sides":{
       id:"chickenjoy-2pc-2sides",
@@ -279,11 +291,6 @@ window.JOLLIBEE_MENU = {
       id:"dragonfruit-sunset-quencher", category:"drinks", name:"Dragonfruit Sunset Quencher", shortName:"Dragonfruit Sunset Quencher",
       description:"Our mango and passionfruit quencher served with real dragon fruit bits", price:4.99, calories:150, customizations:[],
       image:"dragonfruit-sunset-quencher.png"
-    },
-    "mango-freeze":{
-      id:"mango-freeze", category:"drinks", name:"Mango Freeze", shortName:"Mango Freeze",
-      description:"Refreshing mango blended into a smooth freeze — a pure, fruity delight that's refreshingly sweet with every sip.", price:5.29, calories:0, customizations:[],
-      image:"mango-freeze.jpeg"
     },
     "guava-quencher":{
       id:"guava-quencher", category:"drinks", name:"Guava Quencher", shortName:"Guava Quencher",
