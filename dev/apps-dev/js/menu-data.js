@@ -9,7 +9,7 @@ window.JOLLIBEE_MENU = {
     { id:"perfect-pairs", label:"Perfect Pairs", items:[] },
     { id:"family", label:"Family Meals", items:["family-bucket-8pc"] },
     { id:"tenders", label:"Chicken Tenders", items:["chicken-tenders-4pc-meal-deal"] },
-    { id:"burgers", label:"Burgers", items:[] },
+    { id:"burgers", label:"Burgers", items:["angus-cheeseburger","angus-cheeseburger-combo"] },
     { id:"spaghetti", label:"Jolly Spaghetti", items:["jolly-spaghetti-solo"] },
     { id:"palabok", label:"Palabok Fiesta", items:[] },
     { id:"burger-steak", label:"Burger Steak", items:["burger-steak-2pc","burger-steak-3pc"] },
@@ -186,6 +186,28 @@ window.JOLLIBEE_MENU = {
       calories:0,
       customizations:["dip"],
       image:"chicken-tenders-4pc.jpg"
+    },
+    "angus-cheeseburger":{
+      id:"angus-cheeseburger",
+      category:"burgers",
+      name:"Angus Cheeseburger",
+      shortName:"Angus Cheeseburger",
+      description:"We make our Angus Beef burgers fresh when you order it. Pressed and seared on the grill with melted cheese, thick crunchy pickles, sliced red onions, ketchup and our signature sauce. Served on a butter-toasted bun.",
+      price:6.49,
+      calories:667,
+      customizations:[],
+      image:""
+    },
+    "angus-cheeseburger-combo":{
+      id:"angus-cheeseburger-combo",
+      category:"burgers",
+      name:"Angus Cheeseburger Combo",
+      shortName:"Angus Cheeseburger Combo",
+      description:"We make our Angus Beef burgers fresh when you order it. Pressed and seared on the grill with melted cheese, thick crunchy pickles, sliced red onions, ketchup and our signature sauce. Served on a butter-toasted bun with Jolly Crispy Fries and a fountain drink.",
+      price:10.99,
+      calories:1007,
+      customizations:["side","drink"],
+      image:""
     },
     "jolly-spaghetti-solo":{
       id:"jolly-spaghetti-solo",
