@@ -96,6 +96,28 @@ window.JOLLIBEE_MENU = {
         {value:"Sriracha Mayo Dipping Sauce", label:"Sriracha Mayo Dipping Sauce", priceDelta:0.50, image:"dip-sriracha-mayo.png"},
         {value:"Buttermilk Ranch Dipping Sauce", label:"Buttermilk Ranch Dipping Sauce", priceDelta:0.50, image:"dip-buttermilk-ranch.png"}
       ]
+    },
+    burgerUpgrades: {
+      title:"Popular Upgrades",
+      multiselect:true,
+      required:false,
+      options:[
+        {value:"Add Angus Patty", label:"Add Angus Patty", priceDelta:4.50},
+        {value:"Add Cheese", label:"Add Cheese", priceDelta:0.69},
+        {value:"Add Bacon", label:"Add Bacon", priceDelta:1.99}
+      ]
+    },
+    burgerRemovals: {
+      title:"Customize Your Meal",
+      multiselect:true,
+      required:false,
+      options:[
+        {value:"No Pickles", label:"No Pickles"},
+        {value:"No Onions", label:"No Onions"},
+        {value:"No Ketchup", label:"No Ketchup"},
+        {value:"No Signature Sauce", label:"No Signature Sauce"},
+        {value:"No Cheese", label:"No Cheese"}
+      ]
     }
   },
 
@@ -195,8 +217,8 @@ window.JOLLIBEE_MENU = {
       description:"We make our Angus Beef burgers fresh when you order it. Pressed and seared on the grill with melted cheese, thick crunchy pickles, sliced red onions, ketchup and our signature sauce. Served on a butter-toasted bun.",
       price:6.49,
       calories:667,
-      customizations:[],
-      image:""
+      customizations:["burgerUpgrades","burgerRemovals"],
+      image:"angus-cheeseburger.png"
     },
     "angus-cheeseburger-combo":{
       id:"angus-cheeseburger-combo",
