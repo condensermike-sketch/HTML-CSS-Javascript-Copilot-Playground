@@ -129,26 +129,13 @@ drawHomeOrderAgain();
 const categoryImages={nuggets:"category-nuggets.jpg","limited-time":"category-limited-time-offer.png",chickenjoy:"category-chickenjoy.jpg",sandwiches:"category-sandwiches.png","meal-deals":"chicken-sandwich-and-pie-meal-deal.png","perfect-pairs":"1pc-chickenjoy-jolly-spaghetti-and-drink.png",family:"category-family-meals.jpg",tenders:"category-tenders.png",burgers:"category-burgers.png",spaghetti:"category-spaghetti.jpg",palabok:"category-palabok-fiesta.png","burger-steak":"category-burger-steak.jpg",sides:"category-sides.png",drinks:"category-drinks.jpg",desserts:"category-desserts.jpg"};
 document.getElementById("homeCategories").innerHTML=menu.categories.map(c=>{const img=categoryImages[c.id];const thumb=img?`<div class="category-image"><img src="./images/${img}" alt="${c.label}"></div>`:`<div class="category-image placeholder"><svg viewBox="0 0 24 24"><rect class="icon-stroke" x="4" y="4" width="16" height="16" rx="2"/><circle class="icon-stroke" cx="9" cy="9" r="2"/><path class="icon-stroke" d="m5 17 4-4 3 3 2-2 5 5"/></svg></div>`;return `<a class="category-card" href="./menu/#${c.id}">${thumb}<div class="category-label">${c.label}</div></a>`}).join("");
 const overlay=document.getElementById("searchOverlay"),input=document.getElementById("searchInput"),results=document.getElementById("searchResults");
-function knownItemIds(){
-  const ids=new Set();
-  [...S.sessionOrders(),...menu.seededOrders].forEach(o=>(o.items||[]).forEach(e=>{
-    const id=e.itemId||e.addonId;
-    if(id&&menu.items[id])ids.add(id);
-  }));
-  S.favorites().forEach(f=>{
-    const id=f.itemId||f.addonId;
-    if(id&&menu.items[id])ids.add(id);
-  });
-  return ids;
-}
 function drawSearch(q=""){
   q=q.trim().toLowerCase();
-  const known=knownItemIds();
-  const list=Object.values(menu.items).filter(i=>known.has(i.id)&&(!q||i.name.toLowerCase().includes(q)));
+  const list=Object.values(menu.items).filter(i=>!q||i.name.toLowerCase().includes(q));
   results.innerHTML=list.length?list.map(i=>{
     const thumb=i.image?`<div class="search-thumb"><img src="./images/${i.image}" alt="${i.name}"></div>`:`<div class="search-thumb placeholder"><svg viewBox="0 0 24 24"><rect class="icon-stroke" x="4" y="4" width="16" height="16" rx="2"/><circle class="icon-stroke" cx="9" cy="9" r="2"/><path class="icon-stroke" d="m5 17 4-4 3 3 2-2 5 5"/></svg></div>`;
     return `<a class="search-row" href="./item/?id=${i.id}">${thumb}<div class="search-name">${i.name}</div><div class="search-price">$${i.price.toFixed(2)}</div></a>`;
-  }).join(""):`<div class="menu-coming">${q?"No matching items":"Order or favorite an item to see it here"}</div>`;
+  }).join(""):`<div class="menu-coming">No matching items</div>`;
 }
 drawSearch();
 document.getElementById("searchBtn").onclick=()=>{drawSearch(input.value);overlay.classList.add("show");setTimeout(()=>input.focus(),50)};
