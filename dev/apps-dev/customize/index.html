@@ -130,15 +130,10 @@ function renderQuantityGroup(){
 }
 
 function renderSingleSelectGroup(){
-  // What's stored is always the leaf choice ("Pink Lemonade"), never the
-  // parent group name, so a nested option counts as selected when the stored
-  // value is one of its sub-options.
   let chosen=draft.customizations[type]||null;
   const nestedOptionsOf=o=>(o.nested&&menu.nestedGroups[o.nested]&&menu.nestedGroups[o.nested].options)||[];
   const isChosen=o=>o.nested?nestedOptionsOf(o).some(x=>x.value===chosen):chosen===o.value;
 
-  // Preview the sub-options by name on the parent row. Participants looking
-  // for a specific flavor need to see it before they'll open the group.
   function previewText(o){
     const opts=nestedOptionsOf(o),head=opts.slice(0,4).map(x=>x.value).join(", "),rest=opts.length-4;
     return rest>0?`${head} & ${rest} more`:head;
@@ -147,7 +142,7 @@ function renderSingleSelectGroup(){
   const thumb=o=>o.image?`<div class="choice-img"><img src="../images/${o.image}" alt="${o.label||o.value}"></div>`:`<div class="choice-img placeholder"><svg viewBox="0 0 24 24"><rect class="icon-stroke" x="4" y="4" width="16" height="16" rx="2"/><circle class="icon-stroke" cx="9" cy="9" r="2"/><path class="icon-stroke" d="m5 17 4-4 3 3 2-2 5 5"/></svg></div>`;
 
   document.getElementById("choices").innerHTML=group.options.map(o=>o.nested
-    ? `<button type="button" class="choice-row nested-row${isChosen(o)?" on":""}" data-nested="${o.value}" aria-haspopup="dialog"><span class="fake-radio" aria-hidden="true"></span>${thumb(o)}<span class="nested-copy"><strong>${o.label}</strong><small>${isChosen(o)?chosen:previewText(o)}</small></span><span class="nested-open" aria-hidden="true"><svg class="nested-chevron" viewBox="0 0 24 24"><path class="icon-stroke" d="m9 6 6 6-6 6"/></svg></span></button>`
+    ? `<button type="button" class="choice-row nested-row${isChosen(o)?" on":""}" style="grid-template-columns:55px 1fr auto" data-nested="${o.value}" aria-haspopup="dialog">${thumb(o)}<span class="nested-copy"><strong>${o.label}</strong><small>${isChosen(o)?chosen:previewText(o)}</small></span><span class="nested-open" aria-hidden="true"><svg class="nested-chevron" viewBox="0 0 24 24"><path class="icon-stroke" d="m9 6 6 6-6 6"/></svg></span></button>`
     : `<label class="choice-row"><input type="radio" name="opt" value="${o.value}" ${isChosen(o)?"checked":""}>${thumb(o)}<div><strong>${o.label}</strong>${o.priceDelta?`<small>+$${o.priceDelta.toFixed(2)}</small>`:""}</div></label>`
   ).join("");
 
@@ -163,8 +158,6 @@ function renderSingleSelectGroup(){
     document.querySelectorAll('input[name="nested"]').forEach(n=>n.onchange=()=>document.getElementById("nestedApply").disabled=false);
   }
 
-  // Tapping the parent row goes straight into the sub-list. It never selects
-  // on its own, so Apply stays disabled until a real flavor is picked.
   document.querySelectorAll("[data-nested]").forEach(row=>row.onclick=()=>{
     openNested(group.options.find(o=>o.value===row.dataset.nested));
   });
@@ -191,8 +184,6 @@ function renderSingleSelectGroup(){
   document.getElementById("nestedApply").onclick=()=>{
     const n=document.querySelector('input[name="nested"]:checked');
     if(!n)return;
-    // Store the actual selected beverage name so the Item and Cart screens
-    // display "Mountain Dew", "Pink Lemonade", etc., not just the group name.
     draft.customizations[type]=n.value;
     S.saveItemDraft(itemId,draft);
     location.href=document.getElementById("back").href
