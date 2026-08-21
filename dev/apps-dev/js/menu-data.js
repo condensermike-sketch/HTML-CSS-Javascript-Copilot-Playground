@@ -228,8 +228,8 @@ window.JOLLIBEE_MENU = {
       description:"We make our Angus Beef burgers fresh when you order it. Pressed and seared on the grill with melted cheese, thick crunchy pickles, sliced red onions, ketchup and our signature sauce. Served on a butter-toasted bun with Jolly Crispy Fries and a fountain drink.",
       price:10.99,
       calories:1007,
-      customizations:["side","drink"],
-      image:""
+      customizations:["burgerUpgrades","burgerRemovals","side","drink"],
+      image:"angus-cheeseburger-combo.png"
     },
     "jolly-spaghetti-solo":{
       id:"jolly-spaghetti-solo",
