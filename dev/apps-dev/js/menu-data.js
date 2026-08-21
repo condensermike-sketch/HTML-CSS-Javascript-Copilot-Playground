@@ -6,7 +6,7 @@ window.JOLLIBEE_MENU = {
     { id:"chickenjoy", label:"Chickenjoy Fried Chicken", items:["chickenjoy-2pc-2sides"] },
     { id:"sandwiches", label:"Chicken Sandwiches", items:["chicken-sandwich-deluxe"] },
     { id:"meal-deals", label:"Meal Deals", items:["chicken-sandwich-and-pie-meal-deal"] },
-    { id:"perfect-pairs", label:"Perfect Pairs", items:[] },
+    { id:"perfect-pairs", label:"Perfect Pairs", items:["1pc-chickenjoy-jolly-spaghetti-and-drink"] },
     { id:"family", label:"Family Meals", items:["family-bucket-8pc"] },
     { id:"tenders", label:"Chicken Tenders", items:["chicken-tenders-4pc-meal-deal"] },
     { id:"burgers", label:"Burgers", items:["angus-cheeseburger","angus-cheeseburger-combo"] },
@@ -69,6 +69,14 @@ window.JOLLIBEE_MENU = {
       options:[
         {value:"Peach Mango Pie", label:"Peach Mango Pie", image:"peach-mango-pie.jpg"},
         {value:"Ube Pie", label:"Ube Pie", image:"ube-pie.png"}
+      ]
+    },
+    perfectPairChicken: {
+      title:"How would you like your Chickenjoy?",
+      required:true,
+      options:[
+        {value:"Original", label:"Original", image:"chicken-all-original.png"},
+        {value:"Spicy", label:"Spicy", image:"chicken-all-spicy.png"}
       ]
     },
     side2: {
@@ -213,6 +221,17 @@ window.JOLLIBEE_MENU = {
       calories:890,
       customizations:["mealSandwich","side","drink","pie"],
       image:"chicken-sandwich-and-pie-meal-deal.png"
+    },
+    "1pc-chickenjoy-jolly-spaghetti-and-drink":{
+      id:"1pc-chickenjoy-jolly-spaghetti-and-drink",
+      category:"perfect-pairs",
+      name:"1pc Chickenjoy w/ Jolly Spaghetti and Drink",
+      shortName:"1pc Chickenjoy + Jolly Spaghetti",
+      description:"1pc of our next-level crispy, next-level juicy Chickenjoy fried chicken served with Jolly Spaghetti and a fountain drink.",
+      price:13.49,
+      calories:830,
+      customizations:["perfectPairChicken","gravy","drink"],
+      image:"1pc-chickenjoy-jolly-spaghetti-and-drink.png"
     },
     "family-bucket-8pc":{
       id:"family-bucket-8pc",
