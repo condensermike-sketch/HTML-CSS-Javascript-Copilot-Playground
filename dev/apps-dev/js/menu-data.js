@@ -5,7 +5,7 @@ window.JOLLIBEE_MENU = {
     { id:"limited-time", label:"Limited Time Offers", items:["mangonada-paradise-freeze","mango-freeze"] },
     { id:"chickenjoy", label:"Chickenjoy Fried Chicken", items:["chickenjoy-2pc-2sides"] },
     { id:"sandwiches", label:"Chicken Sandwiches", items:["chicken-sandwich-deluxe"] },
-    { id:"meal-deals", label:"Meal Deals", items:[] },
+    { id:"meal-deals", label:"Meal Deals", items:["chicken-sandwich-and-pie-meal-deal"] },
     { id:"perfect-pairs", label:"Perfect Pairs", items:[] },
     { id:"family", label:"Family Meals", items:["family-bucket-8pc"] },
     { id:"tenders", label:"Chicken Tenders", items:["chicken-tenders-4pc-meal-deal"] },
@@ -53,6 +53,22 @@ window.JOLLIBEE_MENU = {
         {value:"Dragonfruit Sunset Quencher", label:"Dragonfruit Sunset Quencher", image:"dragonfruit-sunset-quencher.png"},
         {value:"Mango Freeze", label:"Mango Freeze", image:"mango-freeze.jpeg"},
         {value:"Guava Quencher", label:"Guava Quencher", image:"guava-quencher.jpg"}
+      ]
+    },
+    mealSandwich: {
+      title:"Chicken Sandwich",
+      required:true,
+      options:[
+        {value:"Original Chicken Sandwich", label:"Original Chicken Sandwich", image:"category-sandwiches.png"},
+        {value:"Spicy Chicken Sandwich", label:"Spicy Chicken Sandwich", image:"category-sandwiches.png"}
+      ]
+    },
+    pie: {
+      title:"Dessert Pie",
+      required:true,
+      options:[
+        {value:"Peach Mango Pie", label:"Peach Mango Pie", image:"peach-mango-pie.jpg"},
+        {value:"Ube Pie", label:"Ube Pie", image:"ube-pie.png"}
       ]
     },
     side2: {
@@ -186,6 +202,17 @@ window.JOLLIBEE_MENU = {
       calories:910,
       customizations:["side","drink"],
       image:"spicy-chicken-sandwich-combo.png"
+    },
+    "chicken-sandwich-and-pie-meal-deal":{
+      id:"chicken-sandwich-and-pie-meal-deal",
+      category:"meal-deals",
+      name:"Chicken Sandwich and Pie Meal Deal",
+      shortName:"Chicken Sandwich and Pie Meal Deal",
+      description:"Our Original or Spicy Chicken Sandwich served with regular Jolly Crispy Fries, a fountain drink, and a dessert pie.",
+      price:11.00,
+      calories:890,
+      customizations:["mealSandwich","side","drink","pie"],
+      image:"chicken-sandwich-and-pie-meal-deal.png"
     },
     "family-bucket-8pc":{
       id:"family-bucket-8pc",
