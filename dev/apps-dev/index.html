@@ -126,7 +126,7 @@ function drawHomeOrderAgain(){
   });
 }
 drawHomeOrderAgain();
-const categoryImages={nuggets:"category-nuggets.jpg","limited-time":"limited-time-offer.png",chickenjoy:"category-chickenjoy.jpg",sandwiches:"category-sandwiches.png",family:"category-family-meals.jpg",tenders:"category-tenders.png",spaghetti:"category-spaghetti.jpg","burger-steak":"category-burger-steak.jpg",sides:"category-sides.png",drinks:"category-drinks.jpg",desserts:"category-desserts.jpg"};
+const categoryImages={nuggets:"category-nuggets.jpg","limited-time":"category-limited-time-offer.png",chickenjoy:"category-chickenjoy.jpg",sandwiches:"category-sandwiches.png",family:"category-family-meals.jpg",tenders:"category-tenders.png",burgers:"category-burgers.png",spaghetti:"category-spaghetti.jpg","burger-steak":"category-burger-steak.jpg",sides:"category-sides.png",drinks:"category-drinks.jpg",desserts:"category-desserts.jpg"};
 document.getElementById("homeCategories").innerHTML=menu.categories.map(c=>{const img=categoryImages[c.id];const thumb=img?`<div class="category-image"><img src="./images/${img}" alt="${c.label}"></div>`:`<div class="category-image placeholder"><svg viewBox="0 0 24 24"><rect class="icon-stroke" x="4" y="4" width="16" height="16" rx="2"/><circle class="icon-stroke" cx="9" cy="9" r="2"/><path class="icon-stroke" d="m5 17 4-4 3 3 2-2 5 5"/></svg></div>`;return `<a class="category-card" href="./menu/#${c.id}">${thumb}<div class="category-label">${c.label}</div></a>`}).join("");
 const overlay=document.getElementById("searchOverlay"),input=document.getElementById("searchInput"),results=document.getElementById("searchResults");
 function knownItemIds(){
