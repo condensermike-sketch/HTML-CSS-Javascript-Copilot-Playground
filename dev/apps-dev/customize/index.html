@@ -42,10 +42,30 @@ const menu=window.JOLLIBEE_MENU,S=window.JolliState,p=new URLSearchParams(locati
 const itemId=p.get("item")||"chicken-sandwich-deluxe",type=p.get("type")||"side",edit=p.get("edit"),item=menu.items[itemId],group=menu.groups[type],draft=S.currentItemDraft(itemId);
 document.getElementById("title").textContent=group.title;document.getElementById("back").href=`../item/?id=${itemId}${edit!==null?`&edit=${edit}`:""}`;
 
-if(group.quantity){
+if(group.multiselect){
+  renderMultiSelectGroup();
+}else if(group.quantity){
   renderQuantityGroup();
 }else{
   renderSingleSelectGroup();
+}
+
+function renderMultiSelectGroup(){
+  document.getElementById("intro").style.display="none";
+  document.getElementById("metBanner").style.display="none";
+  const selected={...(draft.customizations[type]||{})};
+  const list=document.getElementById("choices");
+  const thumb=o=>o.image?`<div class="choice-img"><img src="../images/${o.image}" alt="${o.label||o.value}"></div>`:"";
+  list.innerHTML=group.options.map(o=>`<label class="choice-row"><input type="checkbox" name="opt" value="${o.value}" ${selected[o.value]?"checked":""}>${thumb(o)}<div><strong>${o.label}</strong>${o.priceDelta?`<small>+$${Number(o.priceDelta).toFixed(2)}</small>`:""}</div></label>`).join("");
+  document.getElementById("apply").disabled=false;
+  document.querySelectorAll('input[name="opt"]').forEach(c=>c.onchange=()=>{
+    if(c.checked)selected[c.value]=true;else delete selected[c.value];
+  });
+  document.getElementById("apply").onclick=()=>{
+    if(Object.keys(selected).length)draft.customizations[type]={...selected};else delete draft.customizations[type];
+    S.saveItemDraft(itemId,draft);
+    location.href=document.getElementById("back").href;
+  };
 }
 
 function renderQuantityGroup(){
