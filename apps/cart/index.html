@@ -104,6 +104,14 @@
 const menu=window.JOLLIBEE_MENU,S=window.JolliState;
 const itemsEl=document.getElementById("cartItems");
 const bottom=document.getElementById("cartBottom");
+const cartScroll=document.getElementById("cartScroll");
+
+function updateScrollShadow(){
+  const atEnd=cartScroll.scrollTop+cartScroll.clientHeight>=cartScroll.scrollHeight-2;
+  bottom.classList.toggle("at-end",atEnd);
+}
+cartScroll.addEventListener("scroll",updateScrollShadow);
+window.addEventListener("resize",updateScrollShadow);
 
 function itemPrice(e){
   if(e.itemId){
@@ -177,6 +185,8 @@ function draw(){
     const control=b.closest(".qty-control");control.innerHTML='<span class="spinner" style="grid-column:1/-1;justify-self:center"></span>';
     setTimeout(()=>{S.removeCartItem(idx);draw()},550);
   });
+
+  updateScrollShadow();
 }
 
 document.getElementById("upsellStrip").innerHTML=menu.upsells.map(u=>{
