@@ -2,8 +2,8 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,200..1000;1,200..1000&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="../css/styles.css?v=16">
-<script src="../js/menu-data.js?v=20260815-fountain-real-images"></script>
-<script src="../js/app.js?v=20260814-save-intent"></script><script>
+<script src="../js/menu-data.js?v=20260822-menu-expansion"></script>
+<script src="../js/app.js?v=20260822-menu-expansion"></script><script>
 (function (m, a, z, e) {
   var s, t, u, v;
   try {
@@ -73,9 +73,16 @@ function quantitySummary(group,value){
   const freeName=cups[0].name.replace(" Dipping Sauce","");
   return cups.length>1?`${cups.length} cups · ${freeName} included`:`${freeName} included`;
 }
-function customizationHasValue(g,v){return g.quantity?S.quantityGroupCount(v)>0:!!v}
-document.getElementById("customRows").innerHTML=item.customizations.map(type=>{const g=menu.groups[type],v=draft.customizations[type],has=customizationHasValue(g,v),summary=g.quantity?quantitySummary(g,v):v;return `<div class="custom-row"><div class="custom-thumb"><img src="../images/jollibee-logo.png" alt=""></div><div><div class="custom-label">${g.title} (Required)</div><div class="${has?"custom-value":"custom-unset"}">${has?summary:"Choose an option"}</div></div><a class="yellow" href="../customize/?item=${item.id}&type=${type}${editIndex!==null?`&edit=${editIndex}`:""}">Select</a></div>`}).join("");
-function requiredDone(){return item.customizations.every(t=>{const g=menu.groups[t],v=draft.customizations&&draft.customizations[t];return customizationHasValue(g,v)})}
+function multiSummary(value){return Object.entries(value||{}).filter(([,on])=>!!on).map(([name])=>name).join(", ")}
+function customizationHasValue(g,v){
+  if(g.multiselect)return Object.values(v||{}).some(Boolean);
+  return g.quantity?S.quantityGroupCount(v)>0:!!v;
+}
+document.getElementById("customRows").innerHTML=item.customizations.map(type=>{
+  const g=menu.groups[type],v=draft.customizations[type],has=customizationHasValue(g,v),summary=g.quantity?quantitySummary(g,v):(g.multiselect?multiSummary(v):v),required=g.required!==false;
+  return `<div class="custom-row"><div class="custom-thumb"><img src="../images/jollibee-logo.png" alt=""></div><div><div class="custom-label">${g.title}${required?" (Required)":""}</div><div class="${has?"custom-value":"custom-unset"}">${has?summary:(required?"Choose an option":"Optional")}</div></div><a class="yellow" href="../customize/?item=${item.id}&type=${type}${editIndex!==null?`&edit=${editIndex}`:""}">Select</a></div>`;
+}).join("");
+function requiredDone(){return item.customizations.every(t=>{const g=menu.groups[t];if(g.required===false)return true;const v=draft.customizations&&draft.customizations[t];return customizationHasValue(g,v)})}
 function render(){document.getElementById("qty").textContent=draft.quantity;document.getElementById("actionPrice").textContent=S.fmt(S.configuredItemUnitPrice(id,draft.customizations)*draft.quantity);document.getElementById("calories").textContent=(item.calories*draft.quantity)+" Cal";document.getElementById("addBtn").disabled=!requiredDone();document.getElementById("addLabel").textContent=editIndex!==null?"Update Cart":"Add To Cart";document.getElementById("favoriteBtn").classList.toggle("filled",S.isFavorite(id))}
 render();
 document.getElementById("plus").onclick=()=>{draft.quantity++;S.saveItemDraft(id,draft);render()};
