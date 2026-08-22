@@ -278,6 +278,15 @@
         return;
       }
 
+      if(group.multiselect){
+        Object.entries(selected||{}).forEach(([value,on])=>{
+          if(!on) return;
+          const opt=(group.options||[]).find(o=>o.value===value);
+          total += Number(opt && opt.priceDelta || 0);
+        });
+        return;
+      }
+
       // Direct top-level option, e.g. Adobo Rice or Pineapple Quencher.
       let opt=(group.options||[]).find(o=>o.value===selected);
 
@@ -309,6 +318,10 @@
         const entries=Object.entries(value).filter(([,q])=>q>0);
         if(!entries.length) return null;
         return entries.map(([name,q])=>q>1?`${q}× ${name}`:name).join(", ");
+      }
+      if(group.multiselect){
+        const names=Object.entries(value).filter(([,on])=>!!on).map(([name])=>name);
+        return names.length?names.join(", "):null;
       }
       return value;
     }).filter(Boolean);
