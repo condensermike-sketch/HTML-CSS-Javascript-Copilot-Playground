@@ -526,8 +526,11 @@ svg{display:block}
 .cart-bottom{
   flex:0 0 auto;
   min-height:144px;background:#fff;border-top:1px solid var(--line);
-  padding:9px 18px calc(10px + env(safe-area-inset-bottom))
+  padding:9px 18px calc(10px + env(safe-area-inset-bottom));
+  box-shadow:0 -8px 14px -6px rgba(0,0,0,.16);
+  transition:box-shadow .2s
 }
+.cart-bottom.at-end{box-shadow:none}
 .cart-summary{margin-bottom:9px}
 .summary-line{display:flex;justify-content:space-between;font-size:16px;margin:5px 0}
 .summary-line span:last-child{font-variant-numeric:tabular-nums}
