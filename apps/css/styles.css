@@ -82,19 +82,21 @@ svg{display:block}
   flex:0 0 auto;
   min-height:64px;
   padding:calc(10px + env(safe-area-inset-top)) 17px 10px;
-  background:#fff;
-  border-bottom:1px solid var(--line);
+  background:var(--red);
+  color:#fff;
+  border-bottom:0;
   display:grid;
   grid-template-columns:40px 1fr 40px;
   align-items:center;
 }
 .white-topbar.no-line{border-bottom:0}
-.white-topbar .header-cart-link{color:var(--ink-soft);text-decoration:none}
-.white-topbar .cart-badge{background:var(--red);color:#fff;border:2px solid #fff}
+.white-topbar .header-cart-link{color:#fff;text-decoration:none}
+.white-topbar .cart-badge{background:#fff;color:var(--red);border:1px solid rgba(0,0,0,.06)}
 .white-topbar.header-cart-expanded{grid-template-columns:40px 1fr 40px 40px;column-gap:4px}
 .topbar-title{font-size:var(--top-nav);font-weight:900;text-align:center;align-self:center}
 .back-btn{width:36px;height:36px;border:0;background:transparent;padding:0;display:grid;place-items:center;text-decoration:none;color:var(--ink-soft);position:relative}
 .back-btn svg{width:25px;height:25px}
+.white-topbar .back-btn{color:#fff}
 
 .bottom-nav{
   flex:0 0 auto;
@@ -326,7 +328,8 @@ svg{display:block}
 .menu-plus{align-self:center;justify-self:end;width:37px;height:37px;border-radius:50%;border:0;background:var(--red);color:#fff;font-size:24px;display:grid;place-items:center;text-decoration:none;position:relative}
 
 /* Item */
-.item-hero{height:205px;width:100%;margin:0 0 12px}
+.item-hero{height:205px;width:100%;margin:18px 0}
+.item-hero img{object-fit:contain}
 .item-title-row{display:grid;grid-template-columns:1fr auto;gap:14px;padding:0 17px}
 .item-title-row h1{font-size:20px;line-height:1.22;margin:0;font-weight:900}
 .item-price{font-size:20px;font-weight:900}
@@ -352,7 +355,7 @@ svg{display:block}
 .stepper button{border:0;background:transparent;font-size:22px;position:relative}.stepper span{font-weight:900}
 .add-cart{display:flex;justify-content:space-between;align-items:center;padding:0 12px;gap:4px;font-size:15px}
 .add-cart span{white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-.favorite-btn.filled{color:var(--red)}
+.favorite-btn.filled{color:var(--yellow)}
 .favorite-btn.filled svg path{fill:currentColor}
 
 /* Customize */
