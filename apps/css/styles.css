@@ -347,10 +347,11 @@ svg{display:block}
 .nutrition-box{border:1px solid #ddd;background:#f6f6f6;border-radius:11px;padding:14px;display:grid;grid-template-columns:28px 1fr;gap:10px;color:var(--text);font-size:16px;line-height:1.4}
 .item-calories{text-align:right;font-size:14px;color:#827158;padding:12px 0 15px}
 .item-calories strong{color:var(--ink)}
-.item-action-grid{display:grid;grid-template-columns:108px 1fr;gap:10px}
+.item-action-grid{display:grid;grid-template-columns:108px minmax(0,1fr);gap:10px}
 .stepper{height:48px;border:1px solid #cfcfcf;border-radius:999px;display:grid;grid-template-columns:1fr 1fr 1fr;align-items:center;text-align:center}
 .stepper button{border:0;background:transparent;font-size:22px;position:relative}.stepper span{font-weight:900}
-.add-cart{display:flex;justify-content:space-between;align-items:center;padding:0 20px}
+.add-cart{display:flex;justify-content:space-between;align-items:center;padding:0 12px;gap:4px;font-size:15px}
+.add-cart span{white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .favorite-btn.filled{color:var(--red)}
 .favorite-btn.filled svg path{fill:currentColor}
 
