@@ -7,7 +7,7 @@
   --green-bg:#e8f6ef;
   --ink:#161616;
   --ink-soft:#333333;
-  --text:#666666;
+  --text:#555555;
   --muted:#707070;
   --line:#dedede;
   --soft:#f6f6f6;
@@ -321,7 +321,7 @@ svg{display:block}
 }
 .menu-thumb{width:72px;height:72px;border-radius:8px}
 .menu-product-name{font-size:17px;font-weight:900;line-height:1.18;margin-bottom:4px}
-.menu-product-desc{font-size:14px;line-height:1.3;color:var(--muted);display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+.menu-product-desc{font-size:14px;line-height:1.3;color:#555555;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
 .menu-price{margin-top:7px;font-size:16px;font-weight:900}
 .menu-plus{align-self:center;justify-self:end;width:37px;height:37px;border-radius:50%;border:0;background:var(--red);color:#fff;font-size:24px;display:grid;place-items:center;text-decoration:none;position:relative}
 
@@ -338,9 +338,9 @@ svg{display:block}
 .custom-row{display:grid;grid-template-columns:54px 1fr auto;gap:11px;align-items:center;padding:16px 0;border-bottom:1px solid var(--line)}
 .custom-row:last-child{border-bottom:0}
 .custom-thumb{width:54px;height:54px;border-radius:8px}
-.custom-label{font-size:14px;color:var(--muted)}
+.custom-label{font-size:14px;color:#555555}
 .custom-value{font-size:17px;font-weight:900;color:var(--ink);margin-top:2px}
-.custom-unset{font-size:14px;color:var(--muted);margin-top:2px}
+.custom-unset{font-size:14px;color:#555555;margin-top:2px}
 .custom-wrap .saved-banner{margin:14px 0 0}
 .save-custom-row{margin:14px 0 0;border-radius:12px;background:var(--soft);color:var(--text);padding:10px 12px;font-size:16px;font-weight:900;display:flex;align-items:center;gap:10px}
 .save-custom-row input{width:20px;height:20px;accent-color:var(--red)}
@@ -356,7 +356,7 @@ svg{display:block}
 
 /* Customize */
 .customize-intro{padding:18px 17px 10px;font-size:18px}
-.customize-intro span{display:block;color:var(--muted);font-size:16px;margin-top:2px}
+.customize-intro span{display:block;color:#555555;font-size:16px;margin-top:2px}
 .choice-row{min-height:91px;display:grid;grid-template-columns:34px 55px 1fr;gap:10px;align-items:center;padding:10px 17px;border-bottom:1px solid var(--line)}
 /* appearance:none so this renders identically to .fake-radio below instead
    of leaving the ring to each browser/OS's own native control theme. */
@@ -364,7 +364,7 @@ svg{display:block}
 .choice-row input[type="radio"]:checked{border-color:var(--red);background:var(--red);box-shadow:inset 0 0 0 4px #fff}
 .choice-img{width:55px;height:55px;border-radius:8px}
 .choice-row strong{font-size:18px;line-height:1.15}
-.choice-row small{display:block;font-size:16px;color:var(--muted);margin-top:3px}
+.choice-row small{display:block;font-size:16px;color:#555555;margin-top:3px}
 
 /* A choice that opens a sub-list (e.g. Fountain Drink) rather than being a
    terminal pick. It is a button, not a radio label, so the chevron + preview
@@ -386,7 +386,7 @@ svg{display:block}
    and reveals its price + stepper only once at least one has been added. */
 .qty-row{min-height:91px;display:grid;grid-template-columns:55px 1fr auto;gap:10px;align-items:center;padding:10px 17px;border-bottom:1px solid var(--line)}
 .qty-row strong{font-size:18px;line-height:1.15}
-.qty-row small{display:block;font-size:16px;color:var(--muted);margin-top:3px;height:0;overflow:hidden;opacity:0;transition:height .16s ease,opacity .12s ease}
+.qty-row small{display:block;font-size:16px;color:#555555;margin-top:3px;height:0;overflow:hidden;opacity:0;transition:height .16s ease,opacity .12s ease}
 .qty-row.on small{height:18px;opacity:1}
 .qty-row small.free{color:var(--green);font-weight:900}
 .qty-row .stepper{width:108px;display:none}
