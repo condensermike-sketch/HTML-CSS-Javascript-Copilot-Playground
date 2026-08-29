@@ -213,9 +213,11 @@ svg{display:block}
   backdrop-filter:blur(10px) saturate(.5) brightness(1.35);
   box-shadow:0 2px 6px rgba(0,0,0,.16)
 }
-.carousel-controls button svg{position:relative}
+.carousel-controls button svg{position:relative} /* above the ::before circle */
 .carousel-controls button:active::before{background:rgba(255,255,255,.85)}
 .carousel-controls .icon-stroke{stroke-width:2.5}
+/* the centred slide always starts 44px in — (trackWidth - slideWidth) / 2 reduces to 44
+   at every viewport — so a flat 52px inset keeps the arrows 8px inside the artwork */
 #promoPrev{left:52px;top:50%;transform:translateY(-50%)}
 #promoNext{right:52px;top:50%;transform:translateY(-50%)}
 .promo-dots{
@@ -226,17 +228,25 @@ svg{display:block}
   backdrop-filter:blur(10px) saturate(.5) brightness(1.35);
   box-shadow:0 2px 6px rgba(0,0,0,.16)
 }
+/* darkened from the old flat grey: a light grey dot disappears against a translucent pill */
 .promo-dot{width:7px;height:7px;border-radius:999px;background:rgba(22,22,22,.32);transition:width .2s ease,background .2s ease}
 .promo-dot.on{width:19px;background:var(--red)}
+/* stacked ABOVE the dots rather than beside them: the nuggets banner's "Order Here" pill
+   runs the full width of the bottom band, so a side-by-side pause clipped its first word */
 .pause-circle{left:52px;bottom:44px}
 .pause-circle svg{width:15px;height:15px}
 .home-order-again{margin-top:17px}
 .home-order-again-head{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:12px}
+/* specificity beats the generic .home-heading margins further down */
 .home-order-again-head .home-order-again-heading{margin:0}
 .home-view-all{
+  /* negative margin keeps the 44px tap target from growing the heading row */
   display:inline-flex;align-items:center;min-height:44px;margin:-8px 0;
   color:var(--red);text-decoration:none;font-size:16px;font-weight:900;white-space:nowrap
 }
+/* the global "a:visited{color:inherit}" reset further down outranks a plain class on
+   specificity, so a visited/hovered/active link here would otherwise fall back to black
+   — this is a mobile app shell with no "read" state to signal, so red stays fixed */
 .home-view-all:visited,
 .home-view-all:hover,
 .home-view-all:active{color:var(--red)}
@@ -348,17 +358,32 @@ svg{display:block}
 .customize-intro{padding:18px 17px 10px;font-size:18px}
 .customize-intro span{display:block;color:var(--muted);font-size:16px;margin-top:2px}
 .choice-row{min-height:91px;display:grid;grid-template-columns:34px 55px 1fr;gap:10px;align-items:center;padding:10px 17px;border-bottom:1px solid var(--line)}
+/* appearance:none so this renders identically to .fake-radio below instead
+   of leaving the ring to each browser/OS's own native control theme. */
 .choice-row input[type="radio"]{-webkit-appearance:none;appearance:none;width:22px;height:22px;margin:0;box-sizing:border-box;border:1.5px solid var(--muted);border-radius:50%;background:#fff}
 .choice-row input[type="radio"]:checked{border-color:var(--red);background:var(--red);box-shadow:inset 0 0 0 4px #fff}
 .choice-img{width:55px;height:55px;border-radius:8px}
 .choice-row strong{font-size:18px;line-height:1.15}
 .choice-row small{display:block;font-size:16px;color:var(--muted);margin-top:3px}
+
+/* A choice that opens a sub-list (e.g. Fountain Drink) rather than being a
+   terminal pick. It is a button, not a radio label, so the chevron + preview
+   copy read as "this leads somewhere" instead of "this is the whole choice".
+   The circle is decorative — the real radios live inside the sheet — but it
+   still fills in once a sub-option has been chosen, and matches
+   .choice-row input[type="radio"] exactly so every radio in the list reads
+   as the same control. */
 .nested-row{width:100%;text-align:left;font:inherit;color:inherit;background:none;border:0;border-bottom:1px solid var(--line);grid-template-columns:34px 55px 1fr auto;cursor:pointer}
 .nested-row .fake-radio{width:22px;height:22px;margin:0;box-sizing:border-box;border:1.5px solid var(--muted);border-radius:50%;background:#fff;display:block}
 .nested-row.on .fake-radio{border-color:var(--red);background:var(--red);box-shadow:inset 0 0 0 4px #fff}
+/* Bleeds through .choice-row's own padding (10px vertical, 17px right) so
+   the red tab reads as a full-height button flush to the row's edge, not
+   just another inline icon. Square corners, no radius. */
 .nested-open{align-self:stretch;display:flex;align-items:center;justify-content:center;padding:0 10px;margin:-10px -17px -10px 0;background:var(--red);border-radius:0}
 .nested-chevron{width:22px;height:22px;color:#fff}
 
+/* Quantity-type customization groups (e.g. Sauces): each row starts unpriced
+   and reveals its price + stepper only once at least one has been added. */
 .qty-row{min-height:91px;display:grid;grid-template-columns:55px 1fr auto;gap:10px;align-items:center;padding:10px 17px;border-bottom:1px solid var(--line)}
 .qty-row strong{font-size:18px;line-height:1.15}
 .qty-row small{display:block;font-size:16px;color:var(--muted);margin-top:3px;height:0;overflow:hidden;opacity:0;transition:height .16s ease,opacity .12s ease}
@@ -371,6 +396,8 @@ svg{display:block}
 .apply-btn{width:100%}
 .nested-sheet-wrap{position:absolute;inset:0;background:rgba(0,0,0,.4);z-index:130;display:none;align-items:flex-end}
 .nested-sheet-wrap.show{display:flex}
+/* Column layout so #nestedOptions is the only part that scrolls and the
+   Apply footer stays pinned in view, no matter how many flavors are listed. */
 .nested-sheet{width:100%;background:#fff;border-radius:24px 24px 0 0;max-height:76%;display:flex;flex-direction:column;overflow:hidden;padding:16px 17px 0}
 .sheet-handle{flex:0 0 auto;width:44px;height:5px;background:#d3d3d3;border-radius:999px;margin:0 auto 14px}
 .nested-sheet h2{flex:0 0 auto;font-size:20px;margin:0 0 10px}
@@ -522,6 +549,7 @@ svg{display:block}
 /* Favorites / Order again */
 .list-page-content{padding:16px 20px 24px}
 
+/* Neutral list/grid view icons like the Figma reference. */
 .page-tools{
   display:flex;
   justify-content:flex-end;
@@ -538,6 +566,7 @@ svg{display:block}
 .view-toggle button.active{background:transparent;color:var(--ink-soft)}
 .view-toggle button:active{background:transparent}
 
+/* Grid view */
 .fav-grid{display:grid;grid-template-columns:1fr 1fr;gap:18px}
 .fav-card{position:relative;background:#fff;min-width:0}
 .fav-card > a{display:block;text-decoration:none}
@@ -554,6 +583,7 @@ svg{display:block}
 .fav-heart svg{width:22px;height:22px}
 .fav-heart svg path{fill:currentColor}
 
+/* List view: image, text/details, and filled heart in one horizontal row. */
 .fav-grid.list{display:block;margin-left:-20px;margin-right:-20px}
 .fav-grid.list .fav-card{
   display:grid;
@@ -594,6 +624,9 @@ svg{display:block}
 .account-icon svg{width:22px;height:22px}
 .account-row > span:last-child{color:var(--muted);font-size:22px;line-height:1}
 
+/* Desktop preview: frame sized to iPhone 17's CSS viewport (402x874) so the
+   card reads as a phone, not a stretched tablet. Mobile still uses the full
+   device viewport. */
 @media (min-width:560px){
   body{
     height:100vh;
@@ -611,6 +644,9 @@ svg{display:block}
   }
 }
 
+
+/* Menu shows the global bottom navigation; the cart CTA floats just
+   above it and only appears once the cart has contents. */
 .menu-cart-cta{
   position:absolute;
   left:20px;
@@ -655,6 +691,8 @@ svg{display:block}
 .menu-list.has-cart{padding-bottom:98px}
 .menu-list.no-cart{padding-bottom:0}
 
+
+/* Stylized Place Order confirmation modal */
 .order-confirm-wrap{
   position:absolute;
   inset:0;
@@ -698,6 +736,8 @@ svg{display:block}
 }
 .order-confirm-btn{width:100%}
 
+
+/* Rewards page refinement */
 .rewards-scroll{background:#f3f3f3}
 .rewards-page{padding:20px}
 .rewards-hero{
@@ -827,6 +867,8 @@ svg{display:block}
 }
 .redeem-btn:active{transform:translateY(1px)}
 
+
+/* Account page refinement */
 .account-scroll{background:#f3f3f3}
 .account-page{padding:20px 0 10px}
 .account-hero{
@@ -895,6 +937,8 @@ svg{display:block}
 }
 .account-item .chev svg{width:18px;height:18px}
 
+/* Cross-browser sizing fix for My Cart customer-row icons.
+   Explicit dimensions prevent Safari/iOS from expanding inline SVGs. */
 .customer-row > svg:first-child{
   width:22px !important;
   height:22px !important;
@@ -914,6 +958,8 @@ svg{display:block}
   flex-shrink:0
 }
 
+/* Cross-browser link color reset.
+   Prevents Safari/iOS from applying default blue to prototype navigation links. */
 a,
 a:visited,
 a:hover,
@@ -925,6 +971,7 @@ a:active{
   color:var(--red);
 }
 
+/* Order Again: item-level Favorite actions */
 .order-lines{display:grid;gap:0;margin-top:10px}
 .order-line{
   display:grid;
@@ -947,6 +994,8 @@ a:active{
 .order-favorite.active{color:var(--red)}
 .order-favorite.active svg path{fill:currentColor}
 
+
+/* Safari/iOS control normalization */
 .upsell-close,
 .fulfill button,
 .icon-btn,
@@ -979,6 +1028,8 @@ a:active{
   color:#fff;
 }
 
+
+/* Cleanup fixes: cross-browser CTA/icon colors */
 .yellow,
 .yellow:visited,
 .yellow:hover,
@@ -1006,6 +1057,8 @@ a:active{
   scroll-margin-left:18px;
 }
 
+
+/* Menu category nav alignment refinement */
 .menu-tabs-inner{
   padding-left:0 !important;
 }
@@ -1030,6 +1083,8 @@ a:active{
   left:0 !important;
 }
 
+
+/* Menu View Cart CTA text color fix */
 .menu-cart-cta,
 .menu-cart-cta:visited,
 .menu-cart-cta:hover,
@@ -1044,6 +1099,7 @@ a:active{
   color:var(--red) !important;
 }
 
+/* Order Again add-on favorite support */
 .order-favorite.addon-favorite{
   color:var(--muted);
 }
@@ -1054,6 +1110,7 @@ a:active{
   fill:currentColor;
 }
 
+/* Favorites static add-on layout fallback */
 .fav-static{display:block}
 .fav-grid.list .fav-static{display:contents}
 .fav-grid.list .fav-static .fav-thumb{
@@ -1069,6 +1126,11 @@ a:active{
   grid-row:1
 }
 
+/* HIG tap-target fix: several controls sit in fixed-width grid/flex tracks
+   (header icon columns, the qty pill, the stepper) where growing the visible
+   box would overflow or resize a track. Instead extend the invisible hit
+   area to Apple's 44x44pt minimum via a centered ::after, leaving the drawn
+   control untouched. */
 .icon-btn::after,
 .back-btn::after,
 .menu-plus::after,
