@@ -6,6 +6,25 @@
   };
   window.APP_CONFIG = CONFIG;
 
+  // DEV bottom-navigation active indicator: keep the 1px gray divider across
+  // the whole nav, then overlay a 2px red segment above the active item.
+  // Rewards is intentionally excluded because its floating medal treatment
+  // already carries the active emphasis.
+  const navActiveStyle=document.createElement("style");
+  navActiveStyle.textContent=`
+    .nav-btn.active:not(.rewards-label)::before{
+      content:"";
+      position:absolute;
+      left:0;
+      right:0;
+      top:-9px;
+      height:2px;
+      background:var(--red);
+      z-index:2;
+    }
+  `;
+  document.head.appendChild(navActiveStyle);
+
   function appBase(){
     const href = location.href;
     const markers = ["/apps-dev/", "/apps/"];
