@@ -2,7 +2,21 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,200..1000;1,200..1000&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="../css/styles.css?v=16">
-<style>.order-line{grid-template-columns:72px 1fr 38px}.order-line-thumb{width:72px;height:72px;border-radius:9px;background:transparent;display:grid;place-items:center;overflow:hidden}.order-line-thumb img{width:100%;height:100%;object-fit:contain;display:block}.order-line-thumb svg{width:25px;height:25px;color:#aaa}.order-fulfillment{display:inline-flex;align-items:center;gap:7px}.order-fulfillment-icon{width:17px;height:17px;color:var(--ink);flex:0 0 auto}.order-fulfillment-icon .icon-stroke{stroke-width:2}</style>
+<style>.order-line{grid-template-columns:72px 1fr 38px}.order-line-thumb{width:72px;height:72px;border-radius:9px;background:transparent;display:grid;place-items:center;overflow:hidden}.order-line-thumb img{width:100%;height:100%;object-fit:contain;display:block}.order-line-thumb svg{width:25px;height:25px;color:#aaa}.order-fulfillment{display:inline-flex;align-items:center;gap:7px}.order-fulfillment wa-icon{font-size:17px;color:#777777;flex:0 0 auto}</style>
+<script type="module" src="https://cdn.jsdelivr.net/npm/@awesome.me/webawesome/dist-cdn/components/icon/icon.js"></script>
+<script type="module">
+import { registerIconLibrary } from 'https://cdn.jsdelivr.net/npm/@awesome.me/webawesome/dist-cdn/webawesome.js';
+registerIconLibrary('lucide', {
+  resolver: name => `https://cdn.jsdelivr.net/npm/lucide-static@1.37.0/icons/${name}.svg`,
+  mutator: svg => {
+    svg.setAttribute('fill','none');
+    svg.setAttribute('stroke','currentColor');
+    svg.setAttribute('stroke-width','2');
+    svg.setAttribute('stroke-linecap','round');
+    svg.setAttribute('stroke-linejoin','round');
+  }
+});
+</script>
 <script src="../js/menu-data.js?v=20260815-fountain-real-images"></script>
 <script src="../js/app.js?v=20260814-save-intent"></script><script>
 (function (m, a, z, e) {
@@ -82,8 +96,8 @@ function lineImage(entry){
 function fulfillmentIcon(fulfillment){
   const isDriveThru=/drive[-\s]?thru/i.test(fulfillment||"");
   return isDriveThru
-    ? `<svg class="order-fulfillment-icon" viewBox="0 0 24 24" aria-hidden="true"><path class="icon-stroke" d="M5 16h14l-1.4-4.2a2 2 0 0 0-1.9-1.4H8.3a2 2 0 0 0-1.9 1.4L5 16Z"/><path class="icon-stroke" d="m7.5 10.4 1.2-3h6.6l1.2 3"/><circle class="icon-stroke" cx="8" cy="17.5" r="1.5"/><circle class="icon-stroke" cx="16" cy="17.5" r="1.5"/></svg>`
-    : `<svg class="order-fulfillment-icon" viewBox="0 0 24 24" aria-hidden="true"><path class="icon-stroke" d="M7 10V7a5 5 0 0 1 10 0v3"/><rect class="icon-stroke" x="5" y="10" width="14" height="10" rx="2"/></svg>`;
+    ? `<wa-icon library="lucide" name="car" aria-hidden="true"></wa-icon>`
+    : `<wa-icon library="lucide" name="shopping-bag" aria-hidden="true"></wa-icon>`;
 }
 
 function itemLine(entry,orderIndex,lineIndex){
