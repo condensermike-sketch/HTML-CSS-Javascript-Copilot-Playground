@@ -2,6 +2,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,200..1000;1,200..1000&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="../css/styles.css?v=16">
+<style>.order-line{grid-template-columns:62px 1fr 38px}.order-line-thumb{width:62px;height:62px;border-radius:9px;background:#f3f3f3;display:grid;place-items:center;overflow:hidden}.order-line-thumb img{width:100%;height:100%;object-fit:contain;display:block}.order-line-thumb svg{width:25px;height:25px;color:#aaa}</style>
 <script src="../js/menu-data.js?v=20260815-fountain-real-images"></script>
 <script src="../js/app.js?v=20260814-save-intent"></script><script>
 (function (m, a, z, e) {
@@ -70,12 +71,21 @@ function price(entry){
   return (u?u.price:0)*(entry.quantity||1)
 }
 
+function lineImage(entry){
+  const item=entry.itemId?menu.items[entry.itemId]:menu.items[entry.addonId];
+  const name=item?.name||"Food item";
+  return item?.image
+    ? `<div class="order-line-thumb"><img src="../images/${item.image}" alt="${name}"></div>`
+    : `<div class="order-line-thumb"><svg viewBox="0 0 24 24" aria-hidden="true"><rect class="icon-stroke" x="4" y="4" width="16" height="16" rx="2"/><circle class="icon-stroke" cx="9" cy="9" r="2"/><path class="icon-stroke" d="m5 17 4-4 3 3 2-2 5 5"/></svg></div>`;
+}
+
 function itemLine(entry,orderIndex,lineIndex){
   if(entry.itemId){
     const i=menu.items[entry.itemId];
     const meta=S.customizationParts(entry.itemId,entry.customizations||{}).join(" · ");
     const active=S.isFavorite(entry.itemId);
     return `<div class="order-line">
+      ${lineImage(entry)}
       <div class="order-line-copy">
         <strong>${entry.quantity||1}× ${i.shortName||i.name}</strong>
         ${meta?`<span>${meta}</span>`:""}
@@ -95,6 +105,7 @@ function itemLine(entry,orderIndex,lineIndex){
   const u=menu.upsells.find(x=>x.id===entry.addonId);
   const active=addonIsFavorite(entry.addonId);
   return `<div class="order-line">
+    ${lineImage(entry)}
     <div class="order-line-copy">
       <strong>${entry.quantity||1}× ${u?u.name:"Add-on"}</strong>
       ${u?`<span>${S.fmt(u.price)}</span>`:""}
