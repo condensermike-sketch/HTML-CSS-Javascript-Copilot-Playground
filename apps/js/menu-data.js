@@ -14,7 +14,7 @@ window.JOLLIBEE_MENU = {
     { id:"palabok", label:"Palabok Fiesta", items:["palabok-fiesta"] },
     { id:"burger-steak", label:"Burger Steak", items:["burger-steak-2pc","burger-steak-3pc"] },
     { id:"sides", label:"Sides", items:["adobo-rice","side-jolly-spaghetti","jolly-crispy-fries-large","jolly-crispy-fries","mashed-potatoes-large","mashed-potatoes","steamed-rice","large-gravy","gravy"] },
-    { id:"drinks", label:"Drinks", items:["fountain-drink","pineapple-quencher","pineapple-quencher-half-gallon","bottled-water","mango-coconut-quencher","dragonfruit-sunset-quencher","guava-quencher","coconut-dream-freeze","strawberry-bliss-freeze","lychee-iced-tea","passion-fruit-iced-tea","mango-freeze"] },
+    { id:"drinks", label:"Drinks", items:["pineapple-quencher","pineapple-quencher-half-gallon","bottled-water","mango-coconut-quencher","dragonfruit-sunset-quencher","guava-quencher"] },
     { id:"desserts", label:"Desserts", items:["peach-mango-pie","ube-pie"] }
   ],
 
@@ -98,16 +98,6 @@ window.JOLLIBEE_MENU = {
       {value:"No Ketchup", label:"No Ketchup"},
       {value:"No Signature Sauce", label:"No Signature Sauce"},
       {value:"No Cheese", label:"No Cheese"}
-    ]},
-    fountainFlavor: { title:"Flavor", required:true, options:[
-      {value:"Pepsi", label:"Pepsi", image:"pepsi.png"},
-      {value:"Diet Pepsi", label:"Diet Pepsi", image:"diet-pepsi.png"},
-      {value:"Mountain Dew", label:"Mountain Dew", image:"mountain-dew.png"},
-      {value:"Mug Root Beer", label:"Mug Root Beer", image:"mug-root-beer.png"},
-      {value:"Raspberry Iced Tea", label:"Raspberry Iced Tea", image:"raspberry-iced-tea.png"},
-      {value:"Pink Lemonade", label:"Pink Lemonade", image:"pink-lemonade.png"},
-      {value:"Starry Lemon-lime", label:"Starry Lemon-lime", image:"starry-lemon-lime.png"},
-      {value:"Brisk Lemon Iced Tea", label:"Brisk Lemon Iced Tea", image:"brisk-lemon-iced-tea.png"}
     ]}
   },
 
@@ -147,17 +137,12 @@ window.JOLLIBEE_MENU = {
     "steamed-rice":{id:"steamed-rice",category:"sides",name:"Steamed Rice",shortName:"Steamed Rice",description:"A side of steamed rice.",price:2.69,calories:190,customizations:[],image:"steamed-rice.jpg"},
     "large-gravy":{id:"large-gravy",category:"sides",name:"Large Gravy",shortName:"Large Gravy",description:"Our savory gravy in a large size.",price:2.49,calories:70,customizations:[],image:"large-gravy.png"},
     "gravy":{id:"gravy",category:"sides",name:"Gravy",shortName:"Gravy",description:"Our Savory Gravy",price:1.29,calories:25,customizations:[],image:"gravy.jpg"},
-    "fountain-drink":{id:"fountain-drink",category:"drinks",name:"Fountain Drink",shortName:"Fountain Drink",description:"Choose from our full lineup of ice-cold fountain favorites.",price:2.49,calories:0,customizations:["fountainFlavor"],image:"sodas.jpg"},
     "pineapple-quencher":{id:"pineapple-quencher",category:"drinks",name:"Pineapple Quencher",shortName:"Pineapple Quencher",description:"A sweet and refreshing taste of the Philippines with our signature Pineapple Quencher.",price:3.99,calories:180,customizations:[],image:"pineapple-quencher.jpg"},
     "pineapple-quencher-half-gallon":{id:"pineapple-quencher-half-gallon",category:"drinks",name:"Half Gallon Pineapple Quencher",shortName:"Half Gallon Pineapple Quencher",description:"Half gallon of our sweet and refreshing signature Pineapple Quencher.",price:18.99,calories:0,customizations:[],image:"pineapple-quencher-half-gallon.jpeg"},
     "bottled-water":{id:"bottled-water",category:"drinks",name:"Bottled Water",shortName:"Bottled Water",description:"",price:3.49,calories:0,customizations:[],image:"bottled-water.jpeg"},
     "mango-coconut-quencher":{id:"mango-coconut-quencher",category:"drinks",name:"Mango Coconut Quencher",shortName:"Mango Coconut Quencher",description:"Our tropical inspired blend of strawberry, passionfruit and coconut served with mango jelly",price:4.99,calories:160,customizations:[],image:"mango-coconut-quencher.png"},
     "dragonfruit-sunset-quencher":{id:"dragonfruit-sunset-quencher",category:"drinks",name:"Dragonfruit Sunset Quencher",shortName:"Dragonfruit Sunset Quencher",description:"Our mango and passionfruit quencher served with real dragon fruit bits",price:4.99,calories:150,customizations:[],image:"dragonfruit-sunset-quencher.png"},
     "guava-quencher":{id:"guava-quencher",category:"drinks",name:"Guava Quencher",shortName:"Guava Quencher",description:"Bursting with tropical guava and hints of strawberry and passion fruit. A sweet, refreshing cool-down. Garnishment not included.",price:3.99,calories:120,customizations:[],image:"guava-quencher.jpg"},
-    "coconut-dream-freeze":{id:"coconut-dream-freeze",category:"drinks",name:"Coconut Dream Freeze",shortName:"Coconut Dream Freeze",description:"A creamy, dreamy coconut blended freeze topped with a smooth, icy swirl.",price:5.29,calories:0,customizations:[],image:"coconut-dream-freeze.png"},
-    "strawberry-bliss-freeze":{id:"strawberry-bliss-freeze",category:"drinks",name:"Strawberry Bliss Freeze",shortName:"Strawberry Bliss Freeze",description:"A sweet strawberry blended freeze that's refreshingly smooth with every sip.",price:5.29,calories:0,customizations:[],image:"strawberry-bliss-freeze.png"},
-    "lychee-iced-tea":{id:"lychee-iced-tea",category:"drinks",name:"Lychee Iced Tea",shortName:"Lychee Iced Tea",description:"Refreshing iced tea infused with sweet, fragrant lychee.",price:3.99,calories:0,customizations:[],image:"lychee-iced-tea.png"},
-    "passion-fruit-iced-tea":{id:"passion-fruit-iced-tea",category:"drinks",name:"Passion Fruit Iced Tea",shortName:"Passion Fruit Iced Tea",description:"Refreshing iced tea infused with tangy-sweet passion fruit.",price:3.99,calories:0,customizations:[],image:"passion-fruit-iced-tea.png"},
     "peach-mango-pie":{id:"peach-mango-pie",category:"desserts",name:"Peach Mango Pie",shortName:"Peach Mango Pie",description:"Sweet and flaky Peach Mango Pie made with real Philippine Mangoes",price:2.99,calories:270,customizations:[],image:"peach-mango-pie.jpg"},
     "ube-pie":{id:"ube-pie",category:"desserts",name:"Ube Pie",shortName:"Ube Pie",description:"Sweet and flaky Ube pie filled with real ube. Ube or purple yam has a smooth texture, and a mild sweet flavor.",price:2.99,calories:310,customizations:[],image:"ube-pie.png"}
   },

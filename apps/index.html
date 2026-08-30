@@ -1,10 +1,24 @@
 <!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><meta name="theme-color" content="#e9163d"><title>Jollibee Home</title><link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,200..1000;1,200..1000&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="./css/styles.css?v=16">
-<style>.category-card{border:0}.category-label{text-align:center}.category-card[href="./menu/#limited-time"] .category-image img{transform:scale(1.22)}</style>
-<script src="./js/menu-data.js?v=20260822-drinks-expansion"></script>
-<script src="./js/app.js?v=20260822-menu-expansion"></script><script>
+<link rel="stylesheet" href="./css/styles.css?v=18">
+<style>.category-card{border:0}.category-label{text-align:center}.category-card[href="./menu/#limited-time"] .category-image img{transform:scale(1.22)}.home-order-reorder{position:relative;overflow:hidden;transform-origin:center}.home-order-reorder.reorder-added{animation:reorder-confirm .42s cubic-bezier(.2,.75,.25,1)}.home-order-reorder.reorder-added::after{content:"✓";position:absolute;inset:0;background:var(--red);color:#fff;display:grid;place-items:center;font-size:18px;font-weight:900;animation:reorder-check .42s ease both}.home-order-meta-icon{font-size:16px;color:#777777;flex:0 0 auto}.home-order-card-total{color:var(--ink)}@keyframes reorder-confirm{0%{transform:scale(1)}28%{transform:scale(.94)}68%{transform:scale(1.045);box-shadow:0 0 0 6px rgba(233,22,61,.14)}100%{transform:scale(1);box-shadow:none}}@keyframes reorder-check{0%{opacity:0;transform:translateY(6px) scale(.8)}38%{opacity:1;transform:translateY(0) scale(1.12)}100%{opacity:1;transform:translateY(0) scale(1)}}@media (prefers-reduced-motion:reduce){.home-order-reorder.reorder-added{animation:none}.home-order-reorder.reorder-added::after{animation:none}}</style>
+<script type="module" src="https://cdn.jsdelivr.net/npm/@awesome.me/webawesome/dist-cdn/components/icon/icon.js"></script>
+<script type="module">
+import { registerIconLibrary } from 'https://cdn.jsdelivr.net/npm/@awesome.me/webawesome/dist-cdn/webawesome.js';
+registerIconLibrary('lucide', {
+  resolver: name => `https://cdn.jsdelivr.net/npm/lucide-static@1.37.0/icons/${name}.svg`,
+  mutator: svg => {
+    svg.setAttribute('fill','none');
+    svg.setAttribute('stroke','currentColor');
+    svg.setAttribute('stroke-width','2');
+    svg.setAttribute('stroke-linecap','round');
+    svg.setAttribute('stroke-linejoin','round');
+  }
+});
+</script>
+<script src="./js/menu-data.js?v=20260815-fountain-real-images"></script>
+<script src="./js/app.js?v=20260814-save-intent"></script><script>
 (function (m, a, z, e) {
   var s, t, u, v;
   try {
@@ -82,9 +96,8 @@ function homeOrderFulfillmentLabel(o){
   return (o.fulfillment||"Previous Order").replace(/^Counter Pickup\b/,"Pick Up");
 }
 function homeOrderFulfillmentIcon(o){
-  return /drive/i.test(o.fulfillment||"")
-    ? '<path class="icon-stroke" d="M3 7h11v9H3zM14 10h4l3 3v3h-7z"/><circle class="icon-stroke" cx="7" cy="18" r="2"/><circle class="icon-stroke" cx="18" cy="18" r="2"/>'
-    : '<path class="icon-stroke" d="M5.5 8h13l-1 12H6.5l-1-12Z"/><path class="icon-stroke" d="M9.5 11.5V7.5a2.5 2.5 0 0 1 5 0v4"/>';
+  const name=/drive/i.test(o.fulfillment||"")?"car":"shopping-bag";
+  return `<wa-icon class="home-order-meta-icon" library="lucide" name="${name}" aria-hidden="true"></wa-icon>`;
 }
 function orderTotal(o){
   return (o.items||[]).reduce((n,e)=>{
@@ -105,7 +118,7 @@ function drawHomeOrderAgain(){
     <svg class="home-order-card-chevron" width="18" height="18" viewBox="0 0 24 24"><path class="icon-stroke" d="m9 6 6 6-6 6"/></svg>
     <div class="home-order-card-items">${itemsHtml}</div>
     <div class="home-order-card-meta">
-      <svg class="home-order-meta-icon" width="16" height="16" viewBox="0 0 24 24" aria-hidden="true">${homeOrderFulfillmentIcon(o)}</svg>
+      ${homeOrderFulfillmentIcon(o)}
       <span>${homeOrderFulfillmentLabel(o)}${o.dateLabel?` · ${o.dateLabel}`:""}</span>
     </div>
     <div class="home-order-card-foot"><span class="home-order-card-total">${S.fmt(orderTotal(o))}</span><button class="home-order-reorder" data-home-reorder="${idx}">Reorder</button></div>
@@ -116,7 +129,11 @@ function drawHomeOrderAgain(){
     e.stopPropagation();
     const o=recent[Number(b.dataset.homeReorder)];
     S.setCart((o.items||[]).map(x=>JSON.parse(JSON.stringify(x))));
-    location.href="./cart/";
+    b.disabled=true;
+    b.classList.remove("reorder-added");
+    void b.offsetWidth;
+    b.classList.add("reorder-added");
+    setTimeout(()=>{location.href="./cart/"},430);
   });
   document.querySelectorAll(".home-order-card").forEach(card=>{
     card.onclick=()=>{location.href="./order-again/"};

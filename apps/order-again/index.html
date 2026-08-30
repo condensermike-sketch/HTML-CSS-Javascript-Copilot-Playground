@@ -2,8 +2,23 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,200..1000;1,200..1000&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="../css/styles.css?v=16">
-<script src="../js/menu-data.js?v=20260822-drinks-expansion"></script>
-<script src="../js/app.js?v=20260822-menu-expansion"></script><script>
+<style>.order-line{grid-template-columns:72px 1fr 38px}.order-line-thumb{width:72px;height:72px;border-radius:9px;background:transparent;display:grid;place-items:center;overflow:hidden}.order-line-thumb img{width:100%;height:100%;object-fit:contain;display:block}.order-line-thumb svg{width:25px;height:25px;color:#aaa}.order-fulfillment{display:inline-flex;align-items:center;gap:7px}.order-fulfillment wa-icon{font-size:17px;color:#777777;flex:0 0 auto}</style>
+<script type="module" src="https://cdn.jsdelivr.net/npm/@awesome.me/webawesome/dist-cdn/components/icon/icon.js"></script>
+<script type="module">
+import { registerIconLibrary } from 'https://cdn.jsdelivr.net/npm/@awesome.me/webawesome/dist-cdn/webawesome.js';
+registerIconLibrary('lucide', {
+  resolver: name => `https://cdn.jsdelivr.net/npm/lucide-static@1.37.0/icons/${name}.svg`,
+  mutator: svg => {
+    svg.setAttribute('fill','none');
+    svg.setAttribute('stroke','currentColor');
+    svg.setAttribute('stroke-width','2');
+    svg.setAttribute('stroke-linecap','round');
+    svg.setAttribute('stroke-linejoin','round');
+  }
+});
+</script>
+<script src="../js/menu-data.js?v=20260815-fountain-real-images"></script>
+<script src="../js/app.js?v=20260814-save-intent"></script><script>
 (function (m, a, z, e) {
   var s, t, u, v;
   try {
@@ -36,7 +51,7 @@
 <main class="app-scroll list-page-scroll"><div class="list-page-content"><h1 class="page-title" style="margin-bottom:14px">Order Again</h1><div id="orders"></div></div></main>
 
 <nav class="bottom-nav">
-  <a class="nav-btn active" href="../"><svg viewBox="0 0 24 24"><path class="icon-stroke" d="m4 10 8-6 8 6v10H4Z"/><path class="icon-stroke" d="M9 20v-6h6v6"/></svg><span>Home</span></a>
+  <a class="nav-btn" href="../"><svg viewBox="0 0 24 24"><path class="icon-stroke" d="m4 10 8-6 8 6v10H4Z"/><path class="icon-stroke" d="M9 20v-6h6v6"/></svg><span>Home</span></a>
   <a class="nav-btn " href="../menu/"><svg viewBox="0 0 24 24"><path class="icon-stroke" d="M4 7h16M4 12h16M4 17h16"/></svg><span>Menu</span></a>
   <a class="nav-btn rewards-label " href="../rewards/"><span class="reward-float"><svg viewBox="0 0 24 24"><path class="icon-stroke" d="M8 4h8v8a4 4 0 0 1-8 0Z"/><path class="icon-stroke" d="M9 18h6M12 16v2"/><path class="icon-stroke" d="M8 7H5v2a3 3 0 0 0 3 3M16 7h3v2a3 3 0 0 1-3 3"/></svg></span><span>Rewards</span></a>
   <a class="nav-btn " href="../favorites/"><svg viewBox="0 0 24 24"><path class="icon-stroke" d="M20.8 4.8a5.3 5.3 0 0 0-7.5 0L12 6.1l-1.3-1.3a5.3 5.3 0 0 0-7.5 7.5L12 21l8.8-8.7a5.3 5.3 0 0 0 0-7.5Z"/></svg><span>Favorites</span></a>
@@ -70,12 +85,28 @@ function price(entry){
   return (u?u.price:0)*(entry.quantity||1)
 }
 
+function lineImage(entry){
+  const item=entry.itemId?menu.items[entry.itemId]:menu.items[entry.addonId];
+  const name=item?.name||"Food item";
+  return item?.image
+    ? `<div class="order-line-thumb"><img src="../images/${item.image}" alt="${name}"></div>`
+    : `<div class="order-line-thumb"><svg viewBox="0 0 24 24" aria-hidden="true"><rect class="icon-stroke" x="4" y="4" width="16" height="16" rx="2"/><circle class="icon-stroke" cx="9" cy="9" r="2"/><path class="icon-stroke" d="m5 17 4-4 3 3 2-2 5 5"/></svg></div>`;
+}
+
+function fulfillmentIcon(fulfillment){
+  const isDriveThru=/drive[-\s]?thru/i.test(fulfillment||"");
+  return isDriveThru
+    ? `<wa-icon library="lucide" name="car" aria-hidden="true"></wa-icon>`
+    : `<wa-icon library="lucide" name="shopping-bag" aria-hidden="true"></wa-icon>`;
+}
+
 function itemLine(entry,orderIndex,lineIndex){
   if(entry.itemId){
     const i=menu.items[entry.itemId];
     const meta=S.customizationParts(entry.itemId,entry.customizations||{}).join(" · ");
     const active=S.isFavorite(entry.itemId);
     return `<div class="order-line">
+      ${lineImage(entry)}
       <div class="order-line-copy">
         <strong>${entry.quantity||1}× ${i.shortName||i.name}</strong>
         ${meta?`<span>${meta}</span>`:""}
@@ -95,6 +126,7 @@ function itemLine(entry,orderIndex,lineIndex){
   const u=menu.upsells.find(x=>x.id===entry.addonId);
   const active=addonIsFavorite(entry.addonId);
   return `<div class="order-line">
+    ${lineImage(entry)}
     <div class="order-line-copy">
       <strong>${entry.quantity||1}× ${u?u.name:"Add-on"}</strong>
       ${u?`<span>${S.fmt(u.price)}</span>`:""}
@@ -114,9 +146,10 @@ function itemLine(entry,orderIndex,lineIndex){
 function drawOrders(){
   document.getElementById("orders").innerHTML=orders.map((o,idx)=>{
     const total=(o.items||[]).reduce((n,e)=>n+price(e),0);
+    const fulfillment=o.fulfillment||"Previous Order";
     return `<article class="order-card">
       <div class="order-head">
-        <strong>${o.fulfillment||"Previous Order"}</strong>
+        <strong class="order-fulfillment">${fulfillmentIcon(fulfillment)}<span>${fulfillment}</span></strong>
         <span class="order-date">${o.dateLabel||""}</span>
       </div>
       <div class="order-lines">

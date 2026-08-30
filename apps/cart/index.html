@@ -3,8 +3,31 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,200..1000;1,200..1000&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="../css/styles.css?v=16">
-<script src="../js/menu-data.js?v=20260822-drinks-expansion"></script>
-<script src="../js/app.js?v=20260822-menu-expansion"></script><script>
+<style>
+wa-icon.wa-ui-icon{color:#777777;display:inline-block;vertical-align:middle}
+.detail-row wa-icon.wa-ui-icon{font-size:22px}
+.location-copy wa-icon.wa-ui-icon{font-size:20px}
+.fulfill wa-icon.wa-ui-icon{font-size:17px}
+.fulfill button.active wa-icon.wa-ui-icon{color:#fff}
+.customer-row wa-icon.wa-ui-icon{font-size:22px}
+.qty-control wa-icon.wa-ui-icon{font-size:22px}
+</style>
+<script type="module" src="https://cdn.jsdelivr.net/npm/@awesome.me/webawesome/dist-cdn/components/icon/icon.js"></script>
+<script type="module">
+import { registerIconLibrary } from 'https://cdn.jsdelivr.net/npm/@awesome.me/webawesome/dist-cdn/webawesome.js';
+registerIconLibrary('lucide', {
+  resolver: name => `https://cdn.jsdelivr.net/npm/lucide-static@1.37.0/icons/${name}.svg`,
+  mutator: svg => {
+    svg.setAttribute('fill','none');
+    svg.setAttribute('stroke','currentColor');
+    svg.setAttribute('stroke-width','2');
+    svg.setAttribute('stroke-linecap','round');
+    svg.setAttribute('stroke-linejoin','round');
+  }
+});
+</script>
+<script src="../js/menu-data.js?v=20260815-fountain-real-images"></script>
+<script src="../js/app.js?v=20260814-save-intent"></script><script>
 (function (m, a, z, e) {
   var s, t, u, v;
   try {
@@ -19,7 +42,7 @@
   }
 
   u = document.currentScript || (function () {
-    var w = document.getElementsByTagName('script');
+    var w = m.document.getElementsByTagName('script');
     return w[w.length - 1];
   })();
   v = u && u.nonce;
@@ -40,23 +63,23 @@
   <section class="cart-section">
     <h1 class="cart-section-title">Order Details</h1>
     <div class="detail-row">
-      <svg viewBox="0 0 24 24"><rect class="icon-stroke" x="4" y="5" width="16" height="15" rx="2"/><path class="icon-stroke" d="M8 3v4M16 3v4M4 10h16"/></svg>
+      <wa-icon class="wa-ui-icon" library="lucide" name="clock" aria-hidden="true"></wa-icon>
       <div class="detail-main"><strong>Pick Up</strong> <span>ASAP · 12 mins</span></div>
       <svg viewBox="0 0 24 24"><path class="icon-stroke" d="m9 6 6 6-6 6"/></svg>
     </div>
 
     <div class="location-copy">
-      <svg viewBox="0 0 24 24"><path class="icon-stroke" d="m4 10 8-6 8 6v10H4Z"/><path class="icon-stroke" d="M9 20v-6h6v6"/></svg>
-      <div><small>Pick up at:</small><strong>Beverly</strong><p>3821 Beverly Blvd, Los Angeles, CA 90004<br>1891.84 miles away · <a href="#">View Store Details</a></p></div>
+      <wa-icon class="wa-ui-icon" library="lucide" name="map-pin" aria-hidden="true"></wa-icon>
+      <div><small style="font-weight:900;color:var(--ink)">Pick Up At</small><strong style="color:var(--text)">Beverly</strong><p>3821 Beverly Blvd, Los Angeles, CA 90004<br>1891.84 miles away · <a href="#">View Store Details</a></p></div>
     </div>
 
     <div class="fulfill">
-      <button class="active"><svg width="17" height="17" viewBox="0 0 24 24"><path class="icon-stroke" d="M7 10V7a5 5 0 0 1 10 0v3"/><rect class="icon-stroke" x="5" y="10" width="14" height="10" rx="2"/></svg>Counter</button>
-      <button><svg width="17" height="17" viewBox="0 0 24 24"><path class="icon-stroke" d="M3 7h11v9H3zM14 10h4l3 3v3h-7z"/><circle class="icon-stroke" cx="7" cy="18" r="2"/><circle class="icon-stroke" cx="18" cy="18" r="2"/></svg>Drive-Thru</button>
+      <button class="active"><wa-icon class="wa-ui-icon" library="lucide" name="shopping-bag" aria-hidden="true"></wa-icon>Counter</button>
+      <button><wa-icon class="wa-ui-icon" library="lucide" name="car" aria-hidden="true"></wa-icon>Drive-Thru</button>
     </div>
 
     <div class="customer-row">
-      <svg width="22" height="22" viewBox="0 0 24 24" aria-hidden="true"><path class="icon-stroke" d="M6 3h4l2 5-3 2a16 16 0 0 0 5 5l2-3 5 2v4c0 1-1 2-2 2C10 20 4 14 4 5c0-1 1-2 2-2Z"/></svg>
+      <wa-icon class="wa-ui-icon" library="lucide" name="phone" aria-hidden="true"></wa-icon>
       <div><strong>Username</strong><span>(555) 555-55555</span></div>
       <svg width="18" height="18" viewBox="0 0 24 24" aria-hidden="true"><path class="icon-stroke" d="m9 6 6 6-6 6"/></svg>
     </div>
@@ -104,14 +127,6 @@
 const menu=window.JOLLIBEE_MENU,S=window.JolliState;
 const itemsEl=document.getElementById("cartItems");
 const bottom=document.getElementById("cartBottom");
-const cartScroll=document.getElementById("cartScroll");
-
-function updateScrollShadow(){
-  const atEnd=cartScroll.scrollTop+cartScroll.clientHeight>=cartScroll.scrollHeight-2;
-  bottom.classList.toggle("at-end",atEnd);
-}
-cartScroll.addEventListener("scroll",updateScrollShadow);
-window.addEventListener("resize",updateScrollShadow);
 
 function itemPrice(e){
   if(e.itemId){
@@ -159,7 +174,7 @@ function draw(){
       <div class="cart-item-controls">
         <div class="qty-control">
           <button data-minus="${i}" aria-label="${(e.quantity||1)<=1?"Delete item":"Decrease quantity"}">
-            ${(e.quantity||1)<=1?`<svg width="22" height="22" viewBox="0 0 24 24"><path class="icon-stroke" d="M5 7h14M9 7V4h6v3M8 7l1 13h6l1-13"/></svg>`:"−"}
+            ${(e.quantity||1)<=1?`<wa-icon class="wa-ui-icon" library="lucide" name="trash-2" aria-hidden="true"></wa-icon>`:"−"}
           </button>
           <span>${e.quantity||1}</span>
           <button data-plus="${i}" aria-label="Increase quantity">+</button>
@@ -185,8 +200,6 @@ function draw(){
     const control=b.closest(".qty-control");control.innerHTML='<span class="spinner" style="grid-column:1/-1;justify-self:center"></span>';
     setTimeout(()=>{S.removeCartItem(idx);draw()},550);
   });
-
-  updateScrollShadow();
 }
 
 document.getElementById("upsellStrip").innerHTML=menu.upsells.map(u=>{
