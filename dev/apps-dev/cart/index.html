@@ -2,6 +2,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,200..1000;1,200..1000&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
 <link rel="stylesheet" href="../css/styles.css?v=16">
 <script src="../js/menu-data.js?v=20260815-fountain-real-images"></script>
 <script src="../js/app.js?v=20260814-save-intent"></script><script>
@@ -19,7 +20,7 @@
   }
 
   u = document.currentScript || (function () {
-    var w = document.getElementsByTagName('script');
+    var w = m.document.getElementsByTagName('script');
     return w[w.length - 1];
   })();
   v = u && u.nonce;
@@ -151,7 +152,7 @@ function draw(){
       <div class="cart-item-controls">
         <div class="qty-control">
           <button data-minus="${i}" aria-label="${(e.quantity||1)<=1?"Delete item":"Decrease quantity"}">
-            ${(e.quantity||1)<=1?`<svg width="22" height="22" viewBox="0 0 24 24"><path class="icon-stroke" d="M5 7h14M9 7V4h6v3M8 7l1 13h6l1-13"/></svg>`:"−"}
+            ${(e.quantity||1)<=1?`<i class="fa-solid fa-trash-can" aria-hidden="true" style="font-size:18px"></i>`:"−"}
           </button>
           <span>${e.quantity||1}</span>
           <button data-plus="${i}" aria-label="Increase quantity">+</button>
