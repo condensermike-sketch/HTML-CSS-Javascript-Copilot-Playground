@@ -1,8 +1,9 @@
 <!doctype html><html><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><meta name="theme-color" content="#ffffff"><title>Order Again</title><link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,200..1000;1,200..1000&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
 <link rel="stylesheet" href="../css/styles.css?v=16">
-<style>.order-line{grid-template-columns:72px 1fr 38px}.order-line-thumb{width:72px;height:72px;border-radius:9px;background:transparent;display:grid;place-items:center;overflow:hidden}.order-line-thumb img{width:100%;height:100%;object-fit:contain;display:block}.order-line-thumb svg{width:25px;height:25px;color:#aaa}.order-fulfillment{display:inline-flex;align-items:center;gap:7px}.order-fulfillment-icon{width:17px;height:17px;color:var(--ink);flex:0 0 auto}.order-fulfillment-icon .icon-stroke{stroke-width:2}</style>
+<style>.order-line{grid-template-columns:72px 1fr 38px}.order-line-thumb{width:72px;height:72px;border-radius:9px;background:transparent;display:grid;place-items:center;overflow:hidden}.order-line-thumb img{width:100%;height:100%;object-fit:contain;display:block}.order-line-thumb svg{width:25px;height:25px;color:#aaa}.order-fulfillment{display:inline-flex;align-items:center;gap:7px}.order-fulfillment-icon{width:17px;height:17px;color:var(--ink);flex:0 0 auto}.order-fulfillment-icon .icon-stroke{stroke-width:2}.order-fulfillment .fa-car{font-size:17px;color:var(--ink);width:17px;text-align:center;flex:0 0 auto}</style>
 <script src="../js/menu-data.js?v=20260815-fountain-real-images"></script>
 <script src="../js/app.js?v=20260814-save-intent"></script><script>
 (function (m, a, z, e) {
@@ -82,7 +83,7 @@ function lineImage(entry){
 function fulfillmentIcon(fulfillment){
   const isDriveThru=/drive[-\s]?thru/i.test(fulfillment||"");
   return isDriveThru
-    ? `<svg class="order-fulfillment-icon" viewBox="0 0 24 24" aria-hidden="true"><path class="icon-stroke" d="M3 7h11v9H3zM14 10h4l3 3v3h-7z"/><circle class="icon-stroke" cx="7" cy="18" r="2"/><circle class="icon-stroke" cx="18" cy="18" r="2"/></svg>`
+    ? `<i class="fa-solid fa-car" aria-hidden="true"></i>`
     : `<svg class="order-fulfillment-icon" viewBox="0 0 24 24" aria-hidden="true"><path class="icon-stroke" d="M7 10V7a5 5 0 0 1 10 0v3"/><rect class="icon-stroke" x="5" y="10" width="14" height="10" rx="2"/></svg>`;
 }
 
