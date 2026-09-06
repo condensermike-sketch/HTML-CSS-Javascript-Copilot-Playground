@@ -25,8 +25,8 @@
   `;
   document.head.appendChild(navActiveStyle);
 
-  // DEV-only footer icon refresh. Keep the existing navigation structure and
-  // labels, but swap the older inline SVGs for a more playful Web Awesome set.
+  // DEV-only footer icon refresh. Use Web Awesome's <wa-icon> component with
+  // a Lucide outline library so all five icons share the same light line style.
   function refreshFooterIcons(){
     const nav=document.querySelector(".bottom-nav");
     if(!nav) return;
@@ -39,12 +39,32 @@
       document.head.appendChild(iconScript);
     }
 
+    if(!document.querySelector('script[data-dev-lucide-footer]')){
+      const libraryScript=document.createElement("script");
+      libraryScript.type="module";
+      libraryScript.dataset.devLucideFooter="true";
+      libraryScript.textContent=`
+        import { registerIconLibrary } from 'https://cdn.jsdelivr.net/npm/@awesome.me/webawesome/dist-cdn/webawesome.js';
+        registerIconLibrary('lucide-footer', {
+          resolver: name => \`https://cdn.jsdelivr.net/npm/lucide-static@1.37.0/icons/\${name}.svg\`,
+          mutator: svg => {
+            svg.setAttribute('fill','none');
+            svg.setAttribute('stroke','currentColor');
+            svg.setAttribute('stroke-width','2');
+            svg.setAttribute('stroke-linecap','round');
+            svg.setAttribute('stroke-linejoin','round');
+          }
+        });
+      `;
+      document.head.appendChild(libraryScript);
+    }
+
     const iconMap={
-      Home:"house-chimney",
-      Menu:"burger",
+      Home:"house",
+      Menu:"utensils",
       Rewards:"star",
       Favorites:"heart",
-      Account:"circle-user"
+      Account:"circle-user-round"
     };
 
     nav.querySelectorAll(".nav-btn").forEach(btn=>{
@@ -54,12 +74,13 @@
 
       if(label==="Rewards"){
         const holder=btn.querySelector(".reward-float");
-        if(holder) holder.innerHTML=`<wa-icon name="${iconName}" style="font-size:28px" aria-hidden="true"></wa-icon>`;
+        if(holder) holder.innerHTML=`<wa-icon library="lucide-footer" name="${iconName}" style="font-size:28px" aria-hidden="true"></wa-icon>`;
         return;
       }
 
       const oldIcon=btn.querySelector(":scope > svg, :scope > wa-icon");
       const icon=document.createElement("wa-icon");
+      icon.setAttribute("library","lucide-footer");
       icon.setAttribute("name",iconName);
       icon.setAttribute("aria-hidden","true");
       icon.style.fontSize="25px";
