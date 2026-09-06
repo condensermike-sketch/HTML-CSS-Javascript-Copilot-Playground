@@ -62,7 +62,7 @@
     const iconMap={
       Home:"house",
       Menu:"utensils",
-      Rewards:"star",
+      Rewards:"gift",
       Favorites:"heart",
       Account:"circle-user-round"
     };
