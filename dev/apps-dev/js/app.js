@@ -25,6 +25,51 @@
   `;
   document.head.appendChild(navActiveStyle);
 
+  // DEV-only footer icon refresh. Keep the existing navigation structure and
+  // labels, but swap the older inline SVGs for a more playful Web Awesome set.
+  function refreshFooterIcons(){
+    const nav=document.querySelector(".bottom-nav");
+    if(!nav) return;
+
+    if(!document.querySelector('script[data-dev-webawesome-footer]')){
+      const iconScript=document.createElement("script");
+      iconScript.type="module";
+      iconScript.src="https://cdn.jsdelivr.net/npm/@awesome.me/webawesome/dist-cdn/components/icon/icon.js";
+      iconScript.dataset.devWebawesomeFooter="true";
+      document.head.appendChild(iconScript);
+    }
+
+    const iconMap={
+      Home:"house-chimney",
+      Menu:"burger",
+      Rewards:"star",
+      Favorites:"heart",
+      Account:"circle-user"
+    };
+
+    nav.querySelectorAll(".nav-btn").forEach(btn=>{
+      const label=btn.querySelector(":scope > span:last-child")?.textContent.trim();
+      const iconName=iconMap[label];
+      if(!iconName) return;
+
+      if(label==="Rewards"){
+        const holder=btn.querySelector(".reward-float");
+        if(holder) holder.innerHTML=`<wa-icon name="${iconName}" style="font-size:28px" aria-hidden="true"></wa-icon>`;
+        return;
+      }
+
+      const oldIcon=btn.querySelector(":scope > svg, :scope > wa-icon");
+      const icon=document.createElement("wa-icon");
+      icon.setAttribute("name",iconName);
+      icon.setAttribute("aria-hidden","true");
+      icon.style.fontSize="25px";
+      if(oldIcon) oldIcon.replaceWith(icon); else btn.prepend(icon);
+    });
+  }
+
+  if(document.readyState==="loading") document.addEventListener("DOMContentLoaded",refreshFooterIcons);
+  else refreshFooterIcons();
+
   function appBase(){
     const href = location.href;
     const markers = ["/apps-dev/", "/apps/"];
